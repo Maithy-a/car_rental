@@ -28,13 +28,24 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="theme-color" content="#3e454c">
 		<title>Car Rental Portal | Admin Manage Pages</title>
 		<?php include("includes/head.php"); ?>
+		<!-- TinyMCE -->
+		<script src="https://cdn.tiny.cloud/1/7teypp3yuja3sddii2s7f6fleb0mtlwp2322pqigkabydlxs/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+		<script>
+			tinymce.init({
+				selector: 'textarea#tiny',
+				plugins: [
+					'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+					'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+					'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+				],
+				toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
+					'bullist numlist checklist outdent indent | removeformat | code table help'
+			})
+		</script>
 	</head>
 
 	<body class="fluid-body">
-
-	<?php include('includes/leftbar.php'); ?>
 		<div class="page-wrapper d-flex">
-
 			<div class="page-content flex-grow-1">
 				<div class="container-fluid py-4">
 					<h2 class="mb-4">Manage Pages</h2>
@@ -88,25 +99,29 @@ if (strlen($_SESSION['alogin']) == 0) {
 										</div>
 										<div class="mb-3">
 											<label for="pgedetails" class="form-label">Page Details</label>
-											<textarea id="pgedetails" name="pgedetails" class="form-control" rows="8"
-												required>
-												<?php
-												$pagetype = $_GET['type'];
-												$sql = "SELECT detail from tblpages where type=:pagetype";
-												$query = $dbh->prepare($sql);
-												$query->bindParam(':pagetype', $pagetype, PDO::PARAM_STR);
-												$query->execute();
-												$results = $query->fetchAll(PDO::FETCH_OBJ);
-												if ($query->rowCount() > 0) {
-													foreach ($results as $result) {
-														echo htmlentities($result->detail);
-													}
-												}
-												?>
+											<textarea id="tiny" name="pgedetails" class="form-control" rows="8" required>
+																<?php
+																$pagetype = $_GET['type'];
+																$sql = "SELECT detail from tblpages where type=:pagetype";
+																$query = $dbh->prepare($sql);
+																$query->bindParam(':pagetype', $pagetype, PDO::PARAM_STR);
+																$query->execute();
+																$results = $query->fetchAll(PDO::FETCH_OBJ);
+																if ($query->rowCount() > 0) {
+																	foreach ($results as $result) {
+																		echo htmlentities($result->detail);
+																	}
+																}
+																?>
 											</textarea>
 										</div>
 										<button type="submit" name="submit" value="Update"
 											class="btn btn-primary">Update</button>
+										<script>
+											tinymce.init({
+												selector: 'textarea#tiny'
+											});
+										</script>
 									</form>
 								</div>
 							</div>

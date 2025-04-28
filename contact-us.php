@@ -32,12 +32,7 @@ if (isset($_POST['send'])) {
   <?php include('includes/head.php'); ?>
 </head>
 
-<body>
-
-  <!-- Start Switcher -->
-  <?php include('includes/colorswitcher.php'); ?>
-  <!-- /Switcher -->
-
+<body bs-theme="dark" class="bg-dark">
   <!--Header-->
   <?php include('includes/header.php'); ?>
   <!-- /Header -->
@@ -49,10 +44,13 @@ if (isset($_POST['send'])) {
         <div class="page-heading">
           <h1>Contact Us</h1>
         </div>
-        <ul class="coustom-breadcrumb">
-          <li><a href="#">Home</a></li>
-          <li>Contact Us</li>
-        </ul>
+        <div aria-laria-label="breadcrum" >
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item">Contact Us</li>
+        </ol>
+        </div>
+
       </div>
     </div>
     <!-- Dark Overlay-->
@@ -67,7 +65,8 @@ if (isset($_POST['send'])) {
         <div class="col-md-6">
           <h3>Get in touch using the form below</h3>
           <?php if ($error) { ?>
-            <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?>
+            <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
+          <?php } else if ($msg) { ?>
               <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
           <div class="contact_form gray-bg">
             <form method="post">
@@ -115,7 +114,7 @@ if (isset($_POST['send'])) {
                   <li>
                     <div class="icon_wrap"><i class="fa fa-phone" aria-hidden="true"></i></div>
                     <div class="contact_info_m"><a
-                        href="tel:61-1234-567-90"><?php echo htmlentities($result->EmailId); ?></a></div>
+                        href="tel:"><?php echo htmlentities($result->EmailId); ?></a></div>
                   </li>
                   <li>
                     <div class="icon_wrap"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
@@ -130,44 +129,9 @@ if (isset($_POST['send'])) {
       </div>
     </div>
   </section>
-  <!-- /Contact-us-->
 
-
-  <!--Footer -->
   <?php include('includes/footer.php'); ?>
-  <!-- /Footer-->
-
-  <!--Back to top-->
-  <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-  <!--/Back to top-->
-
-  <!--Login-Form -->
-  <?php include('includes/login.php'); ?>
-  <!--/Login-Form -->
-
-  <!--Register-Form -->
-  <?php include('includes/registration.php'); ?>
-
-  <!--/Register-Form -->
-
-  <!--Forgot-password-Form -->
-  <?php include('includes/forgotpassword.php'); ?>
-  <!--/Forgot-password-Form -->
-
-  <!-- Scripts -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/bootstrap.min.js"></script>
-  <script src="assets/js/interface.js"></script>
-  <!--Switcher-->
-  <script src="assets/switcher/js/switcher.js"></script>
-  <!--bootstrap-slider-JS-->
-  <script src="assets/js/bootstrap-slider.min.js"></script>
-  <!--Slider-JS-->
-  <script src="assets/js/slick.min.js"></script>
-  <script src="assets/js/owl.carousel.min.js"></script>
 
 </body>
-
-<!-- Mirrored from themes.webmasterdriver.net/carforyou/demo/contact-us.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 16 Jun 2017 07:26:55 GMT -->
 
 </html>

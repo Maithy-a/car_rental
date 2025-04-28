@@ -2,175 +2,171 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
 if (strlen($_SESSION['login']) == 0) {
-  header('location:index.php');
-} else {
-  if (isset($_POST['updatepass'])) {
+    header('location:index.php');
+    exit();
+}
+
+if (isset($_POST['updatepass'])) {
+    // Note: MD5 is insecure for password hashing. Consider using password_hash() and password_verify() for better security.
     $password = md5($_POST['password']);
     $newpassword = md5($_POST['newpassword']);
     $email = $_SESSION['login'];
-    $sql = "SELECT Password FROM tblusers WHERE EmailId=:email and Password=:password";
+    $sql = "SELECT Password FROM tblusers WHERE EmailId=:email AND Password=:password";
     $query = $dbh->prepare($sql);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
     $query->bindParam(':password', $password, PDO::PARAM_STR);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_OBJ);
     if ($query->rowCount() > 0) {
-      $con = "update tblusers set Password=:newpassword where EmailId=:email";
-      $chngpwd1 = $dbh->prepare($con);
-      $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
-      $chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
-      $chngpwd1->execute();
-      $msg = "Your Password succesfully changed";
+        $con = "UPDATE tblusers SET Password=:newpassword WHERE EmailId=:email";
+        $chngpwd1 = $dbh->prepare($con);
+        $chngpwd1->bindParam(':email', $email, PDO::PARAM_STR);
+        $chngpwd1->bindParam(':newpassword', $newpassword, PDO::PARAM_STR);
+        $chngpwd1->execute();
+        $msg = "Your Password successfully changed";
     } else {
-      $error = "Your current password is wrong";
+        $error = "Your current password is wrong";
     }
-  }
+}
+?>
+<!DOCTYPE HTML>
+<html lang="en">
 
-  ?>
-  <!DOCTYPE HTML>
-  <html lang="en">
-
-  <head>
-
-    <title>Car Rental Portal - Update Password</title>
+<head>
+    <title>Car Rental Portal | Update Password</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
     <script type="text/javascript">
-      function valid() {
-        if (document.chngpwd.newpassword.value != document.chngpwd.confirmpassword.value) {
-          alert("New Password and Confirm Password Field do not match  !!");
-          document.chngpwd.confirmpassword.focus();
-          return false;
+        function valid() {
+            if (document.chngpwd.newpassword.value !== document.chngpwd.confirmpassword.value) {
+                alert("New Password and Confirm Password Field do not match!");
+                document.chngpwd.confirmpassword.focus();
+                return false;
+            }
+            return true;
         }
-        return true;
-      }
     </script>
-  
-  </head>
+</head>
 
-  <body>
+<body bs-theme="dark" class="bg-dark">
+    <div class="page">
+        <?php include('includes/header.php'); ?>
 
-    <!-- Start Switcher -->
-    <?php include('includes/colorswitcher.php'); ?>
-    <!-- /Switcher -->
-
-    <!--Header-->
-    <?php include('includes/header.php'); ?>
-    <!-- /Header -->
-    <!--Page Header-->
-    <section class="page-header profile_page">
-      <div class="container">
-        <div class="page-header_wrap">
-          <div class="page-heading">
-            <h1>Update Password</h1>
-          </div>
-          <ul class="coustom-breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li>Update Password</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Dark Overlay-->
-      <div class="dark-overlay"></div>
-    </section>
-    <!-- /Page Header-->
-
-    <?php
-    $useremail = $_SESSION['login'];
-    $sql = "SELECT * from tblusers where EmailId=:useremail";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
-    $query->execute();
-    $results = $query->fetchAll(PDO::FETCH_OBJ);
-    $cnt = 1;
-    if ($query->rowCount() > 0) {
-      foreach ($results as $result) { ?>
-        <section class="user_profile inner_pages">
-          <div class="container">
-            <div class="user_profile_info gray-bg padding_4x4_40">
-              <div class="upload_user_logo"> <img src="assets/images/dealer-logo.jpg" alt="image">
-              </div>
-
-              <div class="dealer_info">
-                <h5><?php echo htmlentities($result->FullName); ?></h5>
-                <p><?php echo htmlentities($result->Address); ?><br>
-                  <?php echo htmlentities($result->City); ?>&nbsp;<?php echo htmlentities($result->Country);
-      }
-    } ?></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 col-sm-3">
-            <?php include('includes/sidebar.php'); ?>
-            <div class="col-md-6 col-sm-8">
-              <div class="profile_wrap">
-                <form name="chngpwd" method="post" onSubmit="return valid();">
-
-                  <div class="gray-bg field-title">
-                    <h6>Update password</h6>
-                  </div>
-                  <?php if ($error) { ?>
-                    <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?>
-                      <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-                  <div class="form-group">
-                    <label class="control-label">Current Password</label>
-                    <input class="form-control white_bg" id="password" name="password" type="password" required>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label">Password</label>
-                    <input class="form-control white_bg" id="newpassword" type="password" name="newpassword" required>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label">Confirm Password</label>
-                    <input class="form-control white_bg" id="confirmpassword" type="password" name="confirmpassword"
-                      required>
-                  </div>
-
-                  <div class="form-group">
-                    <input type="submit" value="Update" name="updatepass" id="submit" class="btn btn-block">
-                  </div>
-                </form>
-              </div>
+        <div class="page-header mb-5"
+            style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+            <div class="container p-5">
+                <div class="page-header">
+                    <div class="page-heading">
+                        <h1>Reset Password</h1>
+                    </div>
+                    <div aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index">Home</a></li>
+                            <li class="breadcrumb-item">Password Reset</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-    </section>
-    <!--/Profile-setting-->
+        <div class="page-wrapper">
+            <div class="container-xl">
+                <?php
+                $useremail = $_SESSION['login'];
+                // Fetch user data
+                $sql = "SELECT * FROM tblusers WHERE EmailId=:useremail";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
+                $query->execute();
+                $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-    <!--Footer -->
-      <?php include('includes/footer.php'); ?>
-      <!-- /Footer-->
+                if ($query->rowCount() > 0) {
+                    $result = $results[0]; // Expecting only one user
+                    ?>
+                    <div class="page-body">
+                        <div class="row row-cards">
+                            <!-- User Info Card and Sidebar -->
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <div class="mb-3">
+                                            <span class="avatar avatar-xl rounded"
+                                                style="background-image: url(assets/images/dealer-logo.jpg)"></span>
+                                        </div>
+                                        <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
+                                        <div class="text-muted mb-3">
+                                            <?php echo htmlentities($result->Address); ?><br>
+                                            <?php echo htmlentities($result->City); ?>,
+                                            <?php echo htmlentities($result->Country); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sidebar -->
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <?php include('includes/sidebar.php'); ?>
+                                    </div>
+                                </div>
+                            </div>
 
-      <!--Back to top-->
-      <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-      <!--/Back to top-->
+                            <!-- Password Update Form -->
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Update Password</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <?php if (isset($error)) { ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>ERROR</strong>: <?php echo htmlentities($error); ?>
+                                            </div>
+                                        <?php } elseif (isset($msg)) { ?>
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>SUCCESS</strong>: <?php echo htmlentities($msg); ?>
+                                            </div>
+                                        <?php } ?>
+                                        <form name="chngpwd" method="post" onsubmit="return valid();">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="password">Current Password</label>
+                                                <input type="password" class="form-control" id="password" name="password"
+                                                    required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="newpassword">New Password</label>
+                                                <input type="password" class="form-control" id="newpassword"
+                                                    name="newpassword" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="confirmpassword">Confirm Password</label>
+                                                <input type="password" class="form-control" id="confirmpassword"
+                                                    name="confirmpassword" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <button type="submit" name="updatepass" class="btn btn-primary">
+                                                    Update Password
+                                                    <svg class="icon ms-2" width="24" height="24">
+                                                        <use xlink:href="#arrow-right"></use>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                } else {
+                    echo '<div class="alert alert-danger" role="alert">No user found.</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+    <?php include('includes/footer.php'); ?>
 
-      <!--Login-Form -->
-      <?php include('includes/login.php'); ?>
-      <!--/Login-Form -->
+</body>
 
-      <!--Register-Form -->
-      <?php include('includes/registration.php'); ?>
-
-      <!--/Register-Form -->
-
-      <!--Forgot-password-Form -->
-      <?php include('includes/forgotpassword.php'); ?>
-      <!--/Forgot-password-Form -->
-
-      <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/bootstrap.min.js"></script>
-      <script src="assets/js/interface.js"></script>
-      <!--Switcher-->
-      <script src="assets/switcher/js/switcher.js"></script>
-      <!--bootstrap-slider-JS-->
-      <script src="assets/js/bootstrap-slider.min.js"></script>
-      <!--Slider-JS-->
-      <script src="assets/js/slick.min.js"></script>
-      <script src="assets/js/owl.carousel.min.js"></script>
-
-  </body>
-
-  </html>
-<?php } ?>
+</html>

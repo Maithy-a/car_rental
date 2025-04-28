@@ -8,3 +8,14 @@
     <li><a href="logout.php">Sign Out</a></li>
   </ul>
 </div>
+
+<style>
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin: 10px 0;
+  }
+  
+</style>

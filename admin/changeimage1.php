@@ -38,7 +38,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	<body class="fluid-body">
 	
-		<?php include('includes/leftbar.php'); ?>
 		<div class="ts-main-content">
 			<div class="content-wrapper">
 				<div class="container-fluid">

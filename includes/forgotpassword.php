@@ -34,46 +34,40 @@ if (isset($_POST['update'])) {
   }
 </script>
 
-<div class="modal fade" id="forgotpassword">
-  <div class="modal-dialog" role="document">
+<div class="modal modal-blur fade" id="forgotpassword" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">Password Recovery</h3>
+        <h5 class="modal-title">Password Recovery</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="forgotpassword_wrap">
-            <div class="col-md-12">
-              <form name="chngpwd" method="post" onSubmit="return valid();">
-                <div class="form-group">
-                  <input type="email" name="email" class="form-control" placeholder="Your Email address*" required="">
-                </div>
-                <div class="form-group">
-                  <input type="text" name="mobile" class="form-control" placeholder="Your Reg. Mobile*" required="">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="newpassword" class="form-control" placeholder="New Password*"
-                    required="">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password*"
-                    required="">
-                </div>
-                <div class="form-group">
-                  <input type="submit" value="Reset My Password" name="update" class="btn btn-block">
-                </div>
-              </form>
-              <div class="text-center">
-                <p class="gray_text">For security reasons we don't store your password. Your password will be reset and
-                  a new one will be send.</p>
-                <p><a href="#loginform" data-toggle="modal" data-dismiss="modal"><i class="fa fa-angle-double-left"
-                      aria-hidden="true"></i> Back to Login</a></p>
-              </div>
-            </div>
+        <form name="chngpwd" method="post" onSubmit="return valid();">
+          <div class="mb-3">
+            <label class="form-label">Your Email address*</label>
+            <input type="email" name="email" class="form-control" placeholder="Your Email address*" required="">
           </div>
+          <div class="mb-3">
+            <label class="form-label">Your Reg. Mobile*</label>
+            <input type="text" name="mobile" class="form-control" placeholder="Your Reg. Mobile*" required="">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">New Password*</label>
+            <input type="password" name="newpassword" class="form-control" placeholder="New Password*" required="">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Confirm Password*</label>
+            <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password*" required="">
+          </div>
+          <div class="form-footer">
+            <button type="submit" name="update" class="btn btn-primary w-100">Reset My Password</button>
+          </div>
+        </form>
+        <div class="text-center mt-3">
+          <p class="text-muted">For security reasons we don't store your password. Your password will be reset and a new one will be sent.</p>
+          <p><a href="#loginform" data-bs-toggle="modal"
+          data-bs-target="#loginform">
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l4 4" /><path d="M5 12l4 -4" /></svg> Back to Login</a></p>
         </div>
       </div>
     </div>

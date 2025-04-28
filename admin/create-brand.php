@@ -1,26 +1,36 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include 'includes/config.php';
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
 	if (isset($_POST['submit'])) {
-		$brand = $_POST['brand'];
-		$sql = "INSERT INTO tblbrands(BrandName) VALUES(:brand)";
+		$brand = strtoupper(trim($_POST['brand'])); // Convert to uppercase and trim whitespace
+		$sql = "SELECT BrandName FROM tblbrands WHERE BrandName = :brand";
 		$query = $dbh->prepare($sql);
 		$query->bindParam(':brand', $brand, PDO::PARAM_STR);
 		$query->execute();
-		$lastInsertId = $dbh->lastInsertId();
-		if ($lastInsertId) {
-			$msg = "Brand created successfully";
+		$result = $query->fetch(PDO::FETCH_ASSOC);
+
+		if ($result) {
+			$error = "Brand already exists. Please try a different name.";
 		} else {
-			$error = "Something went wrong. Please try again";
+			$sql = "INSERT INTO tblbrands(BrandName) VALUES(:brand)";
+			$query = $dbh->prepare($sql);
+			$query->bindParam(':brand', $brand, PDO::PARAM_STR);
+			$query->execute();
+			$lastInsertId = $dbh->lastInsertId();
+			if ($lastInsertId) {
+				$msg = "Brand created successfully";
+			} else {
+				$error = "Something went wrong. Please try again";
+			}
 		}
 	}
 	?>
 	<!doctype html>
-	<html lang="en" class="no-js">
+	<?php include "includes/head.php"; ?>
 
 	<head>
 		<meta charset="UTF-8">
@@ -30,24 +40,52 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta name="author" content="">
 		<meta name="theme-color" content="#3e454c">
 		<title>Car Rental Portal | Admin Create Brand</title>
-		<?php include("includes/head.php"); ?>
-		
 	</head>
 
-	<body class="fluid-body">
-
-		<?php include('includes/leftbar.php'); ?>
+	<body>
 		<div class="page">
-			<div class="page-wrapper">
-				<div class="container-xl">
-					<div class="page-header d-print-none">
-						<div class="row align-items-center">
-							<div class="col">
-								<h2 class="page-title">Create Brand</h2>
-							</div>
+			<div class="page-body">
+				<div class="page-header m-3">
+					<div class="row align-items-center">
+						<div class="col">
+							<h2 class="page-title">Create Brand</h2>
 						</div>
 					</div>
-					<div class="row row-deck row-cards">
+				</div>
+				<div class="container-xl">
+					<div class="row g-4">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Existing Brands</h3>
+								</div>
+								<div class="card-body">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Brand Name</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$sql = "SELECT BrandName FROM tblbrands ORDER BY BrandName ASC";
+											$query = $dbh->prepare($sql);
+											$query->execute();
+											$brands = $query->fetchAll(PDO::FETCH_ASSOC);
+											$counter = 1;
+											foreach ($brands as $brand) {
+												echo "<tr>";
+												echo "<td>" . $counter++ . "</td>";
+												echo "<td>" . htmlentities($brand['BrandName']) . "</td>";
+												echo "</tr>";
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
 						<div class="col-md-6">
 							<div class="card">
 								<div class="card-header">
@@ -65,12 +103,12 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<?php } ?>
 									<form method="post">
 										<div class="mb-3">
-											<label for="brand" class="form-label">Brand Name <span class="text-danger">*</span></label>
+											<label for="brand" class="form-label">Brand Name <span
+													class="text-danger">*</span></label>
 											<input type="text" id="brand" name="brand" class="form-control" required>
 										</div>
 										<div class="form-footer">
-											<button type="submit" name="submit" class="btn btn-square btn-primary">Submit</button>
-								
+											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 										</div>
 									</form>
 								</div>

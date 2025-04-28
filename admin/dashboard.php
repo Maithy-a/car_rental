@@ -13,20 +13,22 @@ if (strlen($_SESSION['alogin']) == 0) {
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<meta name="theme-color" content="#3e454c">
 		<title>Car Rental Portal | Admin Dashboard</title>
 		<?php include("includes/head.php"); ?>
 	</head>
 
-	<body class="fluid-body">
-	
-		<?php include('includes/leftbar.php'); ?>	
-		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
-				<div class="container-fluid py-5">
-					<h2 class="mb-4">Dashboard</h2>
+	<body>
+		<div class="page">
+			<div class="page-body">
+				<div class="page-header m-3">
+					<div class="row align-items-center">
+						<div class="col">
+							<div class="page-pretitle">Overview</div>
+							<h2 class="page-title">Dashboard</h2>
+						</div>
+					</div>
+				</div>
+				<div class="container-xl">
 					<div class="row g-4">
 						<div class="col-md-3 col-sm-6">
 							<div class="card h-100">
@@ -42,8 +44,9 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Registered Users</h6>
 								</div>
 								<a href="reg-users.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i>
+								</a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -56,12 +59,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 									$results1 = $query1->fetchAll(PDO::FETCH_OBJ);
 									$totalvehicle = $query1->rowCount();
 									?>
-									<h1 class="text-success mb-2"><?php echo htmlentities($totalvehicle); ?></h1>
+									<h1 class="text-success mb-2"><?php echo htmlentities($totalvehicle); ?>
+									</h1>
 									<h6 class="text-uppercase text-muted">Listed Vehicles</h6>
 								</div>
 								<a href="manage-vehicles.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -78,8 +82,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Total Bookings</h6>
 								</div>
 								<a href="manage-bookings.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -96,8 +100,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Listed Brands</h6>
 								</div>
 								<a href="manage-brands.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -114,8 +118,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Subscribers</h6>
 								</div>
 								<a href="manage-subscribers.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -132,8 +136,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Queries</h6>
 								</div>
 								<a href="manage-conactusquery.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 						<div class="col-md-3 col-sm-6">
@@ -150,8 +154,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 									<h6 class="text-uppercase text-muted">Testimonials</h6>
 								</div>
 								<a href="testimonials.php"
-									class="card-footer text-center text-primary text-decoration-none">Full Detail <i
-										class="fa fa-arrow-right ms-1"></i></a>
+									class="card-footer text-center text-primary text-decoration-none">Full
+									Detail <i class="fa fa-arrow-right ms-1"></i></a>
 							</div>
 						</div>
 					</div>

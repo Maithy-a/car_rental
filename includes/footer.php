@@ -10,7 +10,7 @@ if (isset($_POST['emailsubscibe'])) {
   if ($query->rowCount() > 0) {
     echo "<script>alert('Already Subscribed.');</script>";
   } else {
-    $sql = "INSERT INTO  tblsubscribers(SubscriberEmail) VALUES(:subscriberemail)";
+    $sql = "INSERT INTO tblsubscribers(SubscriberEmail) VALUES(:subscriberemail)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':subscriberemail', $subscriberemail, PDO::PARAM_STR);
     $query->execute();
@@ -22,65 +22,93 @@ if (isset($_POST['emailsubscibe'])) {
     }
   }
 }
+include('auth.php');
 ?>
 
-<footer class="bg-dark text-white py-5">
-  <div class="footer-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <h6 class="text-uppercase mb-3">About Us</h6>
-          <ul class="list-unstyled">
-            <li><a href="page.php?type=aboutus" class="text-white text-decoration-none">About Us</a></li>
-            <li><a href="page.php?type=faqs" class="text-white text-decoration-none">FAQs</a></li>
-            <li><a href="page.php?type=privacy" class="text-white text-decoration-none">Privacy</a></li>
-            <li><a href="page.php?type=terms" class="text-white text-decoration-none">Terms of Use</a></li>
-            <li><a href="admin/" class="text-white text-decoration-none">Admin Login</a></li>
-          </ul>
-        </div>
-
-        <div class="col-md-3 col-sm-6 ms-auto mb-4">
-          <h6 class="text-uppercase mb-3">Subscribe Newsletter</h6>
-          <div class="newsletter-form">
-            <form method="post">
-              <div class="mb-3">
-                <input type="email" name="subscriberemail" class="form-control" required placeholder="Enter Email Address" />
-              </div>
-              <button type="submit" name="emailsubscibe" class="btn btn-primary w-100">Subscribe <i class="fa fa-angle-right ms-1" aria-hidden="true"></i></button>
-            </form>
-            <p class="text-muted mt-2 small">*We send great deals and the latest auto news to our subscribed users every week.</p>
-          </div>
-        </div>
+<footer class="footer  d-print-none bg-dark text-white p-6">
+  <div class="container-fluid">
+    <div class="row gy-4">
+      <div class="col-md">
+        <h3 class="h2 text-uppercase mb-3">Welcome to Our Car Listing Website</h3>
+        <p class="text-muted mt-2">We provide a wide range of services including car listings, reviews, and expert
+          advice to help you make informed decisions. Our team of experts is dedicated to providing you with the best
+          experience possible. We are committed to helping you find the perfect car for your needs.</p>
+        <p class="text-muted mt-2">Thank you for choosing us as your trusted partner in the car buying and selling
+          process.</p>
+        <p class="mt-2">We look forward to serving you!</p>
       </div>
-    </div>
-  </div>
-  <div class="footer-bottom bg-secondary py-3">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <p class="copy-right mb-0 text-white">Car Rental Portal.</p>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <div class="footer_widget">
-            <p class="d-inline-block text-white me-3">Connect with Us:</p>
-            <ul class="list-inline mb-0">
-              <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i></a></li>
-              <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-twitter-square fa-lg" aria-hidden="true"></i></a></li>
-              <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-linkedin-square fa-lg" aria-hidden="true"></i></a></li>
-              <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-google-plus-square fa-lg" aria-hidden="true"></i></a></li>
-              <li class="list-inline-item"><a href="#" class="text-white"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
-            </ul>
+      <div class="col-md">
+        <h3 class="h5 text-uppercase mb-4">About Us</h3>
+        <ul class="list-unstyled">
+          <li class="mb-4"><a href="page.php?type=aboutus" class="text-white text-decoration-none">About Us</a></li>
+          <li class="mb-4"><a href="page.php?type=faqs" class="text-white text-decoration-none">FAQs</a></li>
+          <li class="mb-4"><a href="page.php?type=privacy" class="text-white text-decoration-none">Privacy</a></li>
+          <li class="mb-4"><a href="page.php?type=terms" class="text-white text-decoration-none">Terms of Use</a></li>
+          <li class="mb-4"><a href="admin/" class="text-white text-decoration-none">Admin Login</a></li>
+        </ul>
+      </div>
+      <div class="col-md">
+        <h3 class="h5 text-uppercase mb-3">Contact Us</h3>
+        <ul class="list-unstyled">
+          <li class="mb-4"><a href="page.php?type=contactus" class="text-white text-decoration-none">Contact Us</a></li>
+          <li class="mb-4"><a href="page.php?type=privacy" class="text-white text-decoration-none">Privacy Policy</a>
+          </li>
+          <li class="mb-4"><a href="page.php?type=terms" class="text-white text-decoration-none">Terms of Use</a></li>
+          <li class="mb-4"><a href="<script void(0)>" class="text-white text-decoration-none">Disclaimer</a></li>
+          <li class="mb-4"><a href="page.php?type=help" class="text-white text-decoration-none">Help</a></li>
+        </ul>
+      </div>
+      <div class="col-md">
+        <h3 class="h5 text-uppercase mb-3">Subscribe Newsletter</h3>
+        <form method="post">
+          <div class="mb-3">
+            <input type="email" name="subscriberemail" class="form-control" required
+              placeholder="Enter Email Address" />
           </div>
-        </div>
+          <button type="submit" name="emailsubscibe" class="btn btn-square btn-primary w-100">
+            Subscribe <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24"
+              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <polyline points="9 6 15 12 9 18" />
+            </svg>
+          </button>
+        </form>
+        <p class="text-muted mt-2 small">* We send great deals and the latest auto news to our subscribed users every
+          week.</p>
+      </div>
+      <div class="hr-text text-green"> Safari Rental KE</div>
+      <div class="col-12 text-center mt-4 f-border-top pt-4">
+        <p class="mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="icon icon-tabler icons-tabler-outline icon-tabler-copyright">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            <path d="M14 9.75a3.016 3.016 0 0 0 -4.163 .173a2.993 2.993 0 0 0 0 4.154a3.016 3.016 0 0 0 4.163 .173" />
+          </svg>
+          <?php echo date('Y'); ?> Safari Rental KE | All rights reserved.
+        </p>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#" class="text-">Facebook</a></li>
+          <li class="list-inline-item"><a href="#" class="text-">Twitter</a></li>
+          <li class="list-inline-item"><a href="#" class="text-">LinkedIn</a></li>
+          <li class="list-inline-item"><a href="#" class="text-">Instagram</a></li>
+          <li class="list-inline-item"><a href="#" class="text-">Google</a></li>
+        </ul>
       </div>
     </div>
   </div>
 </footer>
 
 <style>
-.footer-top a:hover,
-.footer-bottom a:hover {
-  color: #206bc4 !important; 
-  text-decoration: none;
-}
+  .list-inline-item a {
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .footer .h5 {
+    font-size: 1.25rem;
+  }
 </style>

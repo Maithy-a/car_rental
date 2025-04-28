@@ -1,188 +1,183 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
-if(strlen($_SESSION['login'])==0)
-  { 
-header('location:index.php');
-}
-else{
-if(isset($_POST['updateprofile']))
-  {
-$name=$_POST['fullname'];
-$mobileno=$_POST['mobilenumber'];
-$dob=$_POST['dob'];
-$adress=$_POST['address'];
-$city=$_POST['city'];
-$country=$_POST['country'];
-$email=$_SESSION['login'];
-$sql="update tblusers set FullName=:name,ContactNo=:mobileno,dob=:dob,Address=:adress,City=:city,Country=:country where EmailId=:email";
-$query = $dbh->prepare($sql);
-$query->bindParam(':name',$name,PDO::PARAM_STR);
-$query->bindParam(':mobileno',$mobileno,PDO::PARAM_STR);
-$query->bindParam(':dob',$dob,PDO::PARAM_STR);
-$query->bindParam(':adress',$adress,PDO::PARAM_STR);
-$query->bindParam(':city',$city,PDO::PARAM_STR);
-$query->bindParam(':country',$country,PDO::PARAM_STR);
-$query->bindParam(':email',$email,PDO::PARAM_STR);
-$query->execute();
-$msg="Profile Updated Successfully";
+include 'includes/config.php';
+
+if (strlen($_SESSION['login']) == 0) {
+  header('location:index.php');
+  exit();
 }
 
+if (isset($_POST['updateprofile'])) {
+  $name = $_POST['fullname'];
+  $mobileno = $_POST['mobilenumber'];
+  $dob = $_POST['dob'];
+  $adress = $_POST['address'];
+  $city = $_POST['city'];
+  $country = $_POST['country'];
+  $email = $_SESSION['login'];
+  $sql = "UPDATE tblusers SET FullName=:name, ContactNo=:mobileno, dob=:dob, Address=:adress, City=:city, Country=:country WHERE EmailId=:email";
+  $query = $dbh->prepare($sql);
+  $query->bindParam(':name', $name, PDO::PARAM_STR);
+  $query->bindParam(':mobileno', $mobileno, PDO::PARAM_STR);
+  $query->bindParam(':dob', $dob, PDO::PARAM_STR);
+  $query->bindParam(':adress', $adress, PDO::PARAM_STR);
+  $query->bindParam(':city', $city, PDO::PARAM_STR);
+  $query->bindParam(':country', $country, PDO::PARAM_STR);
+  $query->bindParam(':email', $email, PDO::PARAM_STR);
+  $query->execute();
+  $msg = "Profile Updated Successfully";
+}
 ?>
-  <!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html lang="en">
+
 <head>
-
-<title>Car Rental Portal | My Profile</title>
-<?php include('includes/head.php');?>
+  <title>Car Rental Portal | My Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php include 'includes/head.php'; ?>
 </head>
-<body>
+<?php include 'includes/header.php'; ?>
 
-<!-- Start Switcher -->
-<?php include('includes/colorswitcher.php');?>
-<!-- /Switcher -->  
-        
-<!--Header-->
-<?php include('includes/header.php');?>
-<!-- /Header --> 
-<!--Page Header-->
-<section class="page-header profile_page">
-  <div class="container">
-    <div class="page-header_wrap">
-      <div class="page-heading">
-        <h1>Your Profile</h1>
+<body data-bs-theme="dark" class="bg-dark text-white">
+
+
+  <!-- Page Header -->
+  <div class="page-header py-5"
+    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2); background-size: cover; background-position: center;">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="display-4 fw-bold text-white">User Profile</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-center">
+            <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
+            <li class="breadcrumb-item active text-white" aria-current="page">My Profile</li>
+          </ol>
+        </nav>
       </div>
-      <ul class="coustom-breadcrumb">
-        <li><a href="#">Home</a></li>
-        <li>Profile</li>
-      </ul>
     </div>
+    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-30"></div>
   </div>
-  <!-- Dark Overlay-->
-  <div class="dark-overlay"></div>
-</section>
-<!-- /Page Header--> 
 
+  <!-- Page Content -->
+  <div class="container-xl py-5">
+    <?php
+    $useremail = $_SESSION['login'];
+    $sql = "SELECT * FROM tblusers WHERE EmailId=:useremail";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-<?php 
-$useremail=$_SESSION['login'];
-$sql = "SELECT * from tblusers where EmailId=:useremail";
-$query = $dbh -> prepare($sql);
-$query -> bindParam(':useremail',$useremail, PDO::PARAM_STR);
-$query->execute();
-$results=$query->fetchAll(PDO::FETCH_OBJ);
-$cnt=1;
-if($query->rowCount() > 0)
-{
-foreach($results as $result)
-{ ?>
-<section class="user_profile inner_pages">
-  <div class="container">
-    <div class="user_profile_info gray-bg padding_4x4_40">
-      <div class="upload_user_logo"> <img src="assets/images/dealer-logo.jpg" alt="image">
-      </div>
+    if ($query->rowCount() > 0) {
+      $result = $results[0];
+      ?>
+      <div class="row g-4">
+        <!-- Profile Card -->
+        <div class="col-lg-4 -lg-4">
+          <div class="card bg-dark ">
+            <div class="card-body text-center">
+              <div class="mb-3">
+                <span class="avatar avatar-xl rounded"
+                  style="background-image: url(assets/images/dealer-logo.jpg)"></span>
+              </div>
+              <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
+              <div class="text-muted">
+                <?php echo htmlentities($result->Address); ?><br>
+                <?php echo htmlentities($result->City); ?>, <?php echo htmlentities($result->Country); ?>
+              </div>
+            </div>
+          </div>
+          <!-- Sidebar -->
+          <div class="card bg-dark  mt-4">
+            <div class="card-body">
+              <?php include('includes/sidebar.php'); ?>
+            </div>
+          </div>
+        </div>
 
-      <div class="dealer_info">
-        <h5><?php echo htmlentities($result->FullName);?></h5>
-        <p><?php echo htmlentities($result->Address);?><br>
-          <?php echo htmlentities($result->City);?>&nbsp;<?php echo htmlentities($result->Country);?></p>
-      </div>
-    </div>
-  
-    <div class="row">
-      <div class="col-md-3 col-sm-3">
-        <?php include('includes/sidebar.php');?>
-      <div class="col-md-6 col-sm-8">
-        <div class="profile_wrap">
-          <h5 class="uppercase underline">Genral Settings</h5>
-          <?php  
-         if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
-          <form  method="post">
-           <div class="form-group">
-              <label class="control-label">Reg Date -</label>
-             <?php echo htmlentities($result->RegDate);?>
+        <!-- Profile Form -->
+        <div class="col-lg-8">
+          <div class="card bg-dark ">
+            <div class="card-body">
+              <?php if (isset($msg)) { ?>
+                <div class="alert alert-success" role="alert">
+                  <strong>SUCCESS</strong>: <?php echo htmlentities($msg); ?>
+                </div>
+              <?php } ?>
+              <form method="post">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Registration Date</label>
+                    <div class="form-control-plaintext text-muted"><?php echo htmlentities($result->RegDate); ?></div>
+                  </div>
+                  <?php if ($result->UpdationDate != "") { ?>
+                    <div class="col-md-6">
+                      <label class="form-label">Last Updated</label>
+                      <div class="form-control-plaintext text-muted"><?php echo htmlentities($result->UpdationDate); ?>
+                      </div>
+                    </div>
+                  <?php } ?>
+                  <div class="col-md-6">
+                    <label class="form-label" for="fullname">Full Name</label>
+                    <input type="text" class="form-control bg-dark text-white " name="fullname" id="fullname"
+                      value="<?php echo htmlentities($result->FullName); ?>" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" class="form-control bg-dark text-white " name="emailid" id="email"
+                      value="<?php echo htmlentities($result->EmailId); ?>" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="phone-number">Phone Number</label>
+                    <input type="text" class="form-control bg-dark text-white " name="mobilenumber" id="phone-number"
+                      value="<?php echo htmlentities($result->ContactNo); ?>" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="birth-date">Date of Birth (dd/mm/yyyy)</label>
+                    <input type="text" class="form-control bg-dark text-white " name="dob" id="birth-date"
+                      value="<?php echo htmlentities($result->dob); ?>" placeholder="dd/mm/yyyy">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="address">Address</label>
+                    <textarea class="form-control bg-dark text-white " name="address" id="address"
+                      rows="4"><?php echo htmlentities($result->Address); ?></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="country">Country</label>
+                    <input type="text" class="form-control bg-dark text-white " name="country" id="country"
+                      value="<?php echo htmlentities($result->Country); ?>">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="city">City</label>
+                    <input type="text" class="form-control bg-dark text-white " name="city" id="city"
+                      value="<?php echo htmlentities($result->City); ?>">
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" name="updateprofile" class="btn btn-primary">
+                      Save Changes
+                      <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24" viewBox="0 0 24 24"
+                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <polyline points="9 6 15 12 9 18" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-             <?php if($result->UpdationDate!=""){?>
-            <div class="form-group">
-              <label class="control-label">Last Update at  -</label>
-             <?php echo htmlentities($result->UpdationDate);?>
-            </div>
-            <?php } ?>
-            <div class="form-group">
-              <label class="control-label">Full Name</label>
-              <input class="form-control white_bg" name="fullname" value="<?php echo htmlentities($result->FullName);?>" id="fullname" type="text"  required>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Email Address</label>
-              <input class="form-control white_bg" value="<?php echo htmlentities($result->EmailId);?>" name="emailid" id="email" type="email" required readonly>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Phone Number</label>
-              <input class="form-control white_bg" name="mobilenumber" value="<?php echo htmlentities($result->ContactNo);?>" id="phone-number" type="text" required>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Date of Birth&nbsp;(dd/mm/yyyy)</label>
-              <input class="form-control white_bg" value="<?php echo htmlentities($result->dob);?>" name="dob" placeholder="dd/mm/yyyy" id="birth-date" type="text" >
-            </div>
-            <div class="form-group">
-              <label class="control-label">Your Address</label>
-              <textarea class="form-control white_bg" name="address" rows="4" ><?php echo htmlentities($result->Address);?></textarea>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Country</label>
-              <input class="form-control white_bg"  id="country" name="country" value="<?php echo htmlentities($result->City);?>" type="text">
-            </div>
-            <div class="form-group">
-              <label class="control-label">City</label>
-              <input class="form-control white_bg" id="city" name="city" value="<?php echo htmlentities($result->City);?>" type="text">
-            </div>
-            <?php }} ?>
-           
-            <div class="form-group">
-              <button type="submit" name="updateprofile" class="btn">Save Changes <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
+      <?php
+    } else {
+      echo '<div class="alert alert-danger" role="alert">No user found.</div>';
+    }
+    ?>
   </div>
-</section>
-<!--/Profile-setting--> 
 
-<!--Footer -->
-<?php include('includes/footer.php');?>
-<!-- /Footer--> 
-
-<!--Back to top-->
-<div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-<!--/Back to top--> 
-
-<!--Login-Form -->
-<?php include('includes/login.php');?>
-<!--/Login-Form --> 
-
-<!--Register-Form -->
-<?php include('includes/registration.php');?>
-
-<!--/Register-Form --> 
-
-<!--Forgot-password-Form -->
-<?php include('includes/forgotpassword.php');?>
-<!--/Forgot-password-Form --> 
-
-<!-- Scripts --> 
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script> 
-<script src="assets/js/interface.js"></script> 
-<!--Switcher-->
-<script src="assets/switcher/js/switcher.js"></script>
-<!--bootstrap-slider-JS--> 
-<script src="assets/js/bootstrap-slider.min.js"></script> 
-<!--Slider-JS--> 
-<script src="assets/js/slick.min.js"></script> 
-<script src="assets/js/owl.carousel.min.js"></script>
-
+  <?php include 'includes/footer.php'; ?>
 </body>
+
 </html>
-<?php } ?>

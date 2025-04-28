@@ -2,149 +2,138 @@
 session_start();
 error_reporting(0);
 include('includes/config.php');
+
 if (strlen($_SESSION['login']) == 0) {
-  header('location:index.php');
-} else {
-  if (isset($_POST['submit'])) {
+    header('location:index.php');
+    exit();
+}
+
+if (isset($_POST['submit'])) {
     $testimonoial = $_POST['testimonial'];
     $email = $_SESSION['login'];
-    $sql = "INSERT INTO  tbltestimonial(UserEmail,Testimonial) VALUES(:email,:testimonoial)";
+    $sql = "INSERT INTO tbltestimonial(UserEmail,Testimonial) VALUES(:email,:testimonoial)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':testimonoial', $testimonoial, PDO::PARAM_STR);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
-
     $query->execute();
     $lastInsertId = $dbh->lastInsertId();
     if ($lastInsertId) {
-      $msg = "Testimonial submitted successfully";
+        $msg = "Testimonial submitted successfully";
     } else {
-      $error = "Something went wrong. Please try again";
+        $error = "Something went wrong. Please try again";
     }
+}
+?>
+<!DOCTYPE HTML>
+<html lang="en">
 
-  }
-  ?>
-  <!DOCTYPE HTML>
-  <html lang="en">
-
-  <head>
-
-    <title>Car Rental Portal |Post testimonial</title>
+<head>
+    <title>Car Rental Portal | Post Testimonial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
-
-  </head>
-
-  <body>
-
-    <!-- Start Switcher -->
-    <?php include('includes/colorswitcher.php'); ?>
-    <!-- /Switcher -->
-
-    <!--Header-->
     <?php include('includes/header.php'); ?>
-    <!-- /Header -->
-    <!--Page Header-->
-    <section class="page-header profile_page">
-      <div class="container">
-        <div class="page-header_wrap">
-          <div class="page-heading">
-            <h1>Post Testimonial</h1>
-          </div>
-          <ul class="coustom-breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li>Post Testimonial</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Dark Overlay-->
-      <div class="dark-overlay"></div>
-    </section>
-    <!-- /Page Header-->
+</head>
 
-    <?php
-    $useremail = $_SESSION['login'];
-    $sql = "SELECT * from tblusers where EmailId=:useremail";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
-    $query->execute();
-    $results = $query->fetchAll(PDO::FETCH_OBJ);
-    $cnt = 1;
-    if ($query->rowCount() > 0) {
-      foreach ($results as $result) { ?>
-        <section class="user_profile inner_pages">
-          <div class="container">
-            <div class="user_profile_info gray-bg padding_4x4_40">
-              <div class="upload_user_logo"> <img src="assets/images/dealer-logo.jpg" alt="image">
-              </div>
-
-              <div class="dealer_info">
-                <h5><?php echo htmlentities($result->FullName); ?></h5>
-                <p><?php echo htmlentities($result->Address); ?><br>
-                  <?php echo htmlentities($result->City); ?>&nbsp;<?php echo htmlentities($result->Country);
-      }
-    } ?></p>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3 col-sm-3">
-            <?php include('includes/sidebar.php'); ?>
-            <div class="col-md-6 col-sm-8">
-              <div class="profile_wrap">
-                <h5 class="uppercase underline">Post a Testimonial</h5>
-                <?php if ($error) { ?>
-                  <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?>
-                    <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
-                <form method="post">
-                  <div class="form-group">
-                    <label class="control-label">Testimonial</label>
-                    <textarea class="form-control white_bg" name="testimonial" rows="4" required=""></textarea>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" name="submit" class="btn">Save <span class="angle_arrow"><i
-                          class="fa fa-angle-right" aria-hidden="true"></i></span></button>
-                  </div>
-                </form>
-              </div>
+<body data-bs-theme="dark" class=" text-white">
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2 class="page-title">Post Testimonial</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Post Testimonial</li>
+                    </ol>
+                </nav>
             </div>
-          </div>
         </div>
-    </section>
-    <!--/Profile-setting-->
+    </div>
+    <!-- Page Content -->
+    <div class="container-xl py-5">
 
-    <!--Footer -->
-      <?php include('includes/footer.php'); ?>
-      <!-- /Footer-->
+        <?php
+        $useremail = $_SESSION['login'];
+        $sql = "SELECT * FROM tblusers WHERE EmailId=:useremail";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_OBJ);
 
-      <!--Back to top-->
-      <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a> </div>
-      <!--/Back to top-->
+        if ($query->rowCount() > 0) {
+            $result = $results[0];
+            ?>
+            <div class="row g-4">
+                <!-- User Info Card -->
+                <div class="col-lg-4">
+                    <div class="card row align-items-center flex-row flex-md-column text-center text-md-start">
+                        <span class="avatar-xl" style="background-image:images/dealer-logo.jpg;"></span>
+                        <div class="card-body">
+                            <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
+                            <div class="text-muted">
+                                <?php echo htmlentities($result->Address); ?><br>
+                                <?php echo htmlentities($result->City); ?>,
+                                <?php echo htmlentities($result->Country); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar -->
+                    <div class="card   mt-4">
+                        <div class="card-body">
+                            <?php include('includes/sidebar.php'); ?>
+                        </div>
+                    </div>
+                </div>
 
-      <!--Login-Form -->
-      <?php include('includes/login.php'); ?>
-      <!--/Login-Form -->
+                <!-- Testimonial Form -->
+                <div class="col-lg-8">
+                    <div class="card  ">
+                        <div class="card-header">
+                            <h3 class="card-title text-white">Post a Testimonial</h3>
+                        </div>
+                        <div class="card-body">
+                            <?php if (isset($error)) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>ERROR</strong>: <?php echo htmlentities($error); ?>
+                                </div>
+                            <?php } elseif (isset($msg)) { ?>
+                                <div class="alert alert-success" role="alert">
+                                    <strong>SUCCESS</strong>: <?php echo htmlentities($msg); ?>
+                                </div>
+                            <?php } ?>
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label class="form-label" for="testimonial">Your Testimonial</label>
+                                    <textarea class="form-control  text-white " name="testimonial" id="testimonial" rows="6"
+                                        required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" name="submit" class="btn btn-primary">
+                                        Submit Testimonial
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <polyline points="9 6 15 12 9 18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        } else {
+            echo '<div class="alert alert-danger" role="alert">No user found.</div>';
+        }
+        ?>
+    </div>
 
-      <!--Register-Form -->
-      <?php include('includes/registration.php'); ?>
+    <!-- Footer -->
+    <?php include('includes/footer.php'); ?>
 
-      <!--/Register-Form -->
+</body>
 
-      <!--Forgot-password-Form -->
-      <?php include('includes/forgotpassword.php'); ?>
-      <!--/Forgot-password-Form -->
-
-      <!-- Scripts -->
-      <script src="assets/js/jquery.min.js"></script>
-      <script src="assets/js/bootstrap.min.js"></script>
-      <script src="assets/js/interface.js"></script>
-      <!--Switcher-->
-      <script src="assets/switcher/js/switcher.js"></script>
-      <!--bootstrap-slider-JS-->
-      <script src="assets/js/bootstrap-slider.min.js"></script>
-      <!--Slider-JS-->
-      <script src="assets/js/slick.min.js"></script>
-      <script src="assets/js/owl.carousel.min.js"></script>
-
-  </body>
-
-  </html>
-<?php } ?>
+</html>

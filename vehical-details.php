@@ -57,16 +57,28 @@ if (isset($_POST['submit'])) {
   <?php include('includes/head.php'); ?>
 </head>
 
-<body>
-
-  <!-- Start Switcher -->
-  <?php include('includes/colorswitcher.php'); ?>
-  <!-- /Switcher -->
+<body bs-theme="dark" class="bg-dark">
 
   <!--Header-->
   <?php include('includes/header.php'); ?>
   <!-- /Header -->
 
+  <div class="page-header mb-5"
+    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+    <div class="container p-5">
+      <div class="page-header">
+        <div class="page-heading">
+          <h1>Vehicle Details</h1>
+        </div>
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index">Home</a></li>
+            <li class="breadcrumb-item">Vehicle Details</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <?php
   $vhid = intval($_GET['vhid']);
@@ -111,7 +123,6 @@ if (isset($_POST['submit'])) {
             <div class="col-md-3">
               <div class="price_info">
                 <p>KES <?php echo htmlentities($result->PricePerDay); ?> </p>Per Day
-
               </div>
             </div>
           </div>
@@ -150,10 +161,8 @@ if (isset($_POST['submit'])) {
                   <div class="tab-content">
                     <!-- vehicle-overview -->
                     <div role="tabpanel" class="tab-pane active" id="vehicle-overview">
-
                       <p><?php echo htmlentities($result->VehiclesOverview); ?></p>
                     </div>
-
 
                     <!-- Accessories -->
                     <div role="tabpanel" class="tab-pane" id="accessories">
@@ -197,9 +206,7 @@ if (isset($_POST['submit'])) {
 
 
                           <tr>
-
                             <td>Power Windows</td>
-
                             <?php if ($result->PowerWindows == 1) {
                               ?>
                               <td><i class="fa fa-check" aria-hidden="true"></i></td>
@@ -301,7 +308,6 @@ if (isset($_POST['submit'])) {
 
         <!--Side-Bar-->
         <aside class="col-md-3">
-
           <div class="share_vehicle">
             <p>Share: <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a> <a href="#"><i
                   class="fa fa-twitter-square" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-linkedin-square"
@@ -309,19 +315,19 @@ if (isset($_POST['submit'])) {
                   aria-hidden="true"></i></a> </p>
           </div>
           <div class="sidebar_widget">
-            <div class="widget_heading">
+            <div class="widget_heading mb-3">
               <h5><i class="fa fa-envelope" aria-hidden="true"></i>Book Now</h5>
             </div>
             <form method="post">
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label>From Date:</label>
                 <input type="date" class="form-control" name="fromdate" placeholder="From Date" required>
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label>To Date:</label>
                 <input type="date" class="form-control" name="todate" placeholder="To Date" required>
               </div>
-              <div class="form-group">
+              <div class="form-group mb-3 ">
                 <textarea rows="4" class="form-control" name="message" placeholder="Message" required></textarea>
               </div>
               <?php if ($_SESSION['login']) { ?>

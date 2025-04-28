@@ -1,119 +1,106 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/config.php');
+include 'includes/config.php';
 if (strlen($_SESSION['alogin']) == 0) {
 	header('location:index.php');
 } else {
-	// Code for change password	
 	if (isset($_POST['submit'])) {
 		$brand = $_POST['brand'];
+		$newBrandName = $_POST['newBrandName'];
 		$id = $_GET['id'];
-		$sql = "update  tblbrands set BrandName=:brand where id=:id";
+
+		$sql = "update tblbrands set BrandName=:newBrandName where id=:id";
 		$query = $dbh->prepare($sql);
-		$query->bindParam(':brand', $brand, PDO::PARAM_STR);
+		$query->bindParam(':newBrandName', $newBrandName, PDO::PARAM_STR);
 		$query->bindParam(':id', $id, PDO::PARAM_STR);
 		$query->execute();
-		$lastInsertId = $dbh->lastInsertId();
-
-		$msg = "Brand Update successfully";
-
+		$msg = "Brand updated successfully";
 	}
 	?>
 
 	<!doctype html>
-	<html lang="en" class="no-js">
+	<html lang="en">
 
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<meta name="theme-color" content="#3e454c">
-
 		<title>Car Rental Portal | Update Brand</title>
-
-		<?php include("includes/head.php"); ?>
-
+		<?php include('includes/head.php') ?>
 	</head>
 
-	<body class="fluid-body">
-	
-		<div class="ts-main-content">
-			<?php include('includes/leftbar.php'); ?>
-			<div class="content-wrapper">
-				<div class="container-fluid">
-
-					<div class="row">
-						<div class="col-md-12">
-
-							<h2 class="page-title">Update Brand</h2>
-
-							<div class="row">
-								<div class="col-md-10">
-									<div class="panel panel-default">
-										<div class="panel-heading">Update Brand</div>
-										<div class="panel-body">
-											<form method="post" name="chngpwd" class="form-horizontal"
-												onSubmit="return valid();">
-
-
-												<?php if ($error) { ?>
-													<div class="errorWrap">
-														<strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?>
-														<div class="succWrap">
-															<strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div>
-												<?php } ?>
-
-												<?php
-												$id = $_GET['id'];
-												$ret = "select * from tblbrands where id=:id";
-												$query = $dbh->prepare($ret);
-												$query->bindParam(':id', $id, PDO::PARAM_STR);
-												$query->execute();
-												$results = $query->fetchAll(PDO::FETCH_OBJ);
-												$cnt = 1;
-												if ($query->rowCount() > 0) {
-													foreach ($results as $result) {
-														?>
-
-														<div class="form-group">
-															<label class="col-sm-4 control-label">Brand Name</label>
-															<div class="col-sm-8">
-																<input type="text" class="form-control"
-																	value="<?php echo htmlentities($result->BrandName); ?>"
-																	name="brand" id="brand" required>
-															</div>
-														</div>
-														<div class="hr-dashed"></div>
-
-													<?php }
-												} ?>
-
-
-												<div class="form-group">
-													<div class="col-sm-8 col-sm-offset-4">
-
-														<button class="btn btn-primary" name="submit"
-															type="submit">Submit</button>
-													</div>
-												</div>
-
-											</form>
-
-										</div>
-									</div>
-								</div>
-
+	<body>
+		<div class="page">
+			<header class="navbar navbar-expand-md navbar-light d-print-none">
+				<div class="container-xl">
+					<h1 class="navbar-brand">Car Rental Portal</h1>
+				</div>
+			</header>
+			<div class="page-wrapper">
+				<div class="container-xl">
+					<div class="page-header d-print-none">
+						<div class="row align-items-center">
+							<div class="col">
+								<h2 class="page-title">Update Brand</h2>
 							</div>
-
-
-
 						</div>
 					</div>
+					<div class="page-body">
+						<div class="container-xl">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="card-title">Edit Brand</h3>
+								</div>
+								<div class="card-body">
+									<form method="post">
+										<?php if ($msg) { ?>
+											<div class="alert alert-success">
+												<strong>Success:</strong> <?php echo htmlentities($msg); ?>
+											</div>
+										<?php } ?>
 
+										<?php
+										$id = $_GET['id'];
+										$ret = "select * from tblbrands where id=:id";
+										$query = $dbh->prepare($ret);
+										$query->bindParam(':id', $id, PDO::PARAM_STR);
+										$query->execute();
+										$results = $query->fetchAll(PDO::FETCH_OBJ);
+										if ($query->rowCount() > 0) {
+											foreach ($results as $result) {
+										?>
+												<div class="mb-3">
+													<label class="form-label">Current Brand Name</label>
+													<select class="form-select" name="brand" id="brand" required>
+														<?php
+														$sql = "SELECT * FROM tblbrands";
+														$query = $dbh->prepare($sql);
+														$query->execute();
+														$brands = $query->fetchAll(PDO::FETCH_OBJ);
+														foreach ($brands as $brand) {
+															$selected = ($brand->id == $result->id) ? 'selected' : '';
+															echo "<option value='{$brand->id}' {$selected}>{$brand->BrandName}</option>";
+														}
+														?>
+													</select>
+												</div>
 
+												<div class="mb-3">
+													<label class="form-label">New Brand Name</label>
+													<input type="text" class="form-control" name="newBrandName" value="<?php echo htmlentities($result->BrandName); ?>" required>
+												</div>
+										<?php }
+										} ?>
+
+										<div class="form-footer">
+											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

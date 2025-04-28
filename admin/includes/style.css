@@ -1,6 +1,5 @@
 .btn{
 cursor: pointer;
-border-radius: 0px !important;
 }
 @media (max-width: 991px) {
     .navbar-vertical {
