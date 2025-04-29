@@ -72,10 +72,10 @@ error_reporting(0);
                     <div class="car-info-box">
                       <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                         <?php if (!empty($result->Vimage1)) { ?>
-                          <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
-                            class=" car-image" alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                          <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=" car-image"
+                            alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                         <?php } else { ?>
-                          <img src="img/placeholder.jpg" class=" car-image" alt="No image available">
+                          <img src="img/placeholder.jpg" class="car-image" alt="No image available">
                         <?php } ?>
                       </a>
                       <ul class="car-specs">

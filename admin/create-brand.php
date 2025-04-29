@@ -112,7 +112,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</div>
 													<div class="form-footer">
 														<button type="submit" name="submit"
-															class="btn btn-primary">Submit</button>
+															class="btn btn-square btn-primary w-100">Submit</button>
 													</div>
 												</form>
 											</div>

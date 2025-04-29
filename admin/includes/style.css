@@ -31,25 +31,18 @@ cursor: pointer;
     color: rgba(255, 255, 255, 0.5);
 }
 
-.btn.nav-link{
-    color: #fff;
-    background-color: rgba(250, 235, 215, 0.352);
-    border: none;
-}
-.btn.nav-link:hover{
-    color: #fff;
-    background-color: rgba(250, 235, 215, 0.352);
-    border: none;
-}
-.btn.nav-link:focus{
-    color: #fff;
-    background-color: rgba(250, 235, 215, 0.352);
-    border: none;
-}
 .navbar{
     font-size: 16px !important;   
 }
 
 .alert-success{
-    border-left:2px solid green;
+    border-left:2px solid #008000;
 }
+.alert-danger{
+    border-left:2px solid red;
+}
+
+.card{
+    border-radius: 0px !important;
+}
+
