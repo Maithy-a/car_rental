@@ -1,5 +1,8 @@
-
-section {
+body{
+  padding: 0;
+  margin: 0;
+}
+.section {
   width: 100%;
   color: #f7f7f7;
 }
@@ -40,18 +43,29 @@ section {
   overflow: hidden;
   transition: transform 0.3s ease;
   margin-bottom: 0px;
+  display:grid;
+}
+.recent-car-list {
+  display: grid;
+  grid-template-columns: repeat(1, 2fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.recent-car-list img{
+  transition: all ease-in-out 0.5s;
 }
 
-.recent-car-list:hover {
-  transform: translateY(-2px);
+.recent-car-list img:hover {
+  transform: scale(1.01);
 }
 
-.car-info-box{
+.car-info-box {
   position: relative;
   cursor: pointer;
 }
 
-.car-specs, .recent_post_title {
+.car-specs,
+.recent_post_title {
   display: flex;
   justify-content: space-between;
   padding: 10px 15px;
@@ -111,10 +125,6 @@ section {
 }
 
 @media (max-width: 767px) {
-  .car-image {
-    height: 150px;
-  }
-
   .car-specs {
     flex-direction: column;
     gap: 8px;
@@ -129,7 +139,7 @@ section {
   }
 }
 
-.testimonial.card{
+.testimonial.card {
   background-color: #e74c3c;
   color: #fff;
   border-radius: 0px;
@@ -143,6 +153,7 @@ section {
   background: rgba(0, 0, 0, 0) url("https://images.pexels.com/photos/25189123/pexels-photo-25189123/free-photo-of-blue-bmw-x3.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center center/cover;
   padding: 120px 0;
   position: relative;
+  background-attachment: fixed;
 }
 
 .fun-facts-m {
@@ -181,7 +192,7 @@ section {
 }
 
 @media (max-width: 767px) {
-  .fun-facts-m{
+  .fun-facts-m {
     width: 100%;
     height: auto;
     padding: 20px;
@@ -197,34 +208,83 @@ section {
   .fun-facts-m p {
     font-size: 14px;
   }
+
   .fun-facts-m .cell {
     padding: 10px;
   }
+
   .fun-facts-m h2 .fa {
     font-size: 2rem;
   }
 
-  
+
 }
 
 .page-header {
   padding: 0 15px;
-  background-size: cover; 
-  background-position: center center; 
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 180px; 
+  height: 180px;
   position: sticky;
-  background-image:url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+  background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
 }
-.page-header .container h1{
+
+.page-header .container h1 {
   font-size: 1.5rem;
   color: #e74c3c;
   text-align: center;
   margin-top: 50px;
 }
 
-.breadcrumb-item a{
-  color: #e74c3c !important;
+.list-inline-item,
+.breadcrumb-item a {
+  color: #cabe15 !important;
+  text-decoration: underline;
   text-underline-offset: 0.6rem;
+  transition: all ease-in 0.3s;
+}
+
+.list-inline-item {
+  color: #f9f9f9;
+}
+
+.list-inline-item a:hover,
+.breadcrumb-item a:hover {
+  color: #e74c3c !important;
+}
+
+.footer .h5 {
+  font-size: 1rem;
+  color: #c1c1c1;
+}
+
+.footer li {
+  text-decoration: underline;
+  color: #cabe15 !important;
+  text-underline-offset: 0.5rem;
+}
+
+.footer-top ul li {
+  font-size: 14px;
+  line-height: 23px;
+  list-style: outside none none;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  position: relative;
+}
+
+.top-button, .btn-primary{
+  border-radius: 0px !important;
+  color: #e74c3c !important;
+  border: 1px #e74c3c solid !important;
+  text-transform: uppercase;
+}
+
+.footer input{
+  border-radius: 0px !important;
+}
+.modal-dialog{
+  border-radius: 0px !important;
 }

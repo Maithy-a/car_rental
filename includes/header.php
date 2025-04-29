@@ -26,8 +26,8 @@ if (isset($_SESSION['login'])) {
 }
 ?>
 
-<header>
-  <div class="bg-light py-3 border-bottom shadow-sm" >
+<header >
+  <div class="bg-light py-3 border-bottom shadow-sm navbar-expand-lg" >
     <div class="container">
       <div class="row align-items-center gy-3">
         <div class="col-md-2 col-6">
@@ -64,9 +64,9 @@ if (isset($_SESSION['login'])) {
               </div>
             </div>
             <?php if (strlen($_SESSION['login']) == 0) { ?>
-              <a href="#loginform" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginform">Login / Register</a>
+              <a href="#loginform" class="btn top-button" data-bs-toggle="modal" data-bs-target="#loginform">Sign in / Register</a>
             <?php } else { ?>
-              <span class="text-muted">Welcome to Safari KE Portal</span>
+              <span class="text-secondary text-uppercase">Welcome to Safari KE Portal</span>
             <?php } ?>
           </div>
         </div>

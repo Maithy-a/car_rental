@@ -15,11 +15,8 @@ error_reporting(0);
   <!-- /Header -->
 </head>
 
-<body bs-theme="dark" class="bg-dark">
-
-  <!--Page Header-->
-  <div class="page-header listing_page mb-5"
-    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+<body class="bg-dark p-0" style="padding: 0; margin: 0;">
+  <div class="page-header listing_page mb-5">
     <div class="container p-5">
       <div class="page-header">
         <div class="page-heading">
@@ -33,12 +30,10 @@ error_reporting(0);
         </div>
       </div>
     </div>
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
   </div>
-  <!-- /Page Header-->
 
   <!--Listing-->
-  <section class="listing-page mb-5">
+  <div class="listing-page mb-5">
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-md-push-3">
@@ -203,7 +198,7 @@ error_reporting(0);
         <!--/Side-Bar-->
       </div>
     </div>
-  </section>
+  </div>
   <!-- /Listing-->
 
   <?php include('includes/footer.php'); ?>

@@ -25,19 +25,17 @@ if (isset($_POST['emailsubscibe'])) {
 include('auth.php');
 ?>
 
-<footer class="footer  d-print-none bg-dark text-white p-6">
-  <div class="container-fluid">
+<footer class="footer bg-dark">
     <div class="row gy-4">
-      <div class="col-md">
+      <div class="col-md me-6">
         <h3 class="h2 text-uppercase mb-3">Welcome to Our Car Listing Website</h3>
         <p class="text-muted mt-2">We provide a wide range of services including car listings, reviews, and expert
           advice to help you make informed decisions. Our team of experts is dedicated to providing you with the best
           experience possible. We are committed to helping you find the perfect car for your needs.</p>
         <p class="text-muted mt-2">Thank you for choosing us as your trusted partner in the car buying and selling
           process.</p>
-        <p class="mt-2">We look forward to serving you!</p>
       </div>
-      <div class="col-md">
+      <div class="col">
         <h3 class="h5 text-uppercase mb-4">About Us</h3>
         <ul class="list-unstyled">
           <li class="mb-4"><a href="page.php?type=aboutus" class="text-white text-decoration-none">About Us</a></li>
@@ -47,7 +45,7 @@ include('auth.php');
           <li class="mb-4"><a href="admin/" class="text-white text-decoration-none">Admin Login</a></li>
         </ul>
       </div>
-      <div class="col-md">
+      <div class="col">
         <h3 class="h5 text-uppercase mb-3">Contact Us</h3>
         <ul class="list-unstyled">
           <li class="mb-4"><a href="page.php?type=contactus" class="text-white text-decoration-none">Contact Us</a></li>
@@ -65,7 +63,7 @@ include('auth.php');
             <input type="email" name="subscriberemail" class="form-control" required
               placeholder="Enter Email Address" />
           </div>
-          <button type="submit" name="emailsubscibe" class="btn btn-square btn-primary w-100">
+          <button type="submit" name="emailsubscibe" class="btn btn-square btn-danger w-100">
             Subscribe <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24"
               viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
               stroke-linejoin="round">
@@ -75,20 +73,10 @@ include('auth.php');
           </button>
         </form>
         <p class="text-muted mt-2 small">* We send great deals and the latest auto news to our subscribed users every
-          week.</p>
-      </div>
-      <div class="hr-text text-green"> Safari Rental KE</div>
-      <div class="col-12 text-center mt-4 f-border-top pt-4">
-        <p class="mb-3">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-copyright">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-            <path d="M14 9.75a3.016 3.016 0 0 0 -4.163 .173a2.993 2.993 0 0 0 0 4.154a3.016 3.016 0 0 0 4.163 .173" />
-          </svg>
-          <?php echo date('Y'); ?> Safari Rental KE | All rights reserved.
+          week.
         </p>
+      </div>
+      <div class="col-12 text-center">
         <ul class="list-inline">
           <li class="list-inline-item"><a href="#" class="text-">Facebook</a></li>
           <li class="list-inline-item"><a href="#" class="text-">Twitter</a></li>
@@ -97,18 +85,8 @@ include('auth.php');
           <li class="list-inline-item"><a href="#" class="text-">Google</a></li>
         </ul>
       </div>
+      <div class="text-center">
+        &copy;<?php echo date('Y'); ?> Safari Rental, All rights reserved.
+      </div>
     </div>
-  </div>
 </footer>
-
-<style>
-  .list-inline-item a {
-    text-decoration: underline;
-    text-underline-offset: 0.5rem;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .footer .h5 {
-    font-size: 1.25rem;
-  }
-</style>

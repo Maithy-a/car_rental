@@ -13,19 +13,37 @@ error_reporting(0);
   <?php include('includes/head.php'); ?>
 </head>
 
-<body bs-theme="dark" class="bg-dark p-0 m-0 wh-100" style="width: 100%; height: 100vh; margin: auto; ">
+<body class="bg-dark">
   <?php include('includes/header.php'); ?>
-  <section class="section gray-bg">
-    <div class="container col-12">
+  <div class="page-header mb-5"
+    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+    <div class="container p-5">
+      <div class="page-header">
+        <div class="page-heading">
+          <h1>Car Listing</h1>
+        </div>
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index">Home</a></li>
+            <li class="breadcrumb-item">Car Listing</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section mb-5 mt-5">
+    <div class="container col">
       <div class="section-header text-center">
         <h2>Find the Best <span>Car For You</span></h2>
         <p>
-          Explore our wide range of vehicles tailored to your needs. From compact cars to luxury SUVs, we have it all.
+          Explore our wide range of vehicles tailored to your needs. From compact cars to luxury SUVs, we have it
+          all.
           Browse
           below to find the perfect car for your journey.
         </p>
       </div>
-      <!-- Nav tabs -->
       <div class="recent-tab text-center mt-4">
         <ul class=" nav nav-tabs bg-danger mb-2 p-3 justify-content-center col-12" role="tablist">
           <li role="presentation" class="active">
@@ -35,7 +53,7 @@ error_reporting(0);
         </ul>
       </div>
       <!-- Recently Listed New Cars -->
-      <div class="tab-content mt-0">
+      <div class="tab-content mt-4">
         <div role="tabpanel" class="tab-pane active" id="resentnewcar">
           <div class="row">
             <?php
@@ -55,9 +73,9 @@ error_reporting(0);
                       <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                         <?php if (!empty($result->Vimage1)) { ?>
                           <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
-                            class="img-responsive car-image" alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                            class=" car-image" alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                         <?php } else { ?>
-                          <img src="img/placeholder.jpg" class="img-responsive car-image" alt="No image available">
+                          <img src="img/placeholder.jpg" class=" car-image" alt="No image available">
                         <?php } ?>
                       </a>
                       <ul class="car-specs">
@@ -74,22 +92,7 @@ error_reporting(0);
                           </svg><?php echo htmlentities($result->FuelType); ?>
                         </li>
                         <li>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icon-tabler-calendar-week">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-                            <path d="M16 3v4" />
-                            <path d="M8 3v4" />
-                            <path d="M4 11h16" />
-                            <path d="M7 14h.013" />
-                            <path d="M10.01 14h.005" />
-                            <path d="M13.01 14h.005" />
-                            <path d="M16.015 14h.005" />
-                            <path d="M13.015 17h.005" />
-                            <path d="M7.01 17h.005" />
-                            <path d="M10.01 17h.005" />
-                          </svg><?php echo htmlentities($result->ModelYear); ?> Model
+                          <?php echo htmlentities($result->ModelYear); ?> Model
                         </li>
                         <li>
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
@@ -130,9 +133,9 @@ error_reporting(0);
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="section fun-facts-section mb-5">
+  <div class="section fun-facts-section mb-5">
     <div class="container div_zindex">
       <div class="row">
         <div class="col-lg-3 col-xs-6 col-sm-3">
@@ -177,9 +180,9 @@ error_reporting(0);
     </div>
     <!-- Dark Overlay-->
     <div class="dark-overlay"></div>
-  </section>
+  </div>
 
-  <section class="section testimonial-section parallex-bg mb-5">
+  <div class="section testimonial-section parallex-bg mb-5">
     <div class="container div_zindex">
       <div class="section-header white-text text-center">
         <h2 class="py-6">Our Satisfied <span>Customers</span></h2>
@@ -217,7 +220,7 @@ error_reporting(0);
       </div>
     </div>
     <div class="dark-overlay"></div>
-  </section>
+  </div>
   <?php include('includes/footer.php'); ?>
 </body>
 

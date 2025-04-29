@@ -33,11 +33,9 @@ if (isset($_POST['login'])) {
       <div class="modal-body">
         <form method="post">
           <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" name="email" placeholder="Email address*" required>
+            <input type="email" class="form-control" name="email" placeholder="Jonedoe@gmail.com" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
             <input type="password" class="form-control" name="password" placeholder="Password*" required>
           </div>
           <div class="mb-3">
@@ -47,11 +45,11 @@ if (isset($_POST['login'])) {
             </label>
           </div>
           <div class="mb-3">
-            <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
+            <button type="submit" name="login" class="btn btn-square w-100">Login</button>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="text-center">
         <p class="mb-0">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Signup Here</a></p>
         <p class="mb-0"><a href="#forgotpassword" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</a></p>
       </div>

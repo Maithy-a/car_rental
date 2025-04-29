@@ -32,6 +32,10 @@ if (isset($_POST['login'])) {
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/css/tabler.min.css" />
 	<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.2.0/dist/js/tabler.min.js">
 	</script>
+	<link rel="apple-touch-icon" sizes="180x180" href="img/favicon_io/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="img/favicon_io/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="img/favicon_io/favicon-16x16.png">
+	<link rel="manifest" href="img/favicon_io/site.webmanifest">
 </head>
 
 <body>
@@ -40,13 +44,15 @@ if (isset($_POST['login'])) {
 			background: url('img/bg.jpg') no-repeat center center fixed;
 			background-size: cover;
 		}
+
 		.form-control {
 			padding: 10px 40px;
 			border: 1px solid #ced4da;
 			box-shadow: none;
 			font-size: 16px;
 		}
-		.btn{
+
+		.btn {
 			padding: 10px 20px;
 			font-size: 16px;
 			border: none;
@@ -54,6 +60,7 @@ if (isset($_POST['login'])) {
 			border-radius: 5px;
 			cursor: pointer;
 		}
+
 		.form-control:focus {
 			border-color: #007bff;
 			box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
