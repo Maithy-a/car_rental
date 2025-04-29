@@ -36,8 +36,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	<body class="fluid-body">
 		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
-				<div class="container-fluid py-4">
+			<div class="container p-6 mt-5">
+				<div class="container-fluid">
 					<h2 class="mb-4">Manage Vehicles</h2>
 					<div class="row">
 						<div class="col-md-12">
@@ -82,15 +82,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 															<td><?php echo htmlentities($result->ModelYear); ?></td>
 															<td>
 																<div class="btn-group">
-																<a href="edit-vehicle.php?id=<?php echo htmlentities($result->id); ?>"
-																	class="btn  btn-primary me-1" title="Edit Vehicle">Edit</a>
-																<a href="manage-vehicles.php?del=<?php echo htmlentities($result->id); ?>"
-																	class="btn btn-icon btn-danger" title="Delete Vehicle"
-																	onclick="return confirm('Are you sure you want to delete this vehicle?');">
-																	<i class="fa-solid fa-trash"></i>
-																</a>
+																	<a href="edit-vehicle.php?id=<?php echo htmlentities($result->id); ?>"
+																		class="btn  btn-primary me-1" title="Edit Vehicle">Edit</a>
+																	<a href="manage-vehicles.php?del=<?php echo htmlentities($result->id); ?>"
+																		class="btn btn-icon btn-danger" title="Delete Vehicle"
+																		onclick="return confirm('Are you sure you want to delete this vehicle?');">
+																		<i class="fa-solid fa-trash"></i>
+																	</a>
 																</div>
-																
+
 															</td>
 														</tr>
 														<?php $cnt++;

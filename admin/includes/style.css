@@ -49,3 +49,7 @@ cursor: pointer;
 .navbar{
     font-size: 16px !important;   
 }
+
+.alert-success{
+    border-left:2px solid green;
+}

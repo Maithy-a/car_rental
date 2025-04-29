@@ -53,7 +53,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	<body class="fluid-body">
 		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
+			<div class="container p-6 mt-5">
 				<div class="container-fluid py-4">
 					<h2 class="mb-4">Booking Details</h2>
 					<div class="row">
@@ -176,7 +176,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</div>
 											</div>
 										</div>
-										
+
 										<?php if ($result->Status == 0) { ?>
 											<div class="text-end no-print">
 												<a href="booking-details.php?aeid=<?php echo htmlentities($result->id); ?>"
@@ -200,5 +200,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 			</div>
 		</div>
 	</body>
+
 	</html>
 <?php } ?>

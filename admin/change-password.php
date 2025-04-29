@@ -76,10 +76,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body class="fluid-body">
-	
-
-		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
+	<div class="page-wrapper d-flex">
+			<div class="container p-6 mt-5">
 				<div class="container-fluid py-4">
 					<h2 class="mb-4">Change Password</h2>
 					<div class="row">

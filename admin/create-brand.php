@@ -43,78 +43,84 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
-		<div class="page">
-			<div class="page-body">
-				<div class="page-header m-3">
-					<div class="row align-items-center">
-						<div class="col">
-							<h2 class="page-title">Create Brand</h2>
-						</div>
-					</div>
-				</div>
-				<div class="container-xl">
-					<div class="row g-4">
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">Existing Brands</h3>
+		<div class="page-wrapper d-flex">
+			<div class="container py-2 mt-3">
+				<div class="container-fluid py-4">
+						<div class="page-body">
+							<div class="page-header m-3">
+								<div class="row align-items-center">
+									<div class="col">
+										<h2 class="page-title">Create Brand</h2>
+									</div>
 								</div>
-								<div class="card-body">
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Brand Name</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php
-											$sql = "SELECT BrandName FROM tblbrands ORDER BY BrandName ASC";
-											$query = $dbh->prepare($sql);
-											$query->execute();
-											$brands = $query->fetchAll(PDO::FETCH_ASSOC);
-											$counter = 1;
-											foreach ($brands as $brand) {
-												echo "<tr>";
-												echo "<td>" . $counter++ . "</td>";
-												echo "<td>" . htmlentities($brand['BrandName']) . "</td>";
-												echo "</tr>";
-											}
-											?>
-										</tbody>
-									</table>
+							</div>
+							<div class="container-xl">
+								<div class="row g-4">
+									<div class="col-md-6">
+										<div class="card">
+											<div class="card-header">
+												<h3 class="card-title">Existing Brands</h3>
+											</div>
+											<div class="card-body">
+												<table class="table table-striped">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>Brand Name</th>
+														</tr>
+													</thead>
+													<tbody>
+														<?php
+														$sql = "SELECT BrandName FROM tblbrands ORDER BY BrandName ASC";
+														$query = $dbh->prepare($sql);
+														$query->execute();
+														$brands = $query->fetchAll(PDO::FETCH_ASSOC);
+														$counter = 1;
+														foreach ($brands as $brand) {
+															echo "<tr>";
+															echo "<td>" . $counter++ . "</td>";
+															echo "<td>" . htmlentities($brand['BrandName']) . "</td>";
+															echo "</tr>";
+														}
+														?>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="card">
+											<div class="card-header">
+												<h3 class="card-title">Add New Brand</h3>
+											</div>
+											<div class="card-body">
+												<?php if ($error) { ?>
+													<div class="alert alert-danger" role="alert">
+														<?php echo htmlentities($error); ?>
+													</div>
+												<?php } elseif ($msg) { ?>
+													<div class="alert alert-success" role="alert">
+														<?php echo htmlentities($msg); ?>
+													</div>
+												<?php } ?>
+												<form method="post">
+													<div class="mb-3">
+														<label for="brand" class="form-label">Brand Name <span
+																class="text-danger">*</span></label>
+														<input type="text" id="brand" name="brand" class="form-control"
+															required>
+													</div>
+													<div class="form-footer">
+														<button type="submit" name="submit"
+															class="btn btn-primary">Submit</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-6">
-							<div class="card">
-								<div class="card-header">
-									<h3 class="card-title">Add New Brand</h3>
-								</div>
-								<div class="card-body">
-									<?php if ($error) { ?>
-										<div class="alert alert-danger" role="alert">
-											<?php echo htmlentities($error); ?>
-										</div>
-									<?php } elseif ($msg) { ?>
-										<div class="alert alert-success" role="alert">
-											<?php echo htmlentities($msg); ?>
-										</div>
-									<?php } ?>
-									<form method="post">
-										<div class="mb-3">
-											<label for="brand" class="form-label">Brand Name <span
-													class="text-danger">*</span></label>
-											<input type="text" id="brand" name="brand" class="form-control" required>
-										</div>
-										<div class="form-footer">
-											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

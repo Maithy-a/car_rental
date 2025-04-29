@@ -14,7 +14,8 @@ error_reporting(0);
 
 <body bs-theme="dark" class="bg-dark">
   <?php include('includes/header.php'); ?>
-  <div class="page-header listing_page" style="background-image: url(https://images.pexels.com/photos/10955788/pexels-photo-10955788.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load);">
+  <div class="page-header listing_page"
+    style="background-image: url(https://images.pexels.com/photos/10955788/pexels-photo-10955788.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load);">
     <div class="container p-5">
       <div class="page-header_wrap">
         <div class="page-heading">
@@ -37,7 +38,6 @@ error_reporting(0);
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
               <?php
-  
               $sql = "SELECT id FROM tblvehicles";
               $query = $dbh->prepare($sql);
               $query->execute();
@@ -56,41 +56,48 @@ error_reporting(0);
           $cnt = 1;
           if ($query->rowCount() > 0) {
             foreach ($results as $result) { ?>
-              <div class="product-listing-m gray-bg">
-                <div class="product-listing-img">
-                  <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                    <?php if (!empty($result->Vimage1)) { ?>
-                      <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class="img-responsive"
-                        alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
-                    <?php } else { ?>
-                      <img src="assets/images/placeholder.jpg" class="img-responsive" alt="No image available">
-                    <?php } ?>
-                  </a>
-                </div>
-                <div class="product-listing-content">
-                  <h5>
+              <div class="col-md">
+                <div class="recent-car-list">
+                  <div class="car-info-box">
                     <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                      <?php echo htmlentities($result->BrandName); ?>, <?php echo htmlentities($result->VehiclesTitle); ?>
+                      <?php if (!empty($result->Vimage1)) { ?>
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=""
+                          alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                      <?php } else { ?>
+                        <img src="img/placeholder.jpg" class="" alt="No image available">
+                      <?php } ?>
                     </a>
-                  </h5>
-                  <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
-                  <ul>
-                    <li><i class="fa fa-user" aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?>
-                      seats</li>
-                    <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?>
-                      model</li>
-                    <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
-                  </ul>
-                  <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn">View Details <span
-                      class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    <div class="car-specs">
+                      <h5>
+                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                          <?php echo htmlentities($result->BrandName); ?>,
+                          <?php echo htmlentities($result->VehiclesTitle); ?>
+                        </a>
+                      </h5>
+                      <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
+                      <ul>
+                        <li><i class="fa fa-user"
+                            aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?>
+                          seats</li>
+                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?>
+                          model</li>
+                        <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
+                      </ul>
+                    </div>
+                    <div class="recent_post_title border-top">
+                      <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"
+                        class="btn btn-square">View Details
+                        <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             <?php }
           } ?>
         </div>
 
-        <!--Side-Bar-->
-        <aside class="col-md-3 col-md-pull-9">
+        <aside class="col-md">
           <div class="sidebar_widget">
             <div class="widget_heading">
               <h5><i class="fa fa-filter" aria-hidden="true"></i> Find Your Car </h5>
@@ -177,7 +184,7 @@ error_reporting(0);
                             <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
                               alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                           <?php } else { ?>
-                            <img src="assets/images/placeholder.jpg" alt="No image available">
+                            <img src="img/placeholder.jpg" alt="No image available">
                           <?php } ?>
                         </a>
                       </div>
@@ -194,7 +201,6 @@ error_reporting(0);
               </div>
             </div>
         </aside>
-        <!--/Side-Bar-->
       </div>
     </div>
   </section>

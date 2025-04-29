@@ -12,15 +12,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$id = $_GET['del'];
 		// Example: Delete user from tblusers (uncomment and adjust as needed)
 		/*
-								$sql = "DELETE FROM tblusers WHERE id=:id";
-								$query = $dbh->prepare($sql);
-								$query->bindParam(':id', $id, PDO::PARAM_STR);
-								if ($query->execute()) {
-									$msg = "User deleted successfully";
-								} else {
-									$error = "Failed to delete user. Please try again.";
-								}
-								*/
+									  $sql = "DELETE FROM tblusers WHERE id=:id";
+									  $query = $dbh->prepare($sql);
+									  $query->bindParam(':id', $id, PDO::PARAM_STR);
+									  if ($query->execute()) {
+										  $msg = "User deleted successfully";
+									  } else {
+										  $error = "Failed to delete user. Please try again.";
+									  }
+									  */
 		$error = "Delete functionality is disabled. Please implement the correct logic.";
 	}
 	?>
@@ -40,8 +40,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	<body class="fluid-body">
 		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
-				<div class="container-fluid py-4">
+			<div class="container p-6 mt-5">
+				<div class="container-fluid">
 					<h2 class="mb-4">Registered Users</h2>
 					<div class="row">
 						<div class="col-md-12">

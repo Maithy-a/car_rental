@@ -71,13 +71,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body class="fluid-body">
-	
-
 		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
-				<div class="container-fluid py-4">
-					<h2 class="mb-4">Edit Vehicle</h2>
+			<div class="container p-6 mt-5">
+				<div class="container-fluid">
 					<div class="row">
+						<h2 class="mb-4">Edit Vehicle</h2>
 						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header">
@@ -85,9 +83,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 								</div>
 								<div class="card-body">
 									<?php if ($error) { ?>
-										<div class="alert alert-danger" role="alert"><?php echo htmlentities($error); ?></div>
+										<div class="col-6 alert alert-danger" style="border-left:2px solid #CD1C18;"
+											role="alert"><?php echo htmlentities($error); ?></div>
 									<?php } elseif ($msg) { ?>
-										<div class="alert alert-success" role="alert"><?php echo htmlentities($msg); ?></div>
+										<div class="col-6 alert alert-success" style="border-left:2px solid #0BDA51;"
+											role="alert"><?php echo htmlentities($msg); ?></div>
 									<?php } ?>
 									<?php
 									$id = intval($_GET['id']);
@@ -180,20 +180,22 @@ if (strlen($_SESSION['alogin']) == 0) {
 														$image = $result->$image_field;
 														?>
 														<div class="col-md-4">
-															<label class="form-label">Image
-																<?php echo $i; ?>
-																<?php echo $i <= 4 ? ' <span class="text-danger">*</span>' : ''; ?></label>
-															<div class="card">
-																<?php if ($image) { ?>
-																	<img src="img/vehicleimages/<?php echo htmlentities($image); ?>"
-																		class="card-img-top" alt="Vehicle Image"
-																		style="height: 150px; object-fit: cover;">
+															<label class="form-label">Image <?php echo $i; ?>
+																<?php echo $i <= 4 ? ' <span class="text-danger">*</span>' : ''; ?>
+															</label>
+															<div class="card" style="border-radius: 0px;">
+																<?php if (!empty($image)) { ?>
+																	<img src="data:image/jpeg;base64,<?php echo base64_encode($image); ?>"
+																		alt="Vehicle Image <?php echo $i; ?>"
+																		style="height: 200px; object-fit: cover;">
 																<?php } else { ?>
-																	<div class="card-body text-center text-muted">No image available</div>
+																	<img src="img/placeholder.jpg" alt="No image available"
+																		style="height: 200px; object-fit: cover;">
 																<?php } ?>
-																<div class="card-footer text-center">
+																<div class="footer text-center">
 																	<a href="changeimage<?php echo $i; ?>.php?imgid=<?php echo htmlentities($result->id); ?>"
-																		class="text-primary">Change Image <?php echo $i; ?></a>
+																		class="text-primary" style="text-underline-offset: 7px;">Change
+																		Image <?php echo $i; ?></a>
 																</div>
 															</div>
 														</div>
@@ -230,7 +232,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<?php } ?>
 												</div>
 												<div class="mt-4">
-													<button type="reset" class="btn btn-outline-secondary me-2">Cancel</button>
 													<button type="submit" name="submit" class="btn btn-primary">Save
 														Changes</button>
 												</div>

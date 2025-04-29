@@ -52,8 +52,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 	<body class="fluid-body">
 		<div class="page-wrapper d-flex">
-			<div class="page-content flex-grow-1">
-				<div class="container-fluid py-4">
+			<div class="container p-6 mt-5">
+				<div class="container-fluid">
 					<h2 class="mb-4">Manage Testimonials</h2>
 					<div class="row">
 						<div class="col-md-12">
@@ -110,7 +110,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 																			onclick="return confirm('Are you sure you want to activate this testimonial?');">
 																			Activate</a>
 																	<?php } else { ?>
-																		<a href="testimonials.php?eid=<?php echo htmlentities($result->id);?>"
+																		<a href="testimonials.php?eid=<?php echo htmlentities($result->id); ?>"
 																			class="btn btn-warning me-1" title="Deactivate Testimonial"
 																			onclick="return confirm('Are you sure you want to deactivate this testimonial?');">
 																			Deactivate

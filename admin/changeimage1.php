@@ -37,9 +37,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body class="fluid-body">
-	
-		<div class="ts-main-content">
-			<div class="content-wrapper">
+		<div class="page-wrapper d-flex">
+			<div class="container p-6 mt-5">
 				<div class="container-fluid">
 
 					<div class="row">
@@ -57,9 +56,11 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 												<?php if ($error) { ?>
 													<div class="errorWrap">
-														<strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } else if ($msg) { ?>
+														<strong>ERROR</strong>:<?php echo htmlentities($error); ?>
+													</div><?php } else if ($msg) { ?>
 														<div class="succWrap">
-															<strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div>
+															<strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?>
+														</div>
 												<?php } ?>
 
 
