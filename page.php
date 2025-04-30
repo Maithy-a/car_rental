@@ -12,7 +12,7 @@ include('includes/config.php');
   <?php include('includes/head.php'); ?>
 </head>
 
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
   <?php include('includes/header.php'); ?>
   <?php
   $pagetype = $_GET['type'];
@@ -39,7 +39,7 @@ include('includes/config.php');
           </div>
         </div>
         <!-- Dark Overlay-->
-        <div class="dark-overlay"></div>
+        
       </section>
       <section class="about_us section-padding mt-5 mb-5">
         <div class="container">

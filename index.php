@@ -66,7 +66,7 @@ error_reporting(0);
             $results = $query->fetchAll(PDO::FETCH_OBJ);
             if ($query->rowCount() > 0) {
               foreach ($results as $result) {
-                ?>
+            ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="recent-car-list">
                     <div class="car-info-box">
@@ -121,7 +121,7 @@ error_reporting(0);
                     </div>
                   </div>
                 </div>
-                <?php
+              <?php
               }
             } else {
               ?>
@@ -136,7 +136,7 @@ error_reporting(0);
   </div>
 
   <div class="section fun-facts-section mb-5">
-    <div class="container div_zindex">
+    <div class="container ">
       <div class="row">
         <div class="col-lg-3 col-xs-6 col-sm-3">
           <div class="fun-facts-m">
@@ -179,11 +179,11 @@ error_reporting(0);
       </div>
     </div>
     <!-- Dark Overlay-->
-    <div class="dark-overlay"></div>
+    
   </div>
 
   <div class="section testimonial-section parallex-bg mb-5">
-    <div class="container div_zindex">
+    <div class="container ">
       <div class="section-header white-text text-center">
         <h2 class="py-6">Our Satisfied <span>Customers</span></h2>
       </div>
@@ -219,7 +219,7 @@ error_reporting(0);
         <?php } ?>
       </div>
     </div>
-    <div class="dark-overlay"></div>
+    
   </div>
   <?php include('includes/footer.php'); ?>
 </body>

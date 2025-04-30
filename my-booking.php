@@ -18,7 +18,7 @@ if (strlen($_SESSION['login']) == 0) {
     <?php include('includes/head.php'); ?>
 </head>
 
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
     <!-- Header -->
     <?php include('includes/header.php'); ?>
     <div class="page-header mb-5"

@@ -12,7 +12,7 @@ error_reporting(0);
   <?php include('includes/head.php'); ?>
 </head>
 
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
   <?php include('includes/header.php'); ?>
   <div class="page-header listing_page"
     style="background-image: url(https://images.pexels.com/photos/10955788/pexels-photo-10955788.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load);">
@@ -29,7 +29,7 @@ error_reporting(0);
         </div>
       </div>
     </div>
-    <div class="dark-overlay"></div>
+    
   </div>
   <section class="listing-page mt-5">
     <div class="container">

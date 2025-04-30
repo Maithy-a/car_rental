@@ -1,101 +1,120 @@
 <?php
-session_start();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+ini_set('display_errors', 0);
 include('includes/config.php');
 
-if (isset($_POST['submit'])) {
-    // Validate and read image data
-    $images = ['img1', 'img2', 'img3', 'img4', 'img5'];
-    $imageData = [];
-    foreach ($images as $index => $img) {
-        if (!empty($_FILES[$img]['tmp_name'])) {
-            // Validate file type and size
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
-            $maxSize = 10 * 1024 * 1024; // 10MB
-            if (!in_array($_FILES[$img]['type'], $allowedTypes)) {
-                $error = "Image " . ($index + 1) . ": Invalid file type. Allowed: jpg, png, webp.";
-                break;
+$msg = $error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    // Validate and sanitize inputs
+    $vehicletitle = filter_input(INPUT_POST, 'vehicletitle', FILTER_SANITIZE_STRING);
+    $brand = filter_input(INPUT_POST, 'brandname', FILTER_SANITIZE_STRING);
+    $vehicleoverview = filter_input(INPUT_POST, 'vehicalorcview', FILTER_SANITIZE_STRING);
+    $priceperday = filter_input(INPUT_POST, 'priceperday', FILTER_VALIDATE_FLOAT);
+    $fueltype = filter_input(INPUT_POST, 'fueltype', FILTER_SANITIZE_STRING);
+    $modelyear = filter_input(INPUT_POST, 'modelyear', FILTER_VALIDATE_INT);
+    $seatingcapacity = filter_input(INPUT_POST, 'seatingcapacity', FILTER_VALIDATE_INT);
+
+    // Validate required fields
+    if (!$vehicletitle || !$brand || !$vehicleoverview || $priceperday === false || !$fueltype || $modelyear === false || $seatingcapacity === false) {
+        $error = "Please fill all required fields with valid data.";
+    } else {
+        // Handle image uploads
+        $images = ['img1', 'img2', 'img3', 'img4', 'img5'];
+        $imageData = [];
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        $maxSize = 10 * 1024 * 1024; // 10MB
+
+        foreach ($images as $index => $img) {
+            if (!empty($_FILES[$img]['tmp_name'])) {
+                // Validate file type
+                if (!in_array($_FILES[$img]['type'], $allowedTypes)) {
+                    $error = "Image " . ($index + 1) . ": Invalid file type. Allowed: jpg, png, webp.";
+                    break;
+                }
+                // Validate file size
+                if ($_FILES[$img]['size'] > $maxSize) {
+                    $error = "Image " . ($index + 1) . ": File too large. Max 10MB.";
+                    break;
+                }
+                // Check for upload errors
+                if ($_FILES[$img]['error'] !== UPLOAD_ERR_OK) {
+                    $error = "Image " . ($index + 1) . ": Upload error (" . $_FILES[$img]['error'] . ").";
+                    break;
+                }
+                // Read image data
+                $imageData[$img] = file_get_contents($_FILES[$img]['tmp_name']);
+                if ($imageData[$img] === false) {
+                    $error = "Image " . ($index + 1) . ": Failed to read file.";
+                    break;
+                }
+            } else {
+                $imageData[$img] = null; // Allow null for optional images
             }
-            if ($_FILES[$img]['size'] > $maxSize) {
-                $error = "Image " . ($index + 1) . ": File too large. Max 10MB.";
-                break;
-            }
-            if ($_FILES[$img]['error'] !== UPLOAD_ERR_OK) {
-                $error = "Image " . ($index + 1) . ": Upload error (" . $_FILES[$img]['error'] . ").";
-                break;
-            }
-            $imageData[$img] = file_get_contents($_FILES[$img]['tmp_name']);
-            if ($imageData[$img] === false) {
-                $error = "Image " . ($index + 1) . ": Failed to read file.";
-                break;
-            }
-        } else {
-            $imageData[$img] = null;
         }
-    }
 
-    if (!isset($error)) {
-        // Insert into database
-        $vehicletitle = $_POST['vehicletitle'];
-        $brand = $_POST['brandname'];
-        $vehicleoverview = $_POST['vehicalorcview'];
-        $priceperday = $_POST['priceperday'];
-        $fueltype = $_POST['fueltype'];
-        $modelyear = $_POST['modelyear'];
-        $seatingcapacity = $_POST['seatingcapacity'];
-        $airconditioner = isset($_POST['airconditioner']) ? 1 : 0;
-        $powerdoorlocks = isset($_POST['powerdoorlocks']) ? 1 : 0;
-        $antilockbrakingsys = isset($_POST['antilockbrakingsys']) ? 1 : 0;
-        $brakeassist = isset($_POST['brakeassist']) ? 1 : 0;
-        $powersteering = isset($_POST['powersteering']) ? 1 : 0;
-        $driverairbag = isset($_POST['driverairbag']) ? 1 : 0;
-        $passengerairbag = isset($_POST['passengerairbag']) ? 1 : 0;
-        $powerwindow = isset($_POST['powerwindow']) ? 1 : 0;
-        $cdplayer = isset($_POST['cdplayer']) ? 1 : 0;
-        $centrallocking = isset($_POST['centrallocking']) ? 1 : 0;
-        $crashcensor = isset($_POST['crashcensor']) ? 1 : 0;
-        $leatherseats = isset($_POST['leatherseats']) ? 1 : 0;
+        // Ensure at least image 1 is uploaded
+        if (!$imageData['img1']) {
+            $error = "Image 1 is required.";
+        }
 
-        $sql = "INSERT INTO tblvehicles(VehiclesTitle,VehiclesBrand,VehiclesOverview,PricePerDay,FuelType,ModelYear,SeatingCapacity,Vimage1,Vimage2,Vimage3,Vimage4,Vimage5,AirConditioner,PowerDoorLocks,AntiLockBrakingSystem,BrakeAssist,PowerSteering,DriverAirbag,PassengerAirbag,PowerWindows,CDPlayer,CentralLocking,CrashSensor,LeatherSeats) 
-                VALUES(:vehicletitle,:brand,:vehicleoverview,:priceperday,:fueltype,:modelyear,:seatingcapacity,:vimage1,:vimage2,:vimage3,:vimage4,:vimage5,:airconditioner,:powerdoorlocks,:antilockbrakingsys,:brakeassist,:powersteering,:driverairbag,:passengerairbag,:powerwindow,:cdplayer,:centrallocking,:crashcensor,:leatherseats)";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
-        $query->bindParam(':brand', $brand, PDO::PARAM_STR);
-        $query->bindParam(':vehicleoverview', $vehicleoverview, PDO::PARAM_STR);
-        $query->bindParam(':priceperday', $priceperday, PDO::PARAM_STR);
-        $query->bindParam(':fueltype', $fueltype, PDO::PARAM_STR);
-        $query->bindParam(':modelyear', $modelyear, PDO::PARAM_STR);
-        $query->bindParam(':seatingcapacity', $seatingcapacity, PDO::PARAM_STR);
-        $query->bindParam(':vimage1', $imageData['img1'], PDO::PARAM_LOB);
-        $query->bindParam(':vimage2', $imageData['img2'], PDO::PARAM_LOB);
-        $query->bindParam(':vimage3', $imageData['img3'], PDO::PARAM_LOB);
-        $query->bindParam(':vimage4', $imageData['img4'], PDO::PARAM_LOB);
-        $query->bindParam(':vimage5', $imageData['img5'], PDO::PARAM_LOB);
-        $query->bindParam(':airconditioner', $airconditioner, PDO::PARAM_INT);
-        $query->bindParam(':powerdoorlocks', $powerdoorlocks, PDO::PARAM_INT);
-        $query->bindParam(':antilockbrakingsys', $antilockbrakingsys, PDO::PARAM_INT);
-        $query->bindParam(':brakeassist', $brakeassist, PDO::PARAM_INT);
-        $query->bindParam(':powersteering', $powersteering, PDO::PARAM_INT);
-        $query->bindParam(':driverairbag', $driverairbag, PDO::PARAM_INT);
-        $query->bindParam(':passengerairbag', $passengerairbag, PDO::PARAM_INT);
-        $query->bindParam(':powerwindow', $powerwindow, PDO::PARAM_INT);
-        $query->bindParam(':cdplayer', $cdplayer, PDO::PARAM_INT);
-        $query->bindParam(':centrallocking', $centrallocking, PDO::PARAM_INT);
-        $query->bindParam(':crashcensor', $crashcensor, PDO::PARAM_INT);
-        $query->bindParam(':leatherseats', $leatherseats, PDO::PARAM_INT);
+        if (!$error) {
+            // Accessories (checkboxes)
+            $accessories = [
+                'airconditioner', 'powerdoorlocks', 'antilockbrakingsys', 'brakeassist',
+                'powersteering', 'driverairbag', 'passengerairbag', 'powerwindow',
+                'cdplayer', 'centrallocking', 'crashsensor', 'leatherseats'
+            ];
+            $accessoryValues = [];
+            foreach ($accessories as $accessory) {
+                $accessoryValues[$accessory] = isset($_POST[$accessory]) ? 1 : 0;
+            }
 
-        if ($query->execute()) {
-            $msg = "Vehicle posted successfully";
-        } else {
-            $error = "Database error: " . implode(", ", $query->errorInfo());
+            // Insert into database
+            try {
+                $sql = "INSERT INTO tblvehicles (
+                    VehiclesTitle, VehiclesBrand, VehiclesOverview, PricePerDay, FuelType, ModelYear, SeatingCapacity,
+                    Vimage1, Vimage2, Vimage3, Vimage4, Vimage5,
+                    AirConditioner, PowerDoorLocks, AntiLockBrakingSystem, BrakeAssist, PowerSteering,
+                    DriverAirbag, PassengerAirbag, PowerWindows, CDPlayer, CentralLocking, CrashSensor, LeatherSeats
+                ) VALUES (
+                    :vehicletitle, :brand, :vehicleoverview, :priceperday, :fueltype, :modelyear, :seatingcapacity,
+                    :vimage1, :vimage2, :vimage3, :vimage4, :vimage5,
+                    :airconditioner, :powerdoorlocks, :antilockbrakingsys, :brakeassist, :powersteering,
+                    :driverairbag, :passengerairbag, :powerwindow, :cdplayer, :centrallocking, :crashsensor, :leatherseats
+                )";
+                $query = $dbh->prepare($sql);
+                $query->bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
+                $query->bindParam(':brand', $brand, PDO::PARAM_STR);
+                $query->bindParam(':vehicleoverview', $vehicleoverview, PDO::PARAM_STR);
+                $query->bindParam(':priceperday', $priceperday, PDO::PARAM_STR);
+                $query->bindParam(':fueltype', $fueltype, PDO::PARAM_STR);
+                $query->bindParam(':modelyear', $modelyear, PDO::PARAM_INT);
+                $query->bindParam(':seatingcapacity', $seatingcapacity, PDO::PARAM_INT);
+                $query->bindParam(':vimage1', $imageData['img1'], PDO::PARAM_LOB);
+                $query->bindParam(':vimage2', $imageData['img2'], PDO::PARAM_LOB);
+                $query->bindParam(':vimage3', $imageData['img3'], PDO::PARAM_LOB);
+                $query->bindParam(':vimage4', $imageData['img4'], PDO::PARAM_LOB);
+                $query->bindParam(':vimage5', $imageData['img5'], PDO::PARAM_LOB);
+                foreach ($accessories as $accessory) {
+                    $query->bindParam(':' . $accessory, $accessoryValues[$accessory], PDO::PARAM_INT);
+                }
+
+                if ($query->execute()) {
+                    $msg = "Vehicle posted successfully.";
+                } else {
+                    $error = "Database error: Unable to save vehicle.";
+                }
+            } catch (PDOException $e) {
+                $error = "Database error: " . $e->getMessage();
+            }
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -103,228 +122,156 @@ if (isset($_POST['submit'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="theme-color" content="#3e454c">
-
     <title>Car Rental Portal | Admin Post Vehicle</title>
-
     <?php include("includes/head.php"); ?>
-
 </head>
-
 <body class="fluid-body">
-    <div class="page-wrapper d-flex">
-        <div class="container p-6 mt-5">
-            <div class="container-fluid">
-                <div class="container-xl">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Post a Vehicle</h3>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="mb-4">Basic Info</h4>
-                            <?php if ($error) { ?>
-                                <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
-                            <?php } else if ($msg) { ?>
-                                    <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div>
-                            <?php } ?>
+<div class="page-wrapper d-flex">
+    <div class="container p-6 mt-5">
+        <div class="container-fluid">
+            <div class="container-xl">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Post a Vehicle</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="mb-4">Basic Info</h4>
+                        <?php if ($error) { ?>
+                            <div class="errorWrap alert alert-danger"><strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?></div>
+                        <?php } elseif ($msg) { ?>
+                            <div class="succWrap alert alert-success"><strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?></div>
+                        <?php } ?>
 
-                            <form method="post" class="form" enctype="multipart/form-data">
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Vehicle Title</label>
-                                        <input type="text" name="vehicletitle" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Select Brand</label>
-                                        <select class="form-select" name="brandname" required>
-                                            <option value="">Select</option>
-                                            <?php
-                                            $ret = "select id,BrandName from tblbrands";
-                                            $query = $dbh->prepare($ret);
-                                            $query->execute();
-                                            $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                            if ($query->rowCount() > 0) {
-                                                foreach ($results as $result) {
-                                                    ?>
-                                                    <option value="<?php echo htmlentities($result->id); ?>">
-                                                        <?php echo htmlentities($result->BrandName); ?>
-                                                    </option>
-                                                <?php }
-                                            } ?>
-                                        </select>
-                                    </div>
+                        <form method="post" class="form" enctype="multipart/form-data">
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required">Vehicle Title</label>
+                                    <input type="text" name="vehicletitle" class="form-control" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required">Select Brand</label>
+                                    <select class="form-select" name="brandname" required>
+                                        <option value="">Select</option>
+                                        <?php
+                                        $ret = "SELECT id, BrandName FROM tblbrands";
+                                        $query = $dbh->prepare($ret);
+                                        $query->execute();
+                                        $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                        foreach ($results as $result) {
+                                            echo "<option value='" . htmlspecialchars($result->id) . "'>" . htmlspecialchars($result->BrandName) . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
 
-                                <div class="mb-3">
-                                    <label class="form-label required">Vehicle Overview</label>
-                                    <textarea class="form-control" name="vehicalorcview" rows="4" required></textarea>
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label required">Vehicle Overview</label>
+                                <textarea class="form-control" name="vehicalorcview" rows="4" required></textarea>
+                            </div>
 
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Price Per Day (in KES)</label>
-                                        <input type="text" name="priceperday" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Select Fuel Type</label>
-                                        <select class="form-select" name="fueltype" required>
-                                            <option value="">Select</option>
-                                            <option value="Petrol">Petrol</option>
-                                            <option value="Diesel">Diesel</option>
-                                            <option value="CNG">Electric</option>
-                                            <option value="Hybrid">Hybrid</option>
-                                        </select>
-                                    </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required">Price Per Day (in KES)</label>
+                                    <input type="number" step="0.01" name="priceperday" class="form-control" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required">Select Fuel Type</label>
+                                    <select class="form-select" name="fueltype" required>
+                                        <option value="">Select</option>
+                                        <option value="Petrol">Petrol</option>
+                                        <option value="Diesel">Diesel</option>
+                                        <option value="Electric">Electric</option>
+                                        <option value="Hybrid">Hybrid</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Model Year</label>
-                                        <input type="text" name="modelyear" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label required">Seating Capacity</label>
-                                        <input type="text" name="seatingcapacity" class="form-control" required>
-                                    </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required">Model Year</label>
+                                    <input type="number" name="modelyear" class="form-control" required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required">Seating Capacity</label>
+                                    <input type="number" name="seatingcapacity" class="form-control" required>
+                                </div>
+                            </div>
 
-                                <h4 class="mb-4">Upload Images</h4>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label required">Image 1</label>
-                                        <input type="file" name="img1" class="form-control" required>
-                                        <div class="form-text">Max 10 MB. Allowed: jpg, jpeg, png, webp.</div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label required">Image 2</label>
-                                        <input type="file" name="img2" class="form-control" required>
-                                        <div class="form-text">Max 10 MB. Allowed: jpg, jpeg, png, webp.</div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label required">Image 3</label>
-                                        <input type="file" name="img3" class="form-control" required>
-                                        <div class="form-text">Max 10 MB. Allowed: jpg, jpeg, png, webp.</div>
-                                    </div>
+                            <h4 class="mb-4">Upload Images</h4>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label required">Image 1</label>
+                                    <input type="file" name="img1" class="form-control" accept="image/jpeg,image/png,image/webp" required>
+                                    <div class="form-text">Max 10 MB. Allowed: jpg, png, webp.</div>
                                 </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-4">
-                                        <label class="form-label required">Image 4</label>
-                                        <input type="file" name="img4" class="form-control" required>
-                                        <div class="form-text">Max 10 MB. Allowed: jpg, jpeg, png, webp.</div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Image 5</label>
-                                        <input type="file" name="img5" class="form-control">
-                                        <div class="form-text">Max 10 MB. Allowed: jpg, jpeg, png, webp.</div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Image 2</label>
+                                    <input type="file" name="img2" class="form-control" accept="image/jpeg,image/png,image/webp">
+                                    <div class="form-text">Max 10 MB. Allowed: jpg, png, webp.</div>
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Image 3</label>
+                                    <input type="file" name="img3" class="form-control" accept="image/jpeg,image/png,image/webp">
+                                    <div class="form-text">Max 10 MB. Allowed: jpg, png, webp.</div>
+                                </div>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Image 4</label>
+                                    <input type="file" name="img4" class="form-control" accept="image/jpeg,image/png,image/webp">
+                                    <div class="form-text">Max 10 MB. Allowed: jpg, png, webp.</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Image 5</label>
+                                    <input type="file" name="img5" class="form-control" accept="image/jpeg,image/png,image/webp">
+                                    <div class="form-text">Max 10 MB. Allowed: jpg, png, webp.</div>
+                                </div>
+                            </div>
 
-                                <h4 class="mb-4">Accessories</h4>
+                            <h4 class="mb-4">Accessories</h4>
+                            <div class="row g-3 mb-3">
+                                <?php
+                                $accessories = [
+                                    'airconditioner' => 'Air Conditioner',
+                                    'powerdoorlocks' => 'Power Door Locks',
+                                    'antilockbrakingsys' => 'AntiLock Braking System',
+                                    'brakeassist' => 'Brake Assist',
+                                    'powersteering' => 'Power Steering',
+                                    'driverairbag' => 'Driver Airbag',
+                                    'passengerairbag' => 'Passenger Airbag',
+                                    'powerwindow' => 'Power Windows',
+                                    'cdplayer' => 'CD Player',
+                                    'centrallocking' => 'Central Locking',
+                                    'crashsensor' => 'Crash Sensor',
+                                    'leatherseats' => 'Leather Seats'
+                                ];
+                                $counter = 0;
+                                foreach ($accessories as $name => $label) {
+                                    if ($counter % 4 === 0 && $counter > 0) {
+                                        echo '</div><div class="row g-3 mb-3">';
+                                    }
+                                    ?>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="<?php echo $name; ?>" name="<?php echo $name; ?>" value="1" class="form-check-input">
+                                            <label for="<?php echo $name; ?>" class="form-check-label"><?php echo $label; ?></label>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $counter++;
+                                }
+                                ?>
+                            </div>
 
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="airconditioner" name="airconditioner" value="1"
-                                                class="form-check-input">
-                                            <label for="airconditioner" class="form-check-label">Air Conditioner</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="powerdoorlocks" name="powerdoorlocks" value="1"
-                                                class="form-check-input">
-                                            <label for="powerdoorlocks" class="form-check-label">Power Door
-                                                Locks</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="antilockbrakingsys" name="antilockbrakingsys"
-                                                value="1" class="form-check-input">
-                                            <label for="antilockbrakingsys" class="form-check-label">AntiLock Braking
-                                                System</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="brakeassist" name="brakeassist" value="1"
-                                                class="form-check-input">
-                                            <label for="brakeassist" class="form-check-label">Brake Assist</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="powersteering" name="powersteering" value="1"
-                                                class="form-check-input">
-                                            <label for="powersteering" class="form-check-label">Power Steering</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="driverairbag" name="driverairbag" value="1"
-                                                class="form-check-input">
-                                            <label for="driverairbag" class="form-check-label">Driver Airbag</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="passengerairbag" name="passengerairbag" value="1"
-                                                class="form-check-input">
-                                            <label for="passengerairbag" class="form-check-label">Passenger
-                                                Airbag</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="powerwindow" name="powerwindow" value="1"
-                                                class="form-check-input">
-                                            <label for="powerwindow" class="form-check-label">Power Windows</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="cdplayer" name="cdplayer" value="1"
-                                                class="form-check-input">
-                                            <label for="cdplayer" class="form-check-label">CD Player</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="centrallocking" name="centrallocking" value="1"
-                                                class="form-check-input">
-                                            <label for="centrallocking" class="form-check-label">Central Locking</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="crashcensor" name="crashcensor" value="1"
-                                                class="form-check-input">
-                                            <label for="crashcensor" class="form-check-label">Crash Sensor</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" id="leatherseats" name="leatherseats" value="1"
-                                                class="form-check-input">
-                                            <label for="leatherseats" class="form-check-label">Leather Seats</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-4">
-                                    <button class="btn btn-primary" name="submit" type="submit">Save
-                                        changes</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="mt-4">
+                                <button class="btn btn-primary" name="submit" type="submit">Save changes</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-
 </html>

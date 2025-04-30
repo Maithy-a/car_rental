@@ -51,7 +51,7 @@ if (isset($_POST['updatepass'])) {
     </script>
 </head>
 
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
     <div class="page">
         <?php include('includes/header.php'); ?>
 

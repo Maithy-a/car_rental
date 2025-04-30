@@ -16,7 +16,7 @@ if (strlen($_SESSION['login']) == 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
 </head>
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
     <!-- Header -->
     <?php include('includes/header.php'); ?>
 

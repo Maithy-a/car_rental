@@ -12,7 +12,7 @@ error_reporting(0);
   <?php include('includes/head.php'); ?>
 </head>
 
-<body bs-theme="dark" class="bg-dark">
+<body data-bs-theme="dark" class="bg-dark">
   <!--Header-->
   <?php include('includes/header.php'); ?>
   <!-- /Header -->
