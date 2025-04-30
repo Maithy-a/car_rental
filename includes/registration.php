@@ -76,7 +76,7 @@ error:function (){}
             </label>
           </div>
           <div class="form-footer">
-            <button type="submit" name="signup" id="submit" class="btn btn-primary btn-block w-100">Sign Up</button>
+            <button type="submit" name="signup" id="submit" class="btn btn-outline-danger w-100">Sign Up</button>
           </div>
         </form>
       </div>

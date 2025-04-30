@@ -44,14 +44,14 @@ if (isset($_POST['login'])) {
               <span class="form-check-label">Remember me</span>
             </label>
           </div>
-          <div class="mb-3">
-            <button type="submit" name="login" class="btn btn-square w-100">Login</button>
+          <div class="mb-0">
+            <button type="submit" name="login" class="btn btn-outline-danger w-100">Login</button>
           </div>
         </form>
       </div>
       <div class="text-center">
-        <p class="mb-0">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Signup Here</a></p>
-        <p class="mb-0"><a href="#forgotpassword" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</a></p>
+        <p class="mb-2">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Signup Here</a></p>
+        <p class="mb-2"><a href="#forgotpassword" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</a></p>
       </div>
     </div>
   </div>

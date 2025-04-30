@@ -12,7 +12,7 @@ include('includes/config.php');
   <?php include('includes/head.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body class="bg-dark">
   <?php include('includes/header.php'); ?>
   <?php
   $pagetype = $_GET['type'];
@@ -24,7 +24,7 @@ include('includes/config.php');
   $cnt = 1;
   if ($query->rowCount() > 0) {
     foreach ($results as $result) { ?>
-      <section class="page-header aboutus_page"  style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+      <section class="page-header aboutus_page">
         <div class="container">
           <div class="page-header">
             <div class="page-heading">
@@ -38,21 +38,38 @@ include('includes/config.php');
             </nav>
           </div>
         </div>
-        <!-- Dark Overlay-->
-        
       </section>
-      <section class="about_us section-padding mt-5 mb-5">
-        <div class="container">
-          <div class="section-header text-center">
-            <h2><?php echo htmlentities($result->PageName); ?></h2>
-            <p><?php echo $result->detail; ?> </p>
-          </div>
-        <?php }
-  } ?>
-    </div>
-  </section>
+      <style>
+        .page-detail p {
+          line-height: 1.2rem;
+        }
 
-  <?php include('includes/footer.php'); ?>
+        .page-detail {
+          text-decoration: underline;
+          text-underline-offset: 4px;
+          font-size: 15px;
+          color: #cabe15;
+        }
+
+        ul {
+          list-style: none;
+        }
+      </style>
+      <section class="about_us section-padding mt-5 mb-5">
+        <div class="container page">
+          <div class="section-header">
+            <h2 class="mb-4"><?php echo htmlentities($result->PageName); ?></h2>
+          </div>
+          <div class="page-detail">
+            <div class="mb-5 col-md-6 text-white"><?php echo $result->detail; ?> </div>
+          </div>
+
+      <?php }
+  } ?>
+        </div>
+      </section>
+
+      <?php include('includes/footer.php'); ?>
 
 </body>
 

@@ -32,11 +32,10 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
-    <?php include('includes/header.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class=" text-white">
-    <!-- Page Header -->
+<body class="text-white bg-dark">
+    <?php include('includes/header.php'); ?>
     <div class="page-header mb-4">
         <div class="row align-items-center">
             <div class="col">
@@ -50,9 +49,7 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </div>
-    <!-- Page Content -->
     <div class="container-xl py-5">
-
         <?php
         $useremail = $_SESSION['login'];
         $sql = "SELECT * FROM tblusers WHERE EmailId=:useremail";
@@ -63,12 +60,14 @@ if (isset($_POST['submit'])) {
 
         if ($query->rowCount() > 0) {
             $result = $results[0];
-            ?>
+        ?>
             <div class="row g-4">
                 <!-- User Info Card -->
                 <div class="col-lg-4">
                     <div class="card row align-items-center flex-row flex-md-column text-center text-md-start">
-                        <span class="avatar-xl" style="background-image:images/dealer-logo.jpg;"></span>
+                        <span class="avatar-xl">
+                            <img src="images/dealer-logo.jpg" alt="logo">
+                        </span>
                         <div class="card-body">
                             <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
                             <div class="text-muted">
@@ -124,16 +123,13 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-            <?php
+        <?php
         } else {
             echo '<div class="alert alert-danger" role="alert">No user found.</div>';
         }
         ?>
     </div>
-
-    <!-- Footer -->
     <?php include('includes/footer.php'); ?>
-
 </body>
 
 </html>

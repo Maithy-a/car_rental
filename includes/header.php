@@ -26,8 +26,8 @@ if (isset($_SESSION['login'])) {
 }
 ?>
 
-<header >
-  <div class="bg-light py-3 border-bottom shadow-sm navbar-expand-lg" >
+<header>
+  <div class="bg-light py-4 border-bottom navbar-expand-lg">
     <div class="container">
       <div class="row align-items-center gy-3">
         <div class="col-md-2 col-6">
@@ -39,32 +39,32 @@ if (isset($_SESSION['login'])) {
         <div class="col-md-10 col-6">
           <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
             <div class="d-flex align-items-center gap-2">
-              <span class="avatar avatar-sm bg-primary-lt">
+              <span class="avatar bg-danger-lt" style="border-radius: 0px;">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <rect x="3" y="5" width="18" height="14" rx="2"/>
-                  <polyline points="3 7 12 13 21 7"/>
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <polyline points="3 7 12 13 21 7" />
                 </svg>
               </span>
               <div>
                 <small class="text-muted">Support Email:</small><br>
-                <a href="mailto:<?php echo $email; ?>" class="text-primary"><?php echo $email; ?></a>
+                <a href="mailto:<?php echo $email; ?>" class="text-danger" style="text-underline-offset:6px; text-decoration:underline;"><?php echo $email; ?></a>
               </div>
             </div>
             <div class="d-flex align-items-center gap-2">
-              <span class="avatar avatar-sm bg-primary-lt">
+              <span class="avatar bg-danger-lt" style="border-radius: 0px;">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"/>
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
                 </svg>
               </span>
               <div>
                 <small class="text-muted">Helpline:</small><br>
-                <a href="tel:<?php echo $contactno; ?>" class="text-primary"><?php echo $contactno; ?></a>
+                <a href="tel:<?php echo $contactno; ?>" class="text-danger" style="text-underline-offset:6px; text-decoration: underline;"><?php echo $contactno; ?></a>
               </div>
             </div>
-            <?php if (strlen($_SESSION['login']) == 0) { ?>
-              <a href="#loginform" class="btn top-button" data-bs-toggle="modal" data-bs-target="#loginform">Sign in / Register</a>
+            <?php if (!isset($_SESSION['login']) || empty($_SESSION['login'])) { ?>
+              <a href="#loginform" class="btn top-button" data-bs-toggle="modal" data-bs-target="#loginform">Log in / Register</a>
             <?php } else { ?>
               <span class="text-secondary text-uppercase">Welcome to Safari KE Portal</span>
             <?php } ?>
@@ -107,9 +107,9 @@ if (isset($_SESSION['login'])) {
                 <div class="col-auto">
                   <button type="submit" class="btn btn-icon" aria-label="Search">
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <circle cx="10" cy="10" r="7"/>
-                      <line x1="21" y1="21" x2="15" y2="15"/>
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <circle cx="10" cy="10" r="7" />
+                      <line x1="21" y1="21" x2="15" y2="15" />
                     </svg>
                   </button>
                 </div>
@@ -120,10 +120,10 @@ if (isset($_SESSION['login'])) {
             <li class="nav-item dropdown border">
               <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <circle cx="12" cy="12" r="9"/>
-                  <circle cx="12" cy="10" r="3"/>
-                  <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"/>
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="10" r="3" />
+                  <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                 </svg>
                 <span><?php echo $fullName; ?></span>
               </a>
@@ -133,7 +133,9 @@ if (isset($_SESSION['login'])) {
                 <li><a class="dropdown-item" href="my-booking.php">My Booking</a></li>
                 <li><a class="dropdown-item" href="post-testimonial.php">Post a Testimonial</a></li>
                 <li><a class="dropdown-item" href="my-testimonials.php">My Testimonial</a></li>
-                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
                 <li><a class="dropdown-item" href="logout.php">Sign Out</a></li>
               </ul>
             </li>

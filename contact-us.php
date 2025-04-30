@@ -31,7 +31,7 @@ if (isset($_POST['send'])) {
   <?php include('includes/head.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body class="bg-dark">
 
   <?php include('includes/header.php'); ?>
 

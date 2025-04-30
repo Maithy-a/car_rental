@@ -12,10 +12,9 @@ error_reporting(0);
   <?php include('includes/head.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body class="bg-dark">
   <?php include('includes/header.php'); ?>
-  <div class="page-header listing_page"
-    style="background-image: url(https://images.pexels.com/photos/10955788/pexels-photo-10955788.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load);">
+  <div class="page-header listing_page">
     <div class="container p-5">
       <div class="page-header_wrap">
         <div class="page-heading">
@@ -29,7 +28,7 @@ error_reporting(0);
         </div>
       </div>
     </div>
-    
+
   </div>
   <section class="listing-page mt-5">
     <div class="container">
@@ -93,7 +92,7 @@ error_reporting(0);
 
                 </div>
               </div>
-            <?php }
+          <?php }
           } ?>
         </div>
 
@@ -118,7 +117,7 @@ error_reporting(0);
                         <option value="<?php echo htmlentities($result->id); ?>">
                           <?php echo htmlentities($result->BrandName); ?>
                         </option>
-                      <?php }
+                    <?php }
                     } ?>
                   </select>
                 </div>
@@ -195,9 +194,9 @@ error_reporting(0);
                         </a>
                         <p class="widget_price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
                       </div>
-                    <?php }
+                  <?php }
                 } ?>
-                </div>
+                    </div>
               </div>
             </div>
         </aside>
