@@ -52,7 +52,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                 if ($query->rowCount() > 0) {
                     $user = $results[0]; // Expecting only one user
-                    ?>
+                ?>
                     <div class="page-body">
                         <div class="row row-cards">
                             <!-- User Info Card and Sidebar -->
@@ -99,11 +99,11 @@ if (strlen($_SESSION['login']) == 0) {
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
 
                                         if ($query->rowCount() > 0) {
-                                            foreach ($results as $result) { 
+                                            foreach ($results as $result) {
                                                 $totalDays = max(1, (int)$result->totaldays); // Ensure at least 1 day
                                                 $pricePerDay = (float)$result->PricePerDay;
                                                 $amount = $totalDays * $pricePerDay;
-                                                ?>
+                                        ?>
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h4 class="text-danger mb-3">Booking No
@@ -120,7 +120,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <div class="col-md-8">
                                                                 <h5>
                                                                     <a
-                                                                        href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>" >
+                                                                        href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
                                                                         <?php echo htmlentities($result->BrandName); ?>,
                                                                         <?php echo htmlentities($result->VehiclesTitle); ?>
                                                                     </a>
@@ -174,7 +174,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="5">
-                                                                        <button type="button"
+                                                                            <button type="button"
                                                                                 class="btn btn-danger w-100 pay-now-btn"
                                                                                 data-amount="<?php echo $amount; ?>"
                                                                                 data-booking="<?php echo htmlentities($result->BookingNumber); ?>"
@@ -190,18 +190,25 @@ if (strlen($_SESSION['login']) == 0) {
                                                 </div>
                                             <?php }
                                         } else { ?>
-                                            <div class="alert alert-info" role="alert">
-                                                No bookings found.
+                                            <div class="alert alert-info d-flex align-items-start" role="alert">
+                                                <div class="me-3">
+                                                    <svg  xmlns="http://www.w3.org/2000/svg"  width="40"  height="40"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icon alert-icon icons-tabler-outline icon-tabler-message-2-exclamation"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9h8" /><path d="M8 13h6" /><path d="M15 18l-3 3l-3 -3h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v5.5" /><path d="M19 16v3" /><path d="M19 22v.01" /></svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="alert-heading mb-1">Uh-oh, something went wrong</h4>
+                                                    <p class="mb-0">Sorry, it seems you don’t have any bookings yet.</p>
+                                                </div>
                                             </div>
+
                                         <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php
+                <?php
                 } else {
-                    echo '<div class="alert alert-danger" role="alert">No user found.</div>';
+                    echo '<div class="alert alert-danger" role="alert">No user yet.</div>';
                 }
                 ?>
             </div>
@@ -213,11 +220,11 @@ if (strlen($_SESSION['login']) == 0) {
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const payButtons = document.querySelectorAll('.pay-now-btn');
-            
+
             payButtons.forEach(button => {
-                button.addEventListener('click', function (e) {
+                button.addEventListener('click', function(e) {
                     e.preventDefault();
                     const amount = parseFloat(this.getAttribute('data-amount'));
                     const bookingNumber = this.getAttribute('data-booking');
@@ -237,29 +244,29 @@ if (strlen($_SESSION['login']) == 0) {
                             booking_number: bookingNumber,
                             user_id: '<?php echo htmlspecialchars($user->EmailId); ?>'
                         },
-                        onClose: function () {
+                        onClose: function() {
                             alert('Transaction was not completed, window closed.');
                         },
-                        callback: function (response) {
+                        callback: function(response) {
                             // Verify transaction on server
                             fetch('api/verify_transaction.php?reference=' + response.reference, {
-                                method: 'GET',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.status === 'success') {
-                                    alert('Payment successful! Reference: ' + response.reference);
-                                    window.location.reload(); // Refresh to show updated status
-                                } else {
-                                    alert('Payment verification failed: ' + (data.message || 'Unknown error'));
-                                }
-                            })
-                            .catch(error => {
-                                alert('Error verifying payment: ' + error.message);
-                            });
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.status === 'success') {
+                                        alert('Payment successful! Reference: ' + response.reference);
+                                        window.location.reload(); // Refresh to show updated status
+                                    } else {
+                                        alert('Payment verification failed: ' + (data.message || 'Unknown error'));
+                                    }
+                                })
+                                .catch(error => {
+                                    alert('Error verifying payment: ' + error.message);
+                                });
                         }
                     });
 

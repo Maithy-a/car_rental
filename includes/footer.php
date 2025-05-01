@@ -25,7 +25,7 @@ if (isset($_POST['emailsubscibe'])) {
 include('auth.php');
 ?>
 
-<footer class="footer bg-dark">
+<footer class="footer bg-dark p-3">
   <div class="row gy-4">
     <div class="col-md me-6">
       <h3 class="h2 text-uppercase mb-3">Welcome to Our Car Listing Website</h3>
@@ -35,27 +35,33 @@ include('auth.php');
       <p class="text-muted mt-2">Thank you for choosing us as your trusted partner in the car buying and selling
         process.</p>
     </div>
+
     <div class="col">
-      <h3 class="h5 text-uppercase mb-4">About Us</h3>
       <ul class="list-unstyled">
-        <li class="mb-4"><a href="page.php?type=aboutus" class="text-white text-decoration-none">About Us</a></li>
-        <li class="mb-4"><a href="page.php?type=faqs" class="text-white text-decoration-none">FAQs</a></li>
-        <li class="mb-4"><a href="page.php?type=privacy" class="text-white text-decoration-none">Privacy</a></li>
-        <li class="mb-4"><a href="page.php?type=terms" class="text-white text-decoration-none">Terms of Use</a></li>
-        <li class="mb-4"><a href="admin/" class="text-white text-decoration-none">Admin Login</a></li>
+        <li class="mb-4"><a href="page.php?type=contactus" class="text-white ">Contact Us</a></li>
+        <li class="mb-4"><a href="page.php?type=aboutus" class="text-white ">About Us</a></li>
+        <li class="mb-4"><a href="admin/" class="text-white ">Admin Login</a></li>
       </ul>
     </div>
+
     <div class="col">
-      <h3 class="h5 text-uppercase mb-3">Contact Us</h3>
       <ul class="list-unstyled">
-        <li class="mb-4"><a href="page.php?type=contactus" class="text-white text-decoration-none">Contact Us</a></li>
-        <li class="mb-4"><a href="page.php?type=privacy" class="text-white text-decoration-none">Privacy Policy</a>
-        </li>
-        <li class="mb-4"><a href="page.php?type=terms" class="text-white text-decoration-none">Terms of Use</a></li>
-        <li class="mb-4"><a href="<script void(0)>" class="text-white text-decoration-none">Disclaimer</a></li>
-        <li class="mb-4"><a href="page.php?type=help" class="text-white text-decoration-none">Help</a></li>
+        <li class="mb-4"><a href="page.php?type=privacy" class="text-white ">Privacy Policy</a></li>
+        <li class="mb-4"><a href="page.php?type=faqs" class="text-white ">FAQs</a></li>
+        <li class="mb-4"><a href="page.php?type=terms" class="text-white ">Terms of Use</a></li>
       </ul>
     </div>
+
+    <div class="col">
+      <ul class="list-unstyled">
+        <li class="mb-4"><a href="#" class="text-white">Twitter</a></li>
+        <li class="mb-4"><a href="#" class="text-white">Facebook</a></li>
+        <li class="mb-4"><a href="#" class="text-white">LinkedIn</a></li>
+        <li class="mb-4"><a href="#" class="text-white">Instagram</a></li>
+        <li class="mb-4"><a href="#" class="text-white">Google</a></li>
+      </ul>
+    </div>
+
     <div class="col-md">
       <h3 class="h5 text-uppercase mb-3">Subscribe Newsletter</h3>
       <form method="post">
@@ -76,17 +82,13 @@ include('auth.php');
         week.
       </p>
     </div>
-    <div class="col-12 text-center">
-      <ul class="list-inline">
-        <li class="list-inline-item"><a href="#" class="text-white">Twitter</a></li>
-        <li class="list-inline-item"><a href="#" class="text-white">Facebook</a></li>
-        <li class="list-inline-item"><a href="#" class="text-white">LinkedIn</a></li>
-        <li class="list-inline-item"><a href="#" class="text-white">Instagram</a></li>
-        <li class="list-inline-item"><a href="#" class="text-white">Google</a></li>
-      </ul>
-    </div>
-    <div class="text-center">
-      &copy;<?php echo date('Y'); ?> Safari Rental, All rights reserved.
-    </div>
+  </div>
+  <div class="f-bottom text-center">
+    <style>
+      .f-bottom{
+        border-top:solid gray 0.8px;
+      }
+    </style>
+   <div class="p-3"> &copy;<?php echo date('Y'); ?> Safari Rental, All rights reserved.</div>
   </div>
 </footer>

@@ -14,28 +14,25 @@ if (isset($_POST['login'])) {
     $currentpage = $_SERVER['REQUEST_URI'];
     echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
   } else {
-
     echo "<script>alert('Invalid Details');</script>";
-
-  }
-
-}
-
+  }}
 ?>
 
 <div class="modal" id="loginform" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog shadow-sm" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Login</h5>
+      <div class="modal-header border-0">
+        <h5 class="modal-title">LOGIN FORM</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form method="post">
           <div class="mb-3">
+             <label class="form-label">Email:</label>
             <input type="email" class="form-control" name="email" placeholder="Jonedoe@gmail.com" required>
           </div>
           <div class="mb-3">
+            <label class="form-label">Password:</label>
             <input type="password" class="form-control" name="password" placeholder="Password*" required>
           </div>
           <div class="mb-3">
@@ -45,13 +42,20 @@ if (isset($_POST['login'])) {
             </label>
           </div>
           <div class="mb-0">
-            <button type="submit" name="login" class="btn btn-outline-danger w-100">Login</button>
+            <button type="submit" name="login" class="btn btn-danger w-100">Login</button>
           </div>
         </form>
       </div>
-      <div class="text-center">
-        <p class="mb-2">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Signup Here</a></p>
-        <p class="mb-2"><a href="#forgotpassword" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</a></p>
+      <div class=" m-f text-center mb-3">
+        <p class="mb-2">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Register</a></p>
+        <p class="mb-2">Forgot Password? <a href="#forgotpassword" class="text-danger " data-bs-toggle="modal" data-bs-dismiss="modal">Reset password</a></p>
+        <style>
+          .m-f p a{
+            text-underline-offset: 5px;
+            text-decoration: underline;
+            font-size: 16px;
+          }
+        </style>
       </div>
     </div>
   </div>

@@ -9,7 +9,6 @@ if (strlen($_SESSION['login']) == 0) {
 }
 
 if (isset($_POST['updatepass'])) {
-    // Note: MD5 is insecure for password hashing. Consider using password_hash() and password_verify() for better security.
     $password = md5($_POST['password']);
     $newpassword = md5($_POST['newpassword']);
     $email = $_SESSION['login'];

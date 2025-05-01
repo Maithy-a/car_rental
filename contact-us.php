@@ -26,7 +26,6 @@ if (isset($_POST['send'])) {
 <html lang="en">
 
 <head>
-
   <title>Car Rental | Contact Us</title>
   <?php include('includes/head.php'); ?>
 </head>
@@ -57,9 +56,13 @@ if (isset($_POST['send'])) {
         <div class="col-md-6 mb-3">
           <h3>Get in touch using the form below</h3>
           <?php if ($error) { ?>
-            <div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div>
+            <div class="alert alert-dismissible alert-danger "><strong>ERROR</strong>:<?php echo htmlentities($error); ?>
+              <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+            </div>
           <?php } else if ($msg) { ?>
-            <div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php } ?>
+            <div class="alert alert-dismissible alert-sucess  "><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?>
+              <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+            </div><?php } ?>
           <div class="contact_form">
             <form method="post">
               <div class="form-group mb-3">

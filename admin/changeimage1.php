@@ -17,9 +17,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 		$query->execute();
 
 		$msg = "Image updated successfully";
-
 	}
-	?>
+?>
 
 	<!doctype html>
 	<html lang="en" class="no-js">
@@ -53,16 +52,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 										<div class="panel-body">
 											<form method="post" class="form-horizontal" enctype="multipart/form-data">
 
-
 												<?php if ($error) { ?>
-													<div class="errorWrap">
-														<strong>ERROR</strong>:<?php echo htmlentities($error); ?>
+													<div class="alert alert-dissmisable alert-danger">
+														<strong>ERROR</strong>~<?php echo htmlentities($error); ?>
 													</div><?php } else if ($msg) { ?>
-														<div class="succWrap">
-															<strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?>
-														</div>
+													<div class="alert alert-dissmisable alert-success">
+														<strong>SUCCESS</strong>~<?php echo htmlentities($msg); ?>
+													</div>
 												<?php } ?>
-
 
 
 												<div class="form-group">
@@ -82,7 +79,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 																<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>"
 																	width="300" height="200" style="border:solid 1px #000">
 															</div>
-														<?php }
+													<?php }
 													} ?>
 												</div>
 

@@ -64,7 +64,7 @@ error_reporting(0);
           $cnt = 1;
           if ($query->rowCount() > 0) {
             foreach ($results as $result) { ?>
-              <div class="product-listing-m gray-bg">
+              <div class="product-listing-m">
                 <div class="product-listing-img">
                   <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                     <?php if (!empty($result->Vimage1)) { ?>

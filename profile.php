@@ -40,12 +40,10 @@ if (isset($_POST['updateprofile'])) {
 </head>
 <?php include 'includes/header.php'; ?>
 
-<body  class="bg-dark text-white">
-
+<body  class="bg-dark">
 
   <!-- Page Header -->
-  <div class="page-header py-5"
-    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2); background-size: cover; background-position: center;">
+  <div class="page-header py-5">
     <div class="container">
       <div class="text-center">
         <h1 class="display-4 fw-bold text-white">User Profile</h1>
@@ -57,7 +55,6 @@ if (isset($_POST['updateprofile'])) {
         </nav>
       </div>
     </div>
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-30"></div>
   </div>
 
   <!-- Page Content -->
@@ -76,21 +73,21 @@ if (isset($_POST['updateprofile'])) {
       <div class="row g-4">
         <!-- Profile Card -->
         <div class="col-lg-4 -lg-4">
-          <div class="card bg-dark ">
+          <div class="card">
             <div class="card-body text-center">
               <div class="mb-3">
-                <span class="avatar avatar-xl rounded"
+                <span class="avatar avatar-xl"
                   style="background-image: url(assets/images/dealer-logo.jpg)"></span>
               </div>
-              <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
-              <div class="text-muted">
+              <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
+              <div class="">
                 <?php echo htmlentities($result->Address); ?><br>
                 <?php echo htmlentities($result->City); ?>, <?php echo htmlentities($result->Country); ?>
               </div>
             </div>
           </div>
           <!-- Sidebar -->
-          <div class="card bg-dark  mt-4">
+          <div class="card mt-4">
             <div class="card-body">
               <?php include('includes/sidebar.php'); ?>
             </div>
@@ -99,59 +96,60 @@ if (isset($_POST['updateprofile'])) {
 
         <!-- Profile Form -->
         <div class="col-lg-8">
-          <div class="card bg-dark ">
+          <div class="card">
             <div class="card-body">
               <?php if (isset($msg)) { ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-danger alert-dismissible" role="alert">
                   <strong>SUCCESS</strong>: <?php echo htmlentities($msg); ?>
+                  <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>
               <?php } ?>
               <form method="post">
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label">Registration Date</label>
-                    <div class="form-control-plaintext text-muted"><?php echo htmlentities($result->RegDate); ?></div>
+                    <div class="form-control-plaintext "><?php echo htmlentities($result->RegDate); ?></div>
                   </div>
                   <?php if ($result->UpdationDate != "") { ?>
                     <div class="col-md-6">
                       <label class="form-label">Last Updated</label>
-                      <div class="form-control-plaintext text-muted"><?php echo htmlentities($result->UpdationDate); ?>
+                      <div class="form-control-plaintext "><?php echo htmlentities($result->UpdationDate); ?>
                       </div>
                     </div>
                   <?php } ?>
                   <div class="col-md-6">
                     <label class="form-label" for="fullname">Full Name</label>
-                    <input type="text" class="form-control bg-dark text-white " name="fullname" id="fullname"
+                    <input type="text" class="form-control  " name="fullname" id="fullname"
                       value="<?php echo htmlentities($result->FullName); ?>" required>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="email">Email Address</label>
-                    <input type="email" class="form-control bg-dark text-white " name="emailid" id="email"
+                    <input type="email" class="form-control  " name="emailid" id="email"
                       value="<?php echo htmlentities($result->EmailId); ?>" readonly>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="phone-number">Phone Number</label>
-                    <input type="text" class="form-control bg-dark text-white " name="mobilenumber" id="phone-number"
+                    <input type="text" class="form-control  " name="mobilenumber" id="phone-number"
                       value="<?php echo htmlentities($result->ContactNo); ?>" required>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="birth-date">Date of Birth (dd/mm/yyyy)</label>
-                    <input type="text" class="form-control bg-dark text-white " name="dob" id="birth-date"
+                    <input type="text" class="form-control " name="dob" id="birth-date"
                       value="<?php echo htmlentities($result->dob); ?>" placeholder="dd/mm/yyyy">
                   </div>
                   <div class="col-12">
                     <label class="form-label" for="address">Address</label>
-                    <textarea class="form-control bg-dark text-white " name="address" id="address"
+                    <textarea class="form-control " name="address" id="address"
                       rows="4"><?php echo htmlentities($result->Address); ?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="country">Country</label>
-                    <input type="text" class="form-control bg-dark text-white " name="country" id="country"
+                    <input type="text" class="form-control " name="country" id="country"
                       value="<?php echo htmlentities($result->Country); ?>">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="city">City</label>
-                    <input type="text" class="form-control bg-dark text-white " name="city" id="city"
+                    <input type="text" class="form-control " name="city" id="city"
                       value="<?php echo htmlentities($result->City); ?>">
                   </div>
                   <div class="col-12">

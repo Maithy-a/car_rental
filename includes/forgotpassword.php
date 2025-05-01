@@ -35,9 +35,9 @@ if (isset($_POST['update'])) {
 </script>
 
 <div class="modal modal-blur fade" id="forgotpassword" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered " role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header border-0">
         <h5 class="modal-title">Password Recovery</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -45,11 +45,11 @@ if (isset($_POST['update'])) {
         <form name="chngpwd" method="post" onSubmit="return valid();">
           <div class="mb-3">
             <label class="form-label">Your Email address*</label>
-            <input type="email" name="email" class="form-control" placeholder="Your Email address*" required="">
+            <input type="email" name="email" class="form-control" placeholder="Janedoe000@gmail.com*" required="">
           </div>
           <div class="mb-3">
             <label class="form-label">Your Reg. Mobile*</label>
-            <input type="text" name="mobile" class="form-control" placeholder="Your Reg. Mobile*" required="">
+            <input type="text" name="mobile" class="form-control" placeholder="0710007922*" required="">
           </div>
           <div class="mb-3">
             <label class="form-label">New Password*</label>
@@ -60,7 +60,7 @@ if (isset($_POST['update'])) {
             <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password*" required="">
           </div>
           <div class="form-footer">
-            <button type="submit" name="update" class="btn btn-primary w-100">Reset My Password</button>
+            <button type="submit" name="update" class="btn btn-danger w-100">Reset My Password</button>
           </div>
         </form>
         <div class="text-center mt-3">

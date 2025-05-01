@@ -18,8 +18,7 @@ error_reporting(0);
   <!-- /Header -->
 
   <!--Page Header-->
-  <div class="page-header listing_page mb-5"
-    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+  <div class="page-header listing_page mb-5">
     <div class="container p-5">
       <div class="page-header">
         <div class="page-heading">

@@ -23,9 +23,7 @@ else
 echo "<script>alert('Something went wrong. Please try again');</script>";
 }
 }
-
 ?>
-
 
 <script>
 function checkAvailability() {
@@ -46,8 +44,8 @@ error:function (){}
 <div class="modal modal-blur fade" id="signupform" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Sign Up</h5>
+      <div class="modal-header border-0">
+        <h5 class="modal-title">REGISTER</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -58,16 +56,16 @@ error:function (){}
           </div>
           <div class="mb-3">
             <label class="form-label">Mobile Number</label>
-            <input type="text" class="form-control" name="mobileno" placeholder="Mobile Number" maxlength="10" required="required">
+            <input type="text" class="form-control" name="mobileno" placeholder="0710007922" maxlength="10" required="required">
           </div>
           <div class="mb-3">
             <label class="form-label">Email Address</label>
-            <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Email Address" required="required">
+            <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Janedoe000@gmail.com" required="required">
             <span id="user-availability-status" style="font-size:12px;"></span>
           </div>
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password*" required="required">
           </div>
           <div class="mb-3">
             <label class="form-check">
@@ -76,7 +74,7 @@ error:function (){}
             </label>
           </div>
           <div class="form-footer">
-            <button type="submit" name="signup" id="submit" class="btn btn-outline-danger w-100">Sign Up</button>
+            <button type="submit" name="signup" id="submit" class="btn btn-danger w-100">Sign Up</button>
           </div>
         </form>
       </div>
