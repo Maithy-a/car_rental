@@ -18,7 +18,7 @@ if (strlen($_SESSION['login']) == 0) {
     <?php include('includes/head.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body class="bg-dark">
     <!-- Header -->
     <?php include('includes/header.php'); ?>
     <div class="page-header mb-5"
@@ -110,8 +110,9 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <div class="col-md-4">
                                                                 <a
                                                                     href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
-                                                                    <img src="admin/img/vehicleimages/<?php echo htmlentities($result->Vimage1); ?>"
-                                                                        alt="vehicle" class="img-fluid rounded">
+                                                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
+                                                                        class="border"
+                                                                        alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                                                                 </a>
                                                             </div>
                                                             <div class="col-md-8">
@@ -168,6 +169,55 @@ if (strlen($_SESSION['login']) == 0) {
                                                                     <tr>
                                                                         <th colspan="4" class="text-center">Grand Total</th>
                                                                         <th><?php echo htmlentities($tds * $ppd); ?></th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th colspan="2" class="text-center"></th>
+                                                                        <td colspan="2">
+                                                                            <form id="paymentForm">
+                                                                                <div class="form-submit">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger w-100"
+                                                                                        onclick="payWithPaystack()"> Pay NOW
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                            <?php
+                                                                            include 'api/configs.php';
+                                                                            $email = 'julesmueni@gmail.com';
+                                                                            $amount = $ppd * $tds;
+                                                                            $currency = "KES";
+                                                                            ?>
+
+                                                                            <script
+                                                                                src="https://js.paystack.co/v1/inline.js"></script>
+                                                                            <script type="text/javascript">
+                                                                                const paymentForm = document.getElementById('paymentForm');
+                                                                                paymentForm.addEventListener("submit", payWithPaystack, false);
+
+                                                                                function payWithPaystack(e) {
+                                                                                    e.preventDefault();
+                                                                                    let handler = PaystackPop.setup({
+                                                                                        key: '<?php echo $PublicKey; ?>',
+                                                                                        email: '<?php echo $email; ?>',
+                                                                                        amount: <?php echo $amount; ?> * 100,
+                                                                                        currency: '<?php echo $currency; ?>',
+                                                                                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+                                                                                        onClose: function () {
+                                                                                            alert('Transaction was not completed, window closed.');
+                                                                                        },
+                                                                                        callback: function (response) {
+                                                                                            let message = 'Payment complete! Reference: ' + response.reference;
+                                                                                            alert(message);
+                                                                                            window.location.href = "https://a62b-105-163-2-142.ngrok-free.app/api/verify_transaction.php?reference=" + response.reference;
+                                                                                        }
+                                                                                    });
+
+                                                                                    handler.openIframe();
+                                                                                }
+                                                                            </script>
+                                                                            <script
+                                                                                src="https://js.paystack.co/v1/inline.js"></script>
+                                                                        </td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>

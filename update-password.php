@@ -51,12 +51,11 @@ if (isset($_POST['updatepass'])) {
     </script>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body  class="bg-dark">
     <div class="page">
         <?php include('includes/header.php'); ?>
 
-        <div class="page-header mb-5"
-            style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+        <div class="page-header mb-5">
             <div class="container p-5">
                 <div class="page-header">
                     <div class="page-heading">
@@ -71,6 +70,23 @@ if (isset($_POST['updatepass'])) {
                 </div>
             </div>
         </div>
+
+        <div class="page-header mb-5">
+    <div class="container p-5">
+      <div class="page-header">
+        <div class="page-heading">
+          <h1>Car Listing</h1>
+        </div>
+        <div aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index">Home</a></li>
+            <li class="breadcrumb-item">Car Listing</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
         <div class="page-wrapper">
             <div class="container-xl">
                 <?php
@@ -85,6 +101,12 @@ if (isset($_POST['updatepass'])) {
                 if ($query->rowCount() > 0) {
                     $result = $results[0]; // Expecting only one user
                     ?>
+                    <style>
+                        .card{
+                            background-color:#C6C8CA;
+                        }
+
+                    </style>
                     <div class="page-body">
                         <div class="row row-cards">
                             <!-- User Info Card and Sidebar -->
@@ -92,7 +114,7 @@ if (isset($_POST['updatepass'])) {
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <div class="mb-3">
-                                            <span class="avatar avatar-xl rounded"
+                                            <span class="avatar avatar-xl"
                                                 style="background-image: url(assets/images/dealer-logo.jpg)"></span>
                                         </div>
                                         <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
@@ -104,7 +126,7 @@ if (isset($_POST['updatepass'])) {
                                     </div>
                                 </div>
                                 <!-- Sidebar -->
-                                <div class="card mt-3">
+                                <div class="card mt-3 ">
                                     <div class="card-body">
                                         <?php include('includes/sidebar.php'); ?>
                                     </div>
@@ -144,7 +166,7 @@ if (isset($_POST['updatepass'])) {
                                                     name="confirmpassword" required>
                                             </div>
                                             <div class="mb-3">
-                                                <button type="submit" name="updatepass" class="btn btn-primary">
+                                                <button type="submit" name="updatepass" class="btn btn-danger">
                                                     Update Password
                                                     <svg class="icon ms-2" width="24" height="24">
                                                         <use xlink:href="#arrow-right"></use>

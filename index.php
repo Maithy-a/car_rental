@@ -15,8 +15,7 @@ error_reporting(0);
 
 <body class="bg-dark">
   <?php include('includes/header.php'); ?>
-  <div class="page-header mb-5"
-    style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+  <div class="page-header mb-5">
     <div class="container p-5">
       <div class="page-header">
         <div class="page-heading">
@@ -30,7 +29,6 @@ error_reporting(0);
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="section mb-5 mt-5">
@@ -66,7 +64,7 @@ error_reporting(0);
             $results = $query->fetchAll(PDO::FETCH_OBJ);
             if ($query->rowCount() > 0) {
               foreach ($results as $result) {
-            ?>
+                ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="recent-car-list">
                     <div class="car-info-box">
@@ -121,7 +119,7 @@ error_reporting(0);
                     </div>
                   </div>
                 </div>
-              <?php
+                <?php
               }
             } else {
               ?>
@@ -179,7 +177,7 @@ error_reporting(0);
       </div>
     </div>
     <!-- Dark Overlay-->
-    
+
   </div>
 
   <div class="section testimonial-section parallex-bg mb-5">
@@ -219,7 +217,7 @@ error_reporting(0);
         <?php } ?>
       </div>
     </div>
-    
+
   </div>
   <?php include('includes/footer.php'); ?>
 </body>

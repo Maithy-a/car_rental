@@ -40,7 +40,7 @@ if (isset($_POST['updateprofile'])) {
 </head>
 <?php include 'includes/header.php'; ?>
 
-<body data-bs-theme="dark" class="bg-dark text-white">
+<body  class="bg-dark text-white">
 
 
   <!-- Page Header -->
@@ -155,7 +155,7 @@ if (isset($_POST['updateprofile'])) {
                       value="<?php echo htmlentities($result->City); ?>">
                   </div>
                   <div class="col-12">
-                    <button type="submit" name="updateprofile" class="btn btn-primary">
+                    <button type="submit" name="updateprofile" class="btn btn-danger">
                       Save Changes
                       <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24" viewBox="0 0 24 24"
                         stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">

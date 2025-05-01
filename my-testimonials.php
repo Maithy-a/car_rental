@@ -11,7 +11,7 @@ if (strlen($_SESSION['login']) == 0) {
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>Car Rental Portal | My Testimonials</title>
+    <title>Car Rental Portal | My Feedback</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
@@ -28,11 +28,11 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="page-header d-print-none">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h2 class="page-title">My Testimonials</h2>
+                            <h2 class="page-title">My Feedback</h2>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">My Testimonials</li>
+                                    <li class="breadcrumb-item active" aria-current="page">My Feedback</li>
                                 </ol>
                             </nav>
                         </div>
@@ -75,15 +75,15 @@ if (strlen($_SESSION['login']) == 0) {
                                 </div>
                             </div>
 
-                            <!-- Testimonials List -->
+                            <!-- Feedback List -->
                             <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3 class="card-title">My Testimonials</h3>
+                                        <h3 class="card-title">My Feedback</h3>
                                     </div>
                                     <div class="card-body">
                                         <?php
-                                        // Fetch testimonials
+                                        // Fetch Feedback
                                         $sql = "SELECT * FROM tbltestimonial WHERE UserEmail=:useremail";
                                         $query = $dbh->prepare($sql);
                                         $query->bindParam(':useremail', $useremail, PDO::PARAM_STR);
@@ -110,7 +110,7 @@ if (strlen($_SESSION['login']) == 0) {
                                             <?php }
                                         } else { ?>
                                             <div class="alert alert-info" role="alert">
-                                                No testimonials found.
+                                                No Feedback found.
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -130,22 +130,5 @@ if (strlen($_SESSION['login']) == 0) {
     <!-- Footer -->
     <?php include('includes/footer.php'); ?>
 
-    <!-- Back to top -->
-    <div id="back-top" class="back-top">
-        <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
-    </div>
-
-    <!-- Login/Registration/Forgot Password Includes -->
-    <?php include('includes/login.php'); ?>
-    <?php include('includes/registration.php'); ?>
-    <?php include('includes/forgotpassword.php'); ?>
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/interface.js"></script>
-    <script src="assets/switcher/js/switcher.js"></script>
-    <script src="assets/js/bootstrap-slider.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
 </body>
 </html>

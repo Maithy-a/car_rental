@@ -28,22 +28,22 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
-    <title>Car Rental Portal | Post Testimonial</title>
+    <title>Car Rental Portal | Post Feedback</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
 </head>
 
-<body class="text-white bg-dark">
+<body class="bg-dark">
     <?php include('includes/header.php'); ?>
     <div class="page-header mb-4">
         <div class="row align-items-center">
             <div class="col">
-                <h2 class="page-title">Post Testimonial</h2>
+                <h2 class="page-title">Post Feedback</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.php" class="text-white">Home</a></li>
-                        <li class="breadcrumb-item active text-white" aria-current="page">Post Testimonial</li>
+                        <li class="breadcrumb-item active text-white" aria-current="page">Post Feedback</li>
                     </ol>
                 </nav>
             </div>
@@ -66,7 +66,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-lg-4">
                     <div class="card row align-items-center flex-row flex-md-column text-center text-md-start">
                         <span class="avatar-xl">
-                            <img src="images/dealer-logo.jpg" alt="logo">
+                            <img src="assets/images/dealer-logo.jpg" alt="logo">
                         </span>
                         <div class="card-body">
                             <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
                 <div class="col-lg-8">
                     <div class="card  ">
                         <div class="card-header">
-                            <h3 class="card-title text-white">Post a Testimonial</h3>
+                            <h3 class="card-title">Post a Feedback</h3>
                         </div>
                         <div class="card-body">
                             <?php if (isset($error)) { ?>
@@ -103,13 +103,13 @@ if (isset($_POST['submit'])) {
                             <?php } ?>
                             <form method="post">
                                 <div class="mb-3">
-                                    <label class="form-label" for="testimonial">Your Testimonial</label>
+                                    <label class="form-label" for="testimonial">Your Feedback</label>
                                     <textarea class="form-control  text-white " name="testimonial" id="testimonial" rows="6"
                                         required></textarea>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="submit" name="submit" class="btn btn-primary">
-                                        Submit Testimonial
+                                    <button type="submit" name="submit" class="btn btn-danger">
+                                        Submit Feedback
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-2" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
