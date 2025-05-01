@@ -21,8 +21,7 @@ if (strlen($_SESSION['login']) == 0) {
 <body class="bg-dark">
     <!-- Header -->
     <?php include('includes/header.php'); ?>
-    <div class="page-header mb-5"
-        style="background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);">
+    <div class="page-header mb-5">
         <div class="container p-5">
             <div class="page-header">
                 <div class="page-heading">
@@ -52,7 +51,7 @@ if (strlen($_SESSION['login']) == 0) {
                 $results = $query->fetchAll(PDO::FETCH_OBJ);
 
                 if ($query->rowCount() > 0) {
-                    $result = $results[0]; // Expecting only one user
+                    $user = $results[0]; // Expecting only one user
                     ?>
                     <div class="page-body">
                         <div class="row row-cards">
@@ -64,11 +63,11 @@ if (strlen($_SESSION['login']) == 0) {
                                             <span class="avatar avatar-xl rounded"
                                                 style="background-image: url(assets/images/dealer-logo.jpg)"></span>
                                         </div>
-                                        <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
+                                        <h3 class="card-title"><?php echo htmlentities($user->FullName); ?></h3>
                                         <div class="text-muted mb-3">
-                                            <?php echo htmlentities($result->Address); ?><br>
-                                            <?php echo htmlentities($result->City); ?>,
-                                            <?php echo htmlentities($result->Country); ?>
+                                            <?php echo htmlentities($user->Address); ?><br>
+                                            <?php echo htmlentities($user->City); ?>,
+                                            <?php echo htmlentities($user->Country); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -83,12 +82,11 @@ if (strlen($_SESSION['login']) == 0) {
                             <!-- Bookings List -->
                             <div class="col-lg-8">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">My Bookings</h3>
+                                    <div class="card-header border-0">
+                                        <h3 class="card-title h2">MY BOOKINGS</h3>
                                     </div>
                                     <div class="card-body">
                                         <?php
-                                        // Fetch bookings
                                         $sql = "SELECT tblvehicles.Vimage1 as Vimage1, tblvehicles.VehiclesTitle, tblvehicles.id as vid, tblbrands.BrandName, tblbooking.FromDate, tblbooking.ToDate, tblbooking.message, tblbooking.Status, tblvehicles.PricePerDay, DATEDIFF(tblbooking.ToDate, tblbooking.FromDate) as totaldays, tblbooking.BookingNumber 
                                                 FROM tblbooking 
                                                 JOIN tblvehicles ON tblbooking.VehicleId = tblvehicles.id 
@@ -101,7 +99,11 @@ if (strlen($_SESSION['login']) == 0) {
                                         $results = $query->fetchAll(PDO::FETCH_OBJ);
 
                                         if ($query->rowCount() > 0) {
-                                            foreach ($results as $result) { ?>
+                                            foreach ($results as $result) { 
+                                                $totalDays = max(1, (int)$result->totaldays); // Ensure at least 1 day
+                                                $pricePerDay = (float)$result->PricePerDay;
+                                                $amount = $totalDays * $pricePerDay;
+                                                ?>
                                                 <div class="card mb-3">
                                                     <div class="card-body">
                                                         <h4 class="text-danger mb-3">Booking No
@@ -111,14 +113,14 @@ if (strlen($_SESSION['login']) == 0) {
                                                                 <a
                                                                     href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
                                                                     <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
-                                                                        class="border"
+                                                                        class="image"
                                                                         alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                                                                 </a>
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <h5>
                                                                     <a
-                                                                        href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
+                                                                        href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>" >
                                                                         <?php echo htmlentities($result->BrandName); ?>,
                                                                         <?php echo htmlentities($result->VehiclesTitle); ?>
                                                                     </a>
@@ -133,11 +135,11 @@ if (strlen($_SESSION['login']) == 0) {
                                                                     <?php echo htmlentities($result->message); ?></p>
                                                                 <div>
                                                                     <?php if ($result->Status == 1) { ?>
-                                                                        <span class="badge bg-success">Confirmed</span>
+                                                                        <span class="badge bg-success p-2 text-white">Confirmed</span>
                                                                     <?php } elseif ($result->Status == 2) { ?>
-                                                                        <span class="badge bg-danger">Cancelled</span>
+                                                                        <span class="badge bg-danger p-2 text-white">Cancelled</span>
                                                                     <?php } else { ?>
-                                                                        <span class="badge bg-warning">Not Confirmed Yet</span>
+                                                                        <span class="badge bg-warning p-2 text-white">Not Confirmed Yet</span>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -161,62 +163,24 @@ if (strlen($_SESSION['login']) == 0) {
                                                                         </td>
                                                                         <td><?php echo htmlentities($result->FromDate); ?></td>
                                                                         <td><?php echo htmlentities($result->ToDate); ?></td>
-                                                                        <td><?php echo htmlentities($tds = $result->totaldays); ?>
+                                                                        <td><?php echo htmlentities($totalDays); ?>
                                                                         </td>
-                                                                        <td><?php echo htmlentities($ppd = $result->PricePerDay); ?>
+                                                                        <td><?php echo htmlentities($pricePerDay); ?>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th colspan="4" class="text-center">Grand Total</th>
-                                                                        <th><?php echo htmlentities($tds * $ppd); ?></th>
+                                                                        <th><?php echo htmlentities($amount); ?></th>
                                                                     </tr>
                                                                     <tr>
-                                                                        <th colspan="2" class="text-center"></th>
-                                                                        <td colspan="2">
-                                                                            <form id="paymentForm">
-                                                                                <div class="form-submit">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-danger w-100"
-                                                                                        onclick="payWithPaystack()"> Pay NOW
-                                                                                    </button>
-                                                                                </div>
-                                                                            </form>
-                                                                            <?php
-                                                                            include 'api/configs.php';
-                                                                            $email = 'julesmueni@gmail.com';
-                                                                            $amount = $ppd * $tds;
-                                                                            $currency = "KES";
-                                                                            ?>
-
-                                                                            <script
-                                                                                src="https://js.paystack.co/v1/inline.js"></script>
-                                                                            <script type="text/javascript">
-                                                                                const paymentForm = document.getElementById('paymentForm');
-                                                                                paymentForm.addEventListener("submit", payWithPaystack, false);
-
-                                                                                function payWithPaystack(e) {
-                                                                                    e.preventDefault();
-                                                                                    let handler = PaystackPop.setup({
-                                                                                        key: '<?php echo $PublicKey; ?>',
-                                                                                        email: '<?php echo $email; ?>',
-                                                                                        amount: <?php echo $amount; ?> * 100,
-                                                                                        currency: '<?php echo $currency; ?>',
-                                                                                        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
-                                                                                        onClose: function () {
-                                                                                            alert('Transaction was not completed, window closed.');
-                                                                                        },
-                                                                                        callback: function (response) {
-                                                                                            let message = 'Payment complete! Reference: ' + response.reference;
-                                                                                            alert(message);
-                                                                                            window.location.href = "https://a62b-105-163-2-142.ngrok-free.app/api/verify_transaction.php?reference=" + response.reference;
-                                                                                        }
-                                                                                    });
-
-                                                                                    handler.openIframe();
-                                                                                }
-                                                                            </script>
-                                                                            <script
-                                                                                src="https://js.paystack.co/v1/inline.js"></script>
+                                                                        <td colspan="5">
+                                                                        <button type="button"
+                                                                                class="btn btn-danger w-100 pay-now-btn"
+                                                                                data-amount="<?php echo $amount; ?>"
+                                                                                data-booking="<?php echo htmlentities($result->BookingNumber); ?>"
+                                                                                <?php echo ($result->Status != 1) ? 'disabled' : ''; ?>>
+                                                                                PAY NOW
+                                                                            </button>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -246,6 +210,64 @@ if (strlen($_SESSION['login']) == 0) {
 
     <!-- Footer -->
     <?php include('includes/footer.php'); ?>
+
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const payButtons = document.querySelectorAll('.pay-now-btn');
+            
+            payButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const amount = parseFloat(this.getAttribute('data-amount'));
+                    const bookingNumber = this.getAttribute('data-booking');
+
+                    if (!amount || amount <= 0) {
+                        alert('Invalid payment amount');
+                        return;
+                    }
+
+                    let handler = PaystackPop.setup({
+                        key: '<?php echo htmlspecialchars($PublicKey); ?>',
+                        email: '<?php echo htmlspecialchars($user->EmailId); ?>',
+                        amount: Math.round(amount * 100), // Convert to kobo
+                        currency: 'KES',
+                        ref: 'CR_' + bookingNumber + '_' + Math.floor((Math.random() * 1000000000) + 1),
+                        metadata: {
+                            booking_number: bookingNumber,
+                            user_id: '<?php echo htmlspecialchars($user->EmailId); ?>'
+                        },
+                        onClose: function () {
+                            alert('Transaction was not completed, window closed.');
+                        },
+                        callback: function (response) {
+                            // Verify transaction on server
+                            fetch('api/verify_transaction.php?reference=' + response.reference, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    alert('Payment successful! Reference: ' + response.reference);
+                                    window.location.reload(); // Refresh to show updated status
+                                } else {
+                                    alert('Payment verification failed: ' + (data.message || 'Unknown error'));
+                                }
+                            })
+                            .catch(error => {
+                                alert('Error verifying payment: ' + error.message);
+                            });
+                        }
+                    });
+
+                    handler.openIframe();
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

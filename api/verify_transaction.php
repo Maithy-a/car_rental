@@ -1,9 +1,9 @@
 <?php
-include 'configs.php';
+include '../includes/config.php';
 if (isset($_GET['reference'])) {
   $referenceId = $_GET['reference'];
   if ($referenceId == '') {
-    header("Location: index.php");
+    header("Location: ../my-booking.php");
   } else {
     $curl = curl_init();
     curl_setopt_array($curl, array(
@@ -48,5 +48,5 @@ if (isset($_GET['reference'])) {
     }
   }
 } else {
-  header("Location: index.php");
+  header("Location: ../my-booking.php");
 }

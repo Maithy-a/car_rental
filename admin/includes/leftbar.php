@@ -76,6 +76,7 @@
 						Bookings
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="manage-bookings.php" class="dropdown-item">Manage Bookings</a></li>
 						<li><a class="dropdown-item" href="new-bookings.php">New</a></li>
 						<li><a class="dropdown-item" href="confirmed-bookings.php">Confirmed</a></li>
 						<li><a class="dropdown-item" href="canceled-bookings.php">Canceled</a></li>
