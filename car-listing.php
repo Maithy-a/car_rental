@@ -75,12 +75,20 @@ error_reporting(0);
                       </h5>
                       <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
                       <ul>
-                        <li><i class="fa fa-user"
-                            aria-hidden="true"></i><?php echo htmlentities($result->SeatingCapacity); ?>
+                        <li>
+                          <i class="fa fa-user"
+                            aria-hidden="true"></i>
+                            <?php echo htmlentities($result->SeatingCapacity); ?>
                           seats</li>
-                        <li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo htmlentities($result->ModelYear); ?>
-                          model</li>
-                        <li><i class="fa fa-car" aria-hidden="true"></i><?php echo htmlentities($result->FuelType); ?></li>
+                        <li>
+                          <i class="fa fa-calendar" aria-hidden="true"></i>
+                          <?php echo htmlentities($result->ModelYear); ?>
+                          Model
+                        </li>
+                        <li>
+                          <i class="fa fa-car" aria-hidden="true"></i>
+                          <?php echo htmlentities($result->FuelType); ?>
+                        </li>
                       </ul>
                     </div>
                     <div class="recent_post_title border-top">
