@@ -64,20 +64,38 @@ if (isset($_POST['submit'])) {
             <div class="row g-4">
                 <!-- User Info Card and Sidebar -->
                 <div class="col-lg-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <span class="avatar avatar-xl"
-                                    style="background-image: url(assets/images/dealer-logo.jpg)"></span>
-                            </div>
-                            <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
-                            <div class="text-muted mb-3">
-                                <?php echo htmlentities($result->Address); ?><br>
-                                <?php echo htmlentities($result->City); ?>,
-                                <?php echo htmlentities($result->Country); ?>
+                    <div class="card p-3 d-flex flex-row align-items-center">
+                        <div class="img-thumbnail me-4 flex-shrink-0">
+                            <img src="assets/images/dealer-logo.jpg" alt="Dealer Logo" class="img-fluid">
+                        </div>
+                        <div class="card-body text-start">
+                            <h3 class="card-title mb-2"><?php echo htmlentities($result->FullName); ?></h3>
+                            <div class="text-muted">
+                                <?php
+                                $address = !empty($result->Address) ? htmlentities($result->Address) : 'Empty';
+                                $city = !empty($result->City) ? htmlentities($result->City) : 'Empty';
+                                $country = !empty($result->Country) ? htmlentities($result->Country) : 'Empty';
+                                echo $address . '<br>' . $city . ', ' . $country;
+                                ?>
                             </div>
                         </div>
                     </div>
+                    <style>
+                        .img-thumbnail {
+                            width: 100px;
+                            height: 100px;
+                            overflow: hidden;
+                            border-radius: 0px;
+                            background-color: transparent;
+                            box-shadow: none;
+                        }
+
+                        .img-thumbnail img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    </style>
                     <!-- Sidebar -->
                     <div class="card mt-3 ">
                         <div class="card-body">

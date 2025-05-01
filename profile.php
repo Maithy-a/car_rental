@@ -40,7 +40,7 @@ if (isset($_POST['updateprofile'])) {
 </head>
 <?php include 'includes/header.php'; ?>
 
-<body  class="bg-dark">
+<body class="bg-dark">
 
   <!-- Page Header -->
   <div class="page-header py-5">
@@ -69,23 +69,42 @@ if (isset($_POST['updateprofile'])) {
 
     if ($query->rowCount() > 0) {
       $result = $results[0];
-      ?>
+    ?>
       <div class="row g-4">
         <!-- Profile Card -->
         <div class="col-lg-4 -lg-4">
-          <div class="card">
-            <div class="card-body text-center">
-              <div class="mb-3">
-                <span class="avatar avatar-xl"
-                  style="background-image: url(assets/images/dealer-logo.jpg)"></span>
-              </div>
-              <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
-              <div class="">
-                <?php echo htmlentities($result->Address); ?><br>
-                <?php echo htmlentities($result->City); ?>, <?php echo htmlentities($result->Country); ?>
+          <div class="card p-3 d-flex flex-row align-items-center">
+            <div class="img-thumbnail me-4 flex-shrink-0">
+              <img src="assets/images/dealer-logo.jpg" alt="Dealer Logo" class="img-fluid">
+            </div>
+            <div class="card-body text-start">
+              <h3 class="card-title mb-2"><?php echo htmlentities($result->FullName); ?></h3>
+              <div class="text-muted">
+                <?php
+                $address = !empty($result->Address) ? htmlentities($result->Address) : 'Empty';
+                $city = !empty($result->City) ? htmlentities($result->City) : 'Empty';
+                $country = !empty($result->Country) ? htmlentities($result->Country) : 'Empty';
+                echo $address . '<br>' . $city . ', ' . $country;
+                ?>
               </div>
             </div>
           </div>
+          <style>
+            .img-thumbnail {
+              width: 100px;
+              height: 100px;
+              overflow: hidden;
+              border-radius: 0px;
+              background-color: transparent;
+              box-shadow: none;
+            }
+
+            .img-thumbnail img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          </style>
           <!-- Sidebar -->
           <div class="card mt-4">
             <div class="card-body">
@@ -134,13 +153,13 @@ if (isset($_POST['updateprofile'])) {
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="birth-date">Date of Birth (dd/mm/yyyy)</label>
-                    <input type="text" class="form-control " name="dob" id="birth-date"
+                    <input type="date" class="form-control " name="dob" id="birth-date"
                       value="<?php echo htmlentities($result->dob); ?>" placeholder="dd/mm/yyyy">
                   </div>
                   <div class="col-12">
                     <label class="form-label" for="address">Address</label>
                     <textarea class="form-control " name="address" id="address"
-                      rows="4"><?php echo htmlentities($result->Address); ?></textarea>
+                      rows="1"><?php echo htmlentities($result->Address); ?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label" for="country">Country</label>
@@ -168,7 +187,7 @@ if (isset($_POST['updateprofile'])) {
           </div>
         </div>
       </div>
-      <?php
+    <?php
     } else {
       echo '<div class="alert alert-danger" role="alert">No user found.</div>';
     }
