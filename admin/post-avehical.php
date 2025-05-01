@@ -137,9 +137,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                     <div class="card-body">
                         <h4 class="mb-4">Basic Info</h4>
                         <?php if ($error) { ?>
-                            <div class="errorWrap alert alert-danger"><strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?></div>
+                            <div class="alert alert-danger alert-dismissible" role="alert"><strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?>
+                            <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                        </div>
                         <?php } elseif ($msg) { ?>
-                            <div class="succWrap alert alert-success"><strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?></div>
+                            <div class="alert alert-success alert-dismissible" role="alert" >
+                                <strong>SUCCESS</strong><?php echo htmlspecialchars($msg); ?>
+                                <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                        </div>
                         <?php } ?>
 
                         <form method="post" class="form" enctype="multipart/form-data">

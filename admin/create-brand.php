@@ -95,12 +95,14 @@ if (strlen($_SESSION['alogin']) == 0) {
 											</div>
 											<div class="card-body">
 												<?php if ($error) { ?>
-													<div class="alert alert-danger" role="alert">
+													<div class="alert alert-danger alert-dismissible" role="alert">
 														<?php echo htmlentities($error); ?>
+														<a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
 													</div>
 												<?php } elseif ($msg) { ?>
-													<div class="alert alert-success" role="alert">
+													<div class="alert alert-success alert-dismissible" role="alert">
 														<?php echo htmlentities($msg); ?>
+														<a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
 													</div>
 												<?php } ?>
 												<form method="post">
@@ -112,7 +114,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													</div>
 													<div class="form-footer">
 														<button type="submit" name="submit"
-															class="btn btn-square btn-primary w-100">Submit</button>
+															class="btn  btn-primary w-100">Submit</button>
 													</div>
 												</form>
 											</div>

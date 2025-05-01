@@ -57,9 +57,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 								</div>
 								<div class="card-body">
 									<?php if ($error) { ?>
-										<div class="alert alert-danger" role="alert"><?php echo htmlentities($error); ?></div>
+										<div class="alert alert-danger alert-dismissible" role="alert">
+											<?php echo htmlentities($error); ?>
+											<a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+										</div>
 									<?php } elseif ($msg) { ?>
-										<div class="alert alert-success" role="alert"><?php echo htmlentities($msg); ?></div>
+										<div class="alert alert-success alert-dismissible" role="alert">
+											<?php echo htmlentities($msg); ?>
+											<a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+										</div>
 									<?php } ?>
 									<div class="table-responsive">
 										<table class="table table-striped table-hover">
@@ -89,12 +95,34 @@ if (strlen($_SESSION['alogin']) == 0) {
 															<td>
 																<a href="edit-brand.php?id=<?php echo $result->id; ?>"
 																	class="btn btn-icon btn-primary me-1">
-																	<i class="fa-regular fa-pen-to-square"></i>
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+																		viewBox="0 0 24 24" fill="none" stroke="currentColor"
+																		stroke-width="2" stroke-linecap="round"
+																		stroke-linejoin="round"
+																		class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+																		<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+																		<path
+																			d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+																		<path
+																			d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+																		<path d="M16 5l3 3" />
+																	</svg>
 																</a>
 																<a href="manage-brands.php?del=<?php echo $result->id; ?>"
 																	class="btn btn-icon btn-danger"
 																	onclick="return confirm('Are you sure you want to delete this brand?');">
-																	<i class="fa-regular fa-trash-can"></i>
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+																		viewBox="0 0 24 24" fill="none" stroke="currentColor"
+																		stroke-width="2" stroke-linecap="round"
+																		stroke-linejoin="round"
+																		class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
+																		<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+																		<path d="M4 7l16 0" />
+																		<path d="M10 11l0 6" />
+																		<path d="M14 11l0 6" />
+																		<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+																		<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+																	</svg>
 																</a>
 															</td>
 														</tr>

@@ -44,14 +44,23 @@
 						data-bs-auto-close="outside" role="button" aria-expanded="false">
 						<span class="nav-link-icon d-md-none d-lg-inline-block">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-								fill="currentColor"
-								class="icon icon-tabler icons-tabler-filled icon-tabler-steering-wheel">
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round"
+								class="icon icon-tabler icons-tabler-outline icon-tabler-car-4wd">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M5 3m0 2a2 2 0 0 1 2 -2h0a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h0a2 2 0 0 1 -2 -2z" />
 								<path
-									d="M17 3.34a10 10 0 1 1 -15 8.66l.005 -.324a10 10 0 0 1 14.995 -8.336m-13 8.66a8 8 0 0 0 7 7.937v-5.107a3 3 0 0 1 -1.898 -2.05l-5.07 -1.504q -.031 .36 -.032 .725m15.967 -.725l-5.069 1.503a3 3 0 0 1 -1.897 2.051v5.108a8 8 0 0 0 6.985 -8.422zm-11.967 -6.204a8 8 0 0 0 -3.536 4.244l4.812 1.426a3 3 0 0 1 5.448 0l4.812 -1.426a8 8 0 0 0 -11.536 -4.244" />
+									d="M5 15m0 2a2 2 0 0 1 2 -2h0a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h0a2 2 0 0 1 -2 -2z" />
+								<path
+									d="M15 3m0 2a2 2 0 0 1 2 -2h0a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h0a2 2 0 0 1 -2 -2z" />
+								<path
+									d="M15 15m0 2a2 2 0 0 1 2 -2h0a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h0a2 2 0 0 1 -2 -2z" />
+								<path d="M9 18h6" />
+								<path d="M9 6h6" />
+								<path d="M12 6.5v-.5v12" />
 							</svg>
 						</span>
-						Fleet
+						Vehicle
 					</a>
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="post-avehical.php">Post a Vehicle</a></li>
@@ -98,7 +107,7 @@
 									d="M17.8 20.817l-2.172 1.138a.392 .392 0 0 1 -.568 -.41l.415 -2.411l-1.757 -1.707a.389 .389 0 0 1 .217 -.665l2.428 -.352l1.086 -2.193a.392 .392 0 0 1 .702 0l1.086 2.193l2.428 .352a.39 .39 0 0 1 .217 .665l-1.757 1.707l.414 2.41a.39 .39 0 0 1 -.567 .411l-2.172 -1.138z" />
 							</svg>
 						</span>
-						Testimonials
+						Feedback
 					</a>
 				</li>
 				<li class="nav-item dropdown mb-2">
