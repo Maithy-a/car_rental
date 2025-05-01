@@ -28,8 +28,8 @@ error_reporting(0);
         </div>
       </div>
     </div>
-
   </div>
+  
   <section class="listing-page mt-5">
     <div class="container">
       <div class="row">

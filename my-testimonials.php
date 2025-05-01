@@ -10,35 +10,35 @@ if (strlen($_SESSION['login']) == 0) {
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
+
 <head>
     <title>Car Rental Portal | My Feedback</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('includes/head.php'); ?>
 </head>
-<body data-bs-theme="dark" class="bg-dark">
+
+<body class="bg-dark">
     <!-- Header -->
     <?php include('includes/header.php'); ?>
-
+    <!-- Page header -->
+    <div class="page-header d-print-none">
+        <div class="row align-items-center">
+            <div class="col">
+                <h2 class="page-title">My Feedback</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">My Feedback</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
     <!-- Page content -->
     <div class="page">
         <div class="page-wrapper">
             <div class="container-xl">
-                <!-- Page header -->
-                <div class="page-header d-print-none">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h2 class="page-title">My Feedback</h2>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">My Feedback</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-
                 <?php
                 $useremail = $_SESSION['login'];
                 // Fetch user data
@@ -109,16 +109,31 @@ if (strlen($_SESSION['login']) == 0) {
                                                 </div>
                                             <?php }
                                         } else { ?>
-                                            <div class="alert alert-info" role="alert">
-                                                No Feedback found.
+                                            <div class="alert alert-info d-flex align-items-start" role="alert">
+                                                <div class="me-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        class="icon alert-icon">
+                                                        <path d="M12 9v4" />
+                                                        <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636-2.87l-8.106-13.536a1.914 1.914 0 0 0-3.274 0z" />
+                                                        <path d="M12 16h.01" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="alert-heading mb-1">Uh-oh, something went wrong</h4>
+                                                    <p class="mb-0">Sorry, it seems you don’t have any testimonials yet.</p>
+                                                    <a class="mt-3" href="post-testimonials.php" style="text-underline-offset: 6px; text-decoration: underline;">Post Feedback !!</a>
+                                                </div>
                                             </div>
+
                                         <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <?php 
+                <?php
                 } else {
                     echo '<div class="alert alert-danger" role="alert">No user found.</div>';
                 }
@@ -131,4 +146,5 @@ if (strlen($_SESSION['login']) == 0) {
     <?php include('includes/footer.php'); ?>
 
 </body>
+
 </html>

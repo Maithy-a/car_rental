@@ -62,15 +62,16 @@ if (isset($_POST['submit'])) {
             $result = $results[0];
         ?>
             <div class="row g-4">
-                <!-- User Info Card -->
+                <!-- User Info Card and Sidebar -->
                 <div class="col-lg-4">
-                    <div class="card row align-items-center flex-row flex-md-column text-center text-md-start">
-                        <span class="avatar-xl">
-                            <img src="assets/images/dealer-logo.jpg" alt="logo">
-                        </span>
-                        <div class="card-body">
-                            <h3 class="card-title text-white"><?php echo htmlentities($result->FullName); ?></h3>
-                            <div class="text-muted">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <span class="avatar avatar-xl"
+                                    style="background-image: url(assets/images/dealer-logo.jpg)"></span>
+                            </div>
+                            <h3 class="card-title"><?php echo htmlentities($result->FullName); ?></h3>
+                            <div class="text-muted mb-3">
                                 <?php echo htmlentities($result->Address); ?><br>
                                 <?php echo htmlentities($result->City); ?>,
                                 <?php echo htmlentities($result->Country); ?>
@@ -78,7 +79,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                     <!-- Sidebar -->
-                    <div class="card   mt-4">
+                    <div class="card mt-3 ">
                         <div class="card-body">
                             <?php include('includes/sidebar.php'); ?>
                         </div>
