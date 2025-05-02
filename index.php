@@ -18,7 +18,7 @@ error_reporting(0);
     <div class="container p-5">
       <div class="page-header">
         <div class="page-heading">
-          <h1 class="text-white">JB CAR RENTALS</h1>
+          <h1 class="text-white" style="font-size: 6.2vw;">JB CAR RENTALS</h1>
         </div>
         <div aria-label="breadcrumb">
           <ol class="breadcrumb">
