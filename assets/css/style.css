@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   font-family: "Inter", sans-serif;
 }
 
@@ -46,32 +46,44 @@ body{
   text-underline-offset: 0.6rem;
 }
 
-.recent-car-list {
-  border-radius: 0px;
-  box-shadow: 0 0px 2px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  margin-bottom: 0px;
+.car-listing-grid {
   display: grid;
-}
-.recent-car-list {
-  display: grid;
-  grid-template-columns: repeat(1, 2fr);
-  gap: 1rem;
-  margin-top: 1rem;
-}
-.recent-car-list img {
-  transition: all ease-in-out 0.5s;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.recent-car-list img:hover {
-  transform: scale(1.01);
+.car-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-car-list {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .car-info-box {
-  position: relative;
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+.car-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.5s ease-in-out;
+}
+
+.car-image:hover {
+  transform: scale(1.03);
+}
+
 
 .car-specs,
 .recent_post_title {
@@ -85,79 +97,84 @@ body{
   color: #555;
 }
 
+.car-specs h5 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.car-specs h5 a {
+  text-decoration: none;
+  color: #333;
+}
+
+.car-specs h5 a:hover {
+  color: #e74c3c;
+}
+
+.list-price {
+  color: #e74c3c;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.car-specs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .car-specs li {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
-.car-specs li svg {
-  vertical-align: middle;
-}
-
-.car-title-m {
+.recent_post_title {
   padding: 15px;
-  border-bottom: 1px solid #eee;
-  cursor: pointer;
+  border-top: 1px solid #eee;
+  text-align: center;
 }
 
-.car-title-m h6 {
-  margin: 0;
-  font-size: 1rem;
-}
-
-.car-title-m h6 a {
-  text-decoration: none;
-}
-
-.car-title-m h6 a:hover {
-  color: #e74c3c;
-}
-
-.car-title-m .price {
-  display: block;
-  font-size: 1rem;
-  color: #e74c3c;
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-.inventory_info_m {
-  padding: 15px;
-  font-size: 0.95rem;
-  color: #666;
-}
-
-.inventory_info_m p {
-  margin: 0;
-  line-height: 1.5;
+.recent_post_title .btn {
+  width: 100%;
+  text-align: center;
 }
 
 @media (max-width: 767px) {
+  .car-listing-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .car-image {
+    height: 200px;
+  }
+
   .car-specs {
-    flex-direction: column;
-    gap: 8px;
+    padding: 10px;
   }
 
-  .car-title-m h6 {
-    font-size: 1.1rem;
+  .car-specs h5 {
+    font-size: 1rem;
   }
 
-  .section-header h2 {
-    font-size: 2rem;
-  }
+  /* .car-specs ul {
+    flex-direction: flex;
+    gap: 5px;
+  } */
 }
 
 .testimonial.card {
   background-color: #e74c3c;
   color: #fff;
-  border-radius: 0px;
+  border-radius: 8px;
   cursor: pointer;
 }
 
-/*---------------------
-	3.5. Fun-Facts
------------------------------*/
 .fun-facts-section {
   background: rgba(0, 0, 0, 0)
     url("https://images.pexels.com/photos/25189123/pexels-photo-25189123/free-photo-of-blue-bmw-x3.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
@@ -207,7 +224,7 @@ body{
     width: 100%;
     height: auto;
     padding: 20px;
-    border-radius: 0px;
+    border-radius: 8px;
     box-shadow: none;
     background-color: #e74d3c91;
   }
@@ -285,26 +302,30 @@ body{
 }
 
 .footer input {
-  border-radius: 0px !important;
-}
-.modal-dialog {
-  border-radius: 0px !important;
+  border-radius: 8px !important;
 }
 
-/* alerts */
+.modal-dialog {
+  border-radius: 8px !important;
+}
+
 .alert-info {
   border-left: 5px solid cornflowerblue !important;
 }
+
 .alert-warning {
   border-left: #cabe15 5px solid;
 }
+
 .alert-danger {
   border-left: #e74c3c 5px solid;
 }
+
 .alert-sucess {
   border-left: 5px solid #4cbb17;
 }
-.badge{
+
+.badge {
   color: white !important;
   padding: 8px 20px !important;
 }

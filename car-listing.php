@@ -63,66 +63,77 @@ error_reporting(0);
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
 
-          <?php
-          $sql = "SELECT tblvehicles.*, tblbrands.BrandName, tblbrands.id as bid FROM tblvehicles JOIN tblbrands ON tblbrands.id = tblvehicles.VehiclesBrand";
-          $query = $dbh->prepare($sql);
-          $query->execute();
-          $results = $query->fetchAll(PDO::FETCH_OBJ);
-          $cnt = 1;
-          if ($query->rowCount() > 0) {
-            foreach ($results as $result) { ?>
-              <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="recent-car-list">
-                  <div class="car-info-box">
-                    <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                      <?php if (!empty($result->Vimage1)) { ?>
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=""
-                          alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
-                      <?php } else { ?>
-                        <img src="img/placeholder.jpg" class="" alt="No image available">
-                      <?php } ?>
-                    </a>
-                    <div class="car-specs">
-                      <h5>
-                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                          <?php echo htmlentities($result->BrandName); ?>,
-                          <?php echo htmlentities($result->VehiclesTitle); ?>
-                        </a>
-                      </h5>
-                      <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
-                      <ul>
+          <div class="car-listing-grid">
+            <?php
+            $sql = "SELECT tblvehicles.*, tblbrands.BrandName, tblbrands.id as bid FROM tblvehicles JOIN tblbrands ON tblbrands.id = tblvehicles.VehiclesBrand";
+            $query = $dbh->prepare($sql);
+            $query->execute();
+            $results = $query->fetchAll(PDO::FETCH_OBJ);
+            if ($query->rowCount() > 0) {
+              foreach ($results as $result) { ?>
+                <div class="car-item">
+                  <div class="recent-car-list">
+                    <div class="car-info-box">
+                      <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                        <?php if (!empty($result->Vimage1)) { ?>
+                          <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class="car-image"
+                            alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                        <?php } else { ?>
+                          <img src="img/placeholder.jpg" class="car-image" alt="No image available">
+                        <?php } ?>
+                      </a>
+                      <ul class="car-specs">
                         <li>
-                          <i class="fa fa-user"
-                            aria-hidden="true"></i>
-                          <?php echo htmlentities($result->SeatingCapacity); ?>
-                          seats
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gas-station">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
+                            <path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" />
+                            <path d="M3 20l12 0" />
+                            <path d="M18 7v1a1 1 0 0 0 1 1h1" />
+                            <path d="M4 11l10 0" />
+                          </svg><?php echo htmlentities($result->FuelType); ?>
                         </li>
                         <li>
-                          <i class="fa fa-calendar" aria-hidden="true"></i>
-                          <?php echo htmlentities($result->ModelYear); ?>
-                          Model
+                          <?php echo htmlentities($result->ModelYear); ?> Model
                         </li>
                         <li>
-                          <i class="fa fa-car" aria-hidden="true"></i>
-                          <?php echo htmlentities($result->FuelType); ?>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                          </svg>
+                          <?php echo htmlentities($result->SeatingCapacity); ?> Seats
                         </li>
                       </ul>
-                    </div>
-                    <div class="recent_post_title border-top">
-                      <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"
-                        class="btn btn-square">View Details
-                        <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                      <div class="car-specs">
+                        <h5>
+                          <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                            <?php echo htmlentities($result->BrandName); ?>,
+                            <?php echo htmlentities($result->VehiclesTitle); ?>
+                          </a>
+                        </h5>
+                        <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
+                      </div>
+                      <div class="recent_post_title border-top" style="background-color: white;">
+                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"
+                          class="btn btn-square btn-danger">View Details
+                          <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                      </div>
                     </div>
                   </div>
-
                 </div>
-              </div>
-          <?php }
-          } ?>
+            <?php }
+            } ?>
+          </div>
         </div>
 
         <aside class="col-md">
@@ -133,14 +144,13 @@ error_reporting(0);
             <div class="sidebar_filter">
               <form action="search-carresult.php" method="post">
                 <div class="mb-3">
-                  <select class="form-select" name="brand" required="required" required>
+                  <select class="form-select" name="brand" required="required">
                     <option value="">Select Brand</option>
                     <?php
                     $sql = "SELECT * FROM tblbrands";
                     $query = $dbh->prepare($sql);
                     $query->execute();
                     $results = $query->fetchAll(PDO::FETCH_OBJ);
-                    $cnt = 1;
                     if ($query->rowCount() > 0) {
                       foreach ($results as $result) { ?>
                         <option value="<?php echo htmlentities($result->id); ?>">
@@ -160,7 +170,6 @@ error_reporting(0);
                     <option value="Hybrid" <?php echo ($fueltype == 'Hybrid') ? 'selected' : ''; ?>>Hybrid</option>
                   </select>
                 </div>
-
                 <div class="form-group">
                   <button type="submit" class="btn btn-block w-100">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24"
@@ -169,7 +178,7 @@ error_reporting(0);
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                       <path d="M21 21l-6 -6" />
-                    </svg>Search 
+                    </svg>Search
                   </button>
                 </div>
               </form>
@@ -178,11 +187,10 @@ error_reporting(0);
 
           <div class="sidebar_widget pt-3">
             <div class="widget_heading">
-              <p class="text-secondary" >
+              <p class="text-secondary">
                 <i class="fa-solid fa-car"></i> Recently Listed Cars
               </p>
             </div>
-
             <div class="recent_addedcars">
               <div class="recent_addedcar_list">
                 <?php
@@ -190,7 +198,6 @@ error_reporting(0);
                 $query = $dbh->prepare($sql);
                 $query->execute();
                 $results = $query->fetchAll(PDO::FETCH_OBJ);
-                $cnt = 1;
                 if ($query->rowCount() > 0) {
                   foreach ($results as $result) { ?>
                     <div class="gap-3 border">
@@ -211,17 +218,17 @@ error_reporting(0);
                         </a>
                         <p class="widget_price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
                       </div>
-                  <?php }
-                } ?>
                     </div>
+                <?php }
+                } ?>
               </div>
             </div>
+          </div>
         </aside>
       </div>
     </div>
   </section>
   <?php include('includes/footer.php'); ?>
-
 </body>
 
 </html>

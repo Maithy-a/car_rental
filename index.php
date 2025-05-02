@@ -2,7 +2,6 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-
 ?>
 
 <!DOCTYPE HTML>
@@ -19,12 +18,11 @@ error_reporting(0);
     <div class="container p-5">
       <div class="page-header">
         <div class="page-heading">
-          <h1>Car Listing</h1>
+          <h1 class="text-white">JB CAR RENTALS</h1>
         </div>
         <div aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index">Home</a></li>
-            <li class="breadcrumb-item">Car Listing</li>
           </ol>
         </div>
       </div>
@@ -34,25 +32,22 @@ error_reporting(0);
   <div class="section mb-5 mt-5">
     <div class="container col">
       <div class="section-header text-center">
-        <h2>Find the Best <span>Car For You</span></h2>
+        <h2 class="text-white">Find the Best <span>Car For You</span></h2>
         <p>
           Explore our wide range of vehicles tailored to your needs. From compact cars to luxury SUVs, we have it
-          all.
-          Browse
-          below to find the perfect car for your journey.
+          all. Browse below to find the perfect car for your journey.
         </p>
       </div>
       <div class="recent-tab text-center mt-4">
-        <ul class=" nav nav-tabs bg-danger mb-2 p-3 justify-content-center col-12" role="tablist">
+        <ul class="nav nav-tabs bg-danger mb-2 p-3 justify-content-center col-12" role="tablist">
           <li role="presentation" class="active">
-            <a href="#resentnewcar" role="tab" data-toggle="tab">
-              New Cars</a>
+            <a href="#resentnewcar" role="tab" data-toggle="tab">New Cars</a>
           </li>
         </ul>
       </div>
       <div class="tab-content mt-4 gap-3">
         <div role="tabpanel" class="tab-pane active" id="resentnewcar">
-          <div class="row">
+          <div class="car-listing-grid">
             <?php
             $sql = "SELECT tblvehicles.VehiclesTitle, tblbrands.BrandName, tblvehicles.PricePerDay, tblvehicles.FuelType, tblvehicles.ModelYear, tblvehicles.id, tblvehicles.SeatingCapacity, tblvehicles.VehiclesOverview, tblvehicles.Vimage1 
                     FROM tblvehicles 
@@ -64,13 +59,13 @@ error_reporting(0);
             if ($query->rowCount() > 0) {
               foreach ($results as $result) {
             ?>
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="car-item">
                   <div class="recent-car-list">
                     <div class="body">
                       <div class="car-info-box">
                         <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                           <?php if (!empty($result->Vimage1)) { ?>
-                            <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=" car-image"
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class="car-image"
                               alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                           <?php } else { ?>
                             <img src="img/placeholder.jpg" class="car-image" alt="No image available">
@@ -105,55 +100,53 @@ error_reporting(0);
                             <?php echo htmlentities($result->SeatingCapacity); ?> Seats
                           </li>
                         </ul>
-                      </div>
-                      <div class="footer">
-                        <div class="car-title-m">
-                          <h6 class="title">
-                            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                              <?php echo htmlentities($result->VehiclesTitle); ?>
-                            </a>
-                          </h6>
-                          <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
+                        <div class="footer p-4" style="background-color: white; height: fit-content;">
+                          <div class="car-title-m">
+                            <h6 class="title">
+                              <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                                <?php echo htmlentities($result->VehiclesTitle); ?>
+                              </a>
+                            </h6>
+                            <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
+                          </div>
+                          <div class="inventory_info_m">
+                            <p><?php echo substr($result->VehiclesOverview, 0, 100); ?></p>
+                          </div>
                         </div>
-                        <div class="inventory_info_m">
-                          <p><?php echo substr($result->VehiclesOverview, 0, 100); ?></p>
-                        </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
-          </div>
-        <?php
+              <?php
               }
             } else {
-        ?>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="alert alert-info" role="alert">
-            <div class="alert-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"
-                class="icon alert-icon icon-2">
-                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-                <path d="M12 9h.01" />
-                <path d="M11 12h1v4h1" />
-              </svg>
-            </div>
-            <div>
-              <h4 class="alert-heading">No vehicles found.</h4>
-              <div class="alert-description">
-                we are yet to list any car, <br>you can check back later for updates
+              ?>
+              <div class="car-item">
+                <div class="alert alert-info" role="alert">
+                  <div class="alert-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      class="icon alert-icon icon-2">
+                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                      <path d="M12 9h.01" />
+                      <path d="M11 12h1v4h1" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="alert-heading">No vehicles found.</h4>
+                    <div class="alert-description">
+                      we are yet to list any car, <br>you can check back later for updates
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            <?php } ?>
           </div>
         </div>
-        </div>
-      <?php } ?>
       </div>
     </div>
-
-  </div>
-  </div>
   </div>
 
   <div class="section fun-facts-section mb-5">
@@ -204,9 +197,9 @@ error_reporting(0);
   </div>
 
   <div class="section testimonial-section parallex-bg mb-5">
-    <div class="container ">
+    <div class="container">
       <div class="section-header white-text text-center">
-        <h2 class="py-6">Our Satisfied <span>Customers</span></h2>
+        <h2 class="py-6 text-white">Our Satisfied <span>Customers</span></h2>
       </div>
       <div class="testimonial row row-cards p-4">
         <?php
@@ -249,7 +242,7 @@ error_reporting(0);
               <div>
                 <h4 class="alert-heading">No feedback found.</h4>
                 <div class="alert-description">
-                 Would you like to provide your feedback?  <a href="javascript(void)" class="alert-link">check it out</a>
+                  Would you like to provide your feedback? <a href="javascript(void)" class="alert-link">check it out</a>
                 </div>
               </div>
             </div>
@@ -257,7 +250,6 @@ error_reporting(0);
         <?php } ?>
       </div>
     </div>
-
   </div>
   <?php include('includes/footer.php'); ?>
 </body>
