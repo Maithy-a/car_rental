@@ -10,12 +10,10 @@ error_reporting(0);
 <head>
   <title>Car Rental Portal | Car Listing</title>
   <?php include('includes/head.php'); ?>
-  <!--Header-->
-  <?php include('includes/header.php'); ?>
-  <!-- /Header -->
 </head>
 
 <body class="bg-dark p-0" style="padding: 0; margin: 0;">
+    <?php include('includes/header.php'); ?>
   <div class="page-header listing_page mb-5">
     <div class="container p-5">
       <div class="page-header">
@@ -50,7 +48,7 @@ error_reporting(0);
               $results = $query->fetchAll(PDO::FETCH_OBJ);
               $cnt = $query->rowCount();
               ?>
-              <div class="alert alert-info" role="alert">
+              <div class="alert alert-info col-md-6" role="alert">
                 <div class="alert-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -119,7 +117,7 @@ error_reporting(0);
         <aside class="col-md-3 col-md-pull-9">
           <div class="sidebar_widget">
             <div class="widget_heading">
-              <h3 class="widget-title text-primary">
+              <h3 class="widget-title">
                 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                   class="icon icon-tabler icons-tabler-outline icon-tabler-filter">

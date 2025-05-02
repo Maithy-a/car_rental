@@ -1,14 +1,20 @@
 <?php
+session_start();
 error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1); 
 include('includes/config.php');
+
+if (strlen($_SESSION['alogin']) == 0) {
+    header('location: index.php');
+    exit();
+}
 
 $msg = $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     // Validate and sanitize inputs
     $vehicletitle = filter_input(INPUT_POST, 'vehicletitle', FILTER_SANITIZE_STRING);
-    $brand = filter_input(INPUT_POST, 'brandname', FILTER_SANITIZE_STRING);
+    $brand = filter_input(INPUT_POST, 'brandname', FILTER_VALIDATE_INT); // Expecting brand ID
     $vehicleoverview = filter_input(INPUT_POST, 'vehicalorcview', FILTER_SANITIZE_STRING);
     $priceperday = filter_input(INPUT_POST, 'priceperday', FILTER_VALIDATE_FLOAT);
     $fueltype = filter_input(INPUT_POST, 'fueltype', FILTER_SANITIZE_STRING);
@@ -16,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
     $seatingcapacity = filter_input(INPUT_POST, 'seatingcapacity', FILTER_VALIDATE_INT);
 
     // Validate required fields
-    if (!$vehicletitle || !$brand || !$vehicleoverview || $priceperday === false || !$fueltype || $modelyear === false || $seatingcapacity === false) {
+    if (empty($vehicletitle) || !$brand || empty($vehicleoverview) || $priceperday === false || empty($fueltype) || $modelyear === false || $seatingcapacity === false) {
         $error = "Please fill all required fields with valid data.";
     } else {
         // Handle image uploads
@@ -26,23 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
         $maxSize = 10 * 1024 * 1024; // 10MB
 
         foreach ($images as $index => $img) {
-            if (!empty($_FILES[$img]['tmp_name'])) {
-                // Validate file type
+            if (!empty($_FILES[$img]['tmp_name']) && $_FILES[$img]['error'] === UPLOAD_ERR_OK) {
                 if (!in_array($_FILES[$img]['type'], $allowedTypes)) {
                     $error = "Image " . ($index + 1) . ": Invalid file type. Allowed: jpg, png, webp.";
                     break;
                 }
-                // Validate file size
                 if ($_FILES[$img]['size'] > $maxSize) {
                     $error = "Image " . ($index + 1) . ": File too large. Max 10MB.";
                     break;
                 }
-                // Check for upload errors
-                if ($_FILES[$img]['error'] !== UPLOAD_ERR_OK) {
-                    $error = "Image " . ($index + 1) . ": Upload error (" . $_FILES[$img]['error'] . ").";
-                    break;
-                }
-                // Read image data
                 $imageData[$img] = file_get_contents($_FILES[$img]['tmp_name']);
                 if ($imageData[$img] === false) {
                     $error = "Image " . ($index + 1) . ": Failed to read file.";
@@ -52,8 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                 $imageData[$img] = null; // Allow null for optional images
             }
         }
-
-        // Ensure at least image 1 is uploaded
         if (!$imageData['img1']) {
             $error = "Image 1 is required.";
         }
@@ -67,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
             ];
             $accessoryValues = [];
             foreach ($accessories as $accessory) {
-                $accessoryValues[$accessory] = isset($_POST[$accessory]) ? 1 : 0;
+                $accessoryValues[$accessory] = isset($_POST[$accessory]) && $_POST[$accessory] == '1' ? 1 : 0;
             }
 
             // Insert into database
@@ -76,26 +72,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                     VehiclesTitle, VehiclesBrand, VehiclesOverview, PricePerDay, FuelType, ModelYear, SeatingCapacity,
                     Vimage1, Vimage2, Vimage3, Vimage4, Vimage5,
                     AirConditioner, PowerDoorLocks, AntiLockBrakingSystem, BrakeAssist, PowerSteering,
-                    DriverAirbag, PassengerAirbag, PowerWindows, CDPlayer, CentralLocking, CrashSensor, LeatherSeats
+                    DriverAirbag, PassengerAirbag, PowerWindows, CDPlayer, CentralLocking, CrashSensor, LeatherSeats,
+                    RegDate, UpdationDate
                 ) VALUES (
                     :vehicletitle, :brand, :vehicleoverview, :priceperday, :fueltype, :modelyear, :seatingcapacity,
                     :vimage1, :vimage2, :vimage3, :vimage4, :vimage5,
                     :airconditioner, :powerdoorlocks, :antilockbrakingsys, :brakeassist, :powersteering,
-                    :driverairbag, :passengerairbag, :powerwindow, :cdplayer, :centrallocking, :crashsensor, :leatherseats
+                    :driverairbag, :passengerairbag, :powerwindow, :cdplayer, :centrallocking, :crashsensor, :leatherseats,
+                    NOW(), NOW()
                 )";
                 $query = $dbh->prepare($sql);
                 $query->bindParam(':vehicletitle', $vehicletitle, PDO::PARAM_STR);
-                $query->bindParam(':brand', $brand, PDO::PARAM_STR);
+                $query->bindParam(':brand', $brand, PDO::PARAM_INT); // Bind as INT
                 $query->bindParam(':vehicleoverview', $vehicleoverview, PDO::PARAM_STR);
                 $query->bindParam(':priceperday', $priceperday, PDO::PARAM_STR);
                 $query->bindParam(':fueltype', $fueltype, PDO::PARAM_STR);
                 $query->bindParam(':modelyear', $modelyear, PDO::PARAM_INT);
                 $query->bindParam(':seatingcapacity', $seatingcapacity, PDO::PARAM_INT);
                 $query->bindParam(':vimage1', $imageData['img1'], PDO::PARAM_LOB);
-                $query->bindParam(':vimage2', $imageData['img2'], PDO::PARAM_LOB);
-                $query->bindParam(':vimage3', $imageData['img3'], PDO::PARAM_LOB);
-                $query->bindParam(':vimage4', $imageData['img4'], PDO::PARAM_LOB);
-                $query->bindParam(':vimage5', $imageData['img5'], PDO::PARAM_LOB);
+                $query->bindValue(':vimage2', $imageData['img2'], $imageData['img2'] !== null ? PDO::PARAM_LOB : PDO::PARAM_NULL);
+                $query->bindValue(':vimage3', $imageData['img3'], $imageData['img3'] !== null ? PDO::PARAM_LOB : PDO::PARAM_NULL);
+                $query->bindValue(':vimage4', $imageData['img4'], $imageData['img4'] !== null ? PDO::PARAM_LOB : PDO::PARAM_NULL);
+                $query->bindValue(':vimage5', $imageData['img5'], $imageData['img5'] !== null ? PDO::PARAM_LOB : PDO::PARAM_NULL);
                 foreach ($accessories as $accessory) {
                     $query->bindParam(':' . $accessory, $accessoryValues[$accessory], PDO::PARAM_INT);
                 }
@@ -142,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
                         </div>
                         <?php } elseif ($msg) { ?>
                             <div class="alert alert-success alert-dismissible" role="alert" >
-                                <strong>SUCCESS</strong><?php echo htmlspecialchars($msg); ?>
+                                <strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?>
                                 <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                         </div>
                         <?php } ?>

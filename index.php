@@ -66,88 +66,93 @@ error_reporting(0);
             ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="recent-car-list">
-                    <div class="car-info-box">
-                      <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                        <?php if (!empty($result->Vimage1)) { ?>
-                          <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=" car-image"
-                            alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
-                        <?php } else { ?>
-                          <img src="img/placeholder.jpg" class="car-image" alt="No image available">
-                        <?php } ?>
-                      </a>
-                      <ul class="car-specs">
-                        <li>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gas-station">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
-                            <path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" />
-                            <path d="M3 20l12 0" />
-                            <path d="M18 7v1a1 1 0 0 0 1 1h1" />
-                            <path d="M4 11l10 0" />
-                          </svg><?php echo htmlentities($result->FuelType); ?>
-                        </li>
-                        <li>
-                          <?php echo htmlentities($result->ModelYear); ?> Model
-                        </li>
-                        <li>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                            <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                            <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                          </svg>
-                          <?php echo htmlentities($result->SeatingCapacity); ?> Seats
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="car-title-m">
-                      <h6 class="title">
+                    <div class="body">
+                      <div class="car-info-box">
                         <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                          <?php echo htmlentities($result->VehiclesTitle); ?>
+                          <?php if (!empty($result->Vimage1)) { ?>
+                            <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class=" car-image"
+                              alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                          <?php } else { ?>
+                            <img src="img/placeholder.jpg" class="car-image" alt="No image available">
+                          <?php } ?>
                         </a>
-                      </h6>
-                      <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
-                    </div>
-                    <div class="inventory_info_m">
-                      <p><?php echo substr($result->VehiclesOverview, 0, 100); ?></p>
+                        <ul class="car-specs">
+                          <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gas-station">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
+                              <path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" />
+                              <path d="M3 20l12 0" />
+                              <path d="M18 7v1a1 1 0 0 0 1 1h1" />
+                              <path d="M4 11l10 0" />
+                            </svg><?php echo htmlentities($result->FuelType); ?>
+                          </li>
+                          <li>
+                            <?php echo htmlentities($result->ModelYear); ?> Model
+                          </li>
+                          <li>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                              <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                              <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                              <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                            </svg>
+                            <?php echo htmlentities($result->SeatingCapacity); ?> Seats
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="footer">
+                        <div class="car-title-m">
+                          <h6 class="title">
+                            <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                              <?php echo htmlentities($result->VehiclesTitle); ?>
+                            </a>
+                          </h6>
+                          <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
+                        </div>
+                        <div class="inventory_info_m">
+                          <p><?php echo substr($result->VehiclesOverview, 0, 100); ?></p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              <?php
+          </div>
+        <?php
               }
             } else {
-              ?>
-              <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="alert alert-info" role="alert">
-                  <div class="alert-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round"
-                      class="icon alert-icon icon-2">
-                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-                      <path d="M12 9h.01" />
-                      <path d="M11 12h1v4h1" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 class="alert-heading">No vehicles found.</h4>
-                    <div class="alert-description">
-                      we are yet to list any car, <br>you can check back later for updates
-                    </div>
-                  </div>
-                </div>
+        ?>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="alert alert-info" role="alert">
+            <div class="alert-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"
+                class="icon alert-icon icon-2">
+                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                <path d="M12 9h.01" />
+                <path d="M11 12h1v4h1" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="alert-heading">No vehicles found.</h4>
+              <div class="alert-description">
+                we are yet to list any car, <br>you can check back later for updates
               </div>
+            </div>
           </div>
-        <?php } ?>
         </div>
+        </div>
+      <?php } ?>
       </div>
-
     </div>
+
+  </div>
   </div>
   </div>
 
@@ -196,8 +201,6 @@ error_reporting(0);
         </div>
       </div>
     </div>
-    <!-- Dark Overlay-->
-
   </div>
 
   <div class="section testimonial-section parallex-bg mb-5">
@@ -231,8 +234,25 @@ error_reporting(0);
             </div>
           <?php }
         } else { ?>
-          <div class="col-12">
-            <div class="alert alert-info text-center" role="alert">No testimonials found.</div>
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="alert alert-info" role="alert">
+              <div class="alert-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"
+                  class="icon alert-icon icon-2">
+                  <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                  <path d="M12 9h.01" />
+                  <path d="M11 12h1v4h1" />
+                </svg>
+              </div>
+              <div>
+                <h4 class="alert-heading">No feedback found.</h4>
+                <div class="alert-description">
+                 Would you like to provide your feedback?  <a href="javascript(void)" class="alert-link">check it out</a>
+                </div>
+              </div>
+            </div>
           </div>
         <?php } ?>
       </div>

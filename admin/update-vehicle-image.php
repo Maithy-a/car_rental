@@ -11,11 +11,19 @@ if (!isset($_SESSION['alogin']) || strlen($_SESSION['alogin']) == 0) {
 
 $msg = $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+// Validate image number (1 to 5) from query parameter
+$imageNumber = isset($_GET['image']) ? intval($_GET['image']) : 0;
+if ($imageNumber < 1 || $imageNumber > 5) {
+    $error = "Invalid image number. Please select an image between 1 and 5.";
+}
+
+$imageField = "Vimage" . $imageNumber; // Dynamically determine the field name (e.g., Vimage1, Vimage2, etc.)
+
+if (!$error && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     $vehicleId = intval($_GET['imgid']);
 
-    if (isset($_FILES['img4']) && $_FILES['img4']['error'] === UPLOAD_ERR_OK) {
-        $file = $_FILES['img4'];
+    if (isset($_FILES['vehicleImage']) && $_FILES['vehicleImage']['error'] === UPLOAD_ERR_OK) {
+        $file = $_FILES['vehicleImage'];
         $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
         $maxSize = 10 * 1024 * 1024;
 
@@ -29,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                 $error = "Failed to read uploaded file.";
             } else {
                 try {
-                    $sql = "UPDATE tblvehicles SET Vimage4 = :image WHERE id = :vehicleid";
+                    $sql = "UPDATE tblvehicles SET $imageField = :image WHERE id = :vehicleid";
                     $query = $dbh->prepare($sql);
                     $query->bindParam(':image', $imageData, PDO::PARAM_LOB);
                     $query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
 
                     if ($query->execute()) {
-                        $msg = "Image4 updated successfully.";
+                        $msg = "Image $imageNumber updated successfully.";
                     } else {
                         $error = "Database error while updating image.";
                     }
@@ -45,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             }
         }
     } else {
-        $uploadError = $_FILES['img4']['error'] ?? UPLOAD_ERR_NO_FILE;
+        $uploadError = $_FILES['vehicleImage']['error'] ?? UPLOAD_ERR_NO_FILE;
         if ($uploadError !== UPLOAD_ERR_NO_FILE) {
             $error = "Upload error code: " . $uploadError;
         } else {
@@ -60,9 +68,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Update Image 4</title>
+    <title>Update Vehicle Image <?php echo $imageNumber; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include('includes/head.php'); ?>
+    <style>
+        .alert-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+    </style>
 </head>
 
 <body class="fluid-body">
@@ -74,13 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                         <div class="row align-items-center">
                             <div class="col">
                                 <div class="page-pretitle">Image Update</div>
-                                <h2 class="page-title">Image (4)</h2>
+                                <h2 class="page-title">Image (<?php echo $imageNumber; ?>)</h2>
                             </div>
                         </div>
                     </div>
                     <div class="card col-md-6">
                         <div class="card-header">
-                            <h4>Update Image 4 for Vehicle ID: <?php echo htmlspecialchars($_GET['imgid']); ?></h4>
+                            <h4>Update Image <?php echo $imageNumber; ?> for Vehicle ID: <?php echo htmlspecialchars($_GET['imgid']); ?></h4>
                         </div>
                         <div class="card-body">
                             <?php if ($error): ?>
@@ -109,19 +124,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                             <?php endif; ?>
 
                             <div class="mb-3">
-                                <label class="form-label">Current Image4</label>
+                                <label class="form-label">Current Image <?php echo $imageNumber; ?></label>
                                 <?php
                                 $vehicleId = intval($_GET['imgid']);
-                                $sql = "SELECT Vimage4 FROM tblvehicles WHERE id = :vehicleid";
+                                $sql = "SELECT $imageField FROM tblvehicles WHERE id = :vehicleid";
                                 $query = $dbh->prepare($sql);
                                 $query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
                                 $query->execute();
                                 $results = $query->fetchAll(PDO::FETCH_OBJ);
                                 if ($query->rowCount() > 0) {
                                     foreach ($results as $result) {
-                                        if ($result->Vimage4) {
+                                        $imageData = $result->$imageField;
+                                        if ($imageData) {
                                             echo '<div>';
-                                            echo '<img src="data:image/jpeg;base64,' . base64_encode($result->Vimage4) . '" width="100%" height="200" >';
+                                            echo '<img src="data:image/jpeg;base64,' . base64_encode($imageData) . '" width="300" height="200" style="border:solid 1px #000">';
                                             echo '</div>';
                                         } else {
                                             echo '<div><p>No image available</p></div>';
@@ -135,8 +151,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
 
                             <form method="post" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="img4" class="form-label">Select New Image4</label>
-                                    <input type="file" name="img4" id="img4" class="form-control mb-2" accept="image/jpeg,image/png,image/webp" required>
+                                    <label for="vehicleImage" class="form-label">Select New Image <?php echo $imageNumber; ?></label>
+                                    <input type="file" name="vehicleImage" id="vehicleImage" class="form-control mb-2" accept="image/jpeg,image/png,image/webp" required>
                                     <div class="form-text">Max 10MB. Allowed: jpg, png, webp.</div>
                                 </div>
                                 <button type="submit" name="update" class="btn btn-primary">Update Image</button>
@@ -148,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

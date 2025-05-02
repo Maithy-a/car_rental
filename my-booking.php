@@ -7,6 +7,10 @@ if (strlen($_SESSION['login']) == 0) {
     header('location:index.php');
     exit();
 }
+
+// Check for payment success message
+$paymentSuccess = isset($_SESSION['payment_success']) ? $_SESSION['payment_success'] : null;
+unset($_SESSION['payment_success']); // Clear the message after displaying
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -19,7 +23,6 @@ if (strlen($_SESSION['login']) == 0) {
 </head>
 
 <body class="bg-dark">
-    <!-- Header -->
     <?php include('includes/header.php'); ?>
     <div class="page-header mb-5">
         <div class="container p-5">
@@ -55,19 +58,18 @@ if (strlen($_SESSION['login']) == 0) {
                 ?>
                     <div class="page-body">
                         <div class="row row-cards">
-                            <!-- User Info Card and Sidebar -->
                             <div class="col-lg-4">
                                 <div class="card p-3 d-flex flex-row align-items-center">
                                     <div class="img-thumbnail me-4 flex-shrink-0">
                                         <img src="assets/images/dealer-logo.jpg" alt="Dealer Logo" class="img-fluid">
                                     </div>
                                     <div class="card-body text-start">
-                                        <h3 class="card-title mb-2"><?php echo htmlentities($result->FullName); ?></h3>
+                                        <h3 class="card-title mb-2"><?php echo htmlentities($user->FullName); ?></h3>
                                         <div class="text-muted">
                                             <?php
-                                            $address = !empty($result->Address) ? htmlentities($result->Address) : 'Empty';
-                                            $city = !empty($result->City) ? htmlentities($result->City) : 'Empty';
-                                            $country = !empty($result->Country) ? htmlentities($result->Country) : 'Empty';
+                                            $address = !empty($user->Address) ? htmlentities($user->Address) : 'Empty';
+                                            $city = !empty($user->City) ? htmlentities($user->City) : 'Empty';
+                                            $country = !empty($user->Country) ? htmlentities($user->Country) : 'Empty';
                                             echo $address . '<br>' . $city . ', ' . $country;
                                             ?>
                                         </div>
@@ -104,6 +106,21 @@ if (strlen($_SESSION['login']) == 0) {
                                         <h3 class="card-title h2">MY BOOKINGS</h3>
                                     </div>
                                     <div class="card-body">
+                                        <?php if ($paymentSuccess) { ?>
+                                            <div class="alert alert-success d-flex align-items-start" role="alert">
+                                                <div class="me-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-check">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M5 12l5 5l10 -10" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <h4 class="alert-heading mb-1">Payment Successful!</h4>
+                                                    <p class="mb-0"><?php echo htmlentities($paymentSuccess); ?></p>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+
                                         <?php
                                         $sql = "SELECT tblvehicles.Vimage1 as Vimage1, tblvehicles.VehiclesTitle, tblvehicles.id as vid, tblbrands.BrandName, tblbooking.FromDate, tblbooking.ToDate, tblbooking.message, tblbooking.Status, tblvehicles.PricePerDay, DATEDIFF(tblbooking.ToDate, tblbooking.FromDate) as totaldays, tblbooking.BookingNumber 
                                                 FROM tblbooking 
@@ -121,6 +138,14 @@ if (strlen($_SESSION['login']) == 0) {
                                                 $totalDays = max(1, (int)$result->totaldays); // Ensure at least 1 day
                                                 $pricePerDay = (float)$result->PricePerDay;
                                                 $amount = $totalDays * $pricePerDay;
+
+                                                // Check if a successful transaction exists for this booking
+                                                $transactionSql = "SELECT * FROM tbltransactions WHERE BookingNumber = :bookingNumber AND PaymentStatus = 1";
+                                                $transactionQuery = $dbh->prepare($transactionSql);
+                                                $transactionQuery->bindParam(':bookingNumber', $result->BookingNumber, PDO::PARAM_STR);
+                                                $transactionQuery->execute();
+                                                $transaction = $transactionQuery->fetch(PDO::FETCH_OBJ);
+                                                $isPaid = $transactionQuery->rowCount() > 0;
                                         ?>
                                                 <div class="card mb-3">
                                                     <div class="card-body">
@@ -153,11 +178,11 @@ if (strlen($_SESSION['login']) == 0) {
                                                                     <?php echo htmlentities($result->message); ?></p>
                                                                 <div>
                                                                     <?php if ($result->Status == 1) { ?>
-                                                                        <span class="badge bg-success p-2 text-white">Confirmed</span>
+                                                                        <span class="badge bg-success me-2 text-white">Confirmed</span>
                                                                     <?php } elseif ($result->Status == 2) { ?>
-                                                                        <span class="badge bg-danger p-2 text-white">Cancelled</span>
+                                                                        <span class="badge bg-danger me-2 text-white">Cancelled</span>
                                                                     <?php } else { ?>
-                                                                        <span class="badge bg-warning p-2 text-white">Not Confirmed Yet</span>
+                                                                        <span class="badge bg-warning me-2 text-white">Not Confirmed Yet</span>
                                                                     <?php } ?>
                                                                 </div>
                                                             </div>
@@ -192,13 +217,19 @@ if (strlen($_SESSION['login']) == 0) {
                                                                     </tr>
                                                                     <tr>
                                                                         <td colspan="5">
-                                                                            <button type="button"
-                                                                                class="btn btn-danger w-100 pay-now-btn"
-                                                                                data-amount="<?php echo $amount; ?>"
-                                                                                data-booking="<?php echo htmlentities($result->BookingNumber); ?>"
-                                                                                <?php echo ($result->Status != 1) ? 'disabled' : ''; ?>>
-                                                                                PAY NOW
-                                                                            </button>
+                                                                            <?php if ($isPaid) { ?>
+                                                                                <button type="button" class="btn btn-success w-100" disabled>
+                                                                                    PAID
+                                                                                </button>
+                                                                            <?php } else { ?>
+                                                                                <button type="button"
+                                                                                    class="btn btn-danger w-100 pay-now-btn"
+                                                                                    data-amount="<?php echo $amount; ?>"
+                                                                                    data-booking="<?php echo htmlentities($result->BookingNumber); ?>"
+                                                                                    <?php echo ($result->Status != 1) ? 'disabled' : ''; ?>>
+                                                                                    PAY NOW
+                                                                                </button>
+                                                                            <?php } ?>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -224,7 +255,6 @@ if (strlen($_SESSION['login']) == 0) {
                                                     <p class="mb-0">Sorry, it seems you don’t have any bookings yet.</p>
                                                 </div>
                                             </div>
-
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -262,7 +292,7 @@ if (strlen($_SESSION['login']) == 0) {
                     let handler = PaystackPop.setup({
                         key: '<?php echo htmlspecialchars($PublicKey); ?>',
                         email: '<?php echo htmlspecialchars($user->EmailId); ?>',
-                        amount: Math.round(amount * 100), // Convert to kobo
+                        amount: Math.round(amount * 100),
                         currency: 'KES',
                         ref: 'CR_' + bookingNumber + '_' + Math.floor((Math.random() * 1000000000) + 1),
                         metadata: {
@@ -284,7 +314,7 @@ if (strlen($_SESSION['login']) == 0) {
                                 .then(data => {
                                     if (data.status === 'success') {
                                         alert('Payment successful! Reference: ' + response.reference);
-                                        window.location.reload(); // Refresh to show updated status
+                                        window.location.reload();
                                     } else {
                                         alert('Payment verification failed: ' + (data.message || 'Unknown error'));
                                     }

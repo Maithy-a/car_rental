@@ -2,3 +2,5 @@ vendor/
 .env
 *.log
 admin/sup_admin/
+.vscode
+.idea

@@ -146,24 +146,30 @@
 						</li>
 					</ul>
 				</li>
-				<li class="nav-item mb-2">
-					<a class="nav-link" href="reg-users.php">
+				<li class="nav-item dropdown mb-2">
+					<a class="nav-link dropdown-toggle" href="#bookings" data-bs-toggle="dropdown"
+						data-bs-auto-close="outside" role="button" aria-expanded="false">
 						<span class="nav-link-icon d-md-none d-lg-inline-block">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
 								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
 								stroke-linejoin="round"
-								class="icon icon-tabler icons-tabler-outline icon-tabler-users-group">
+								class="icon icon-tabler icons-tabler-outline icon-tabler-address-book">
 								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-								<path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-								<path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1" />
-								<path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-								<path d="M17 10h2a2 2 0 0 1 2 2v1" />
-								<path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-								<path d="M3 13v-1a2 2 0 0 1 2 -2h2" />
+								<path
+									d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
+								<path d="M10 16h6" />
+								<path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+								<path d="M4 8h3" />
+								<path d="M4 12h3" />
+								<path d="M4 16h3" />
 							</svg>
 						</span>
 						Users
 					</a>
+					<ul class="dropdown-menu">
+						<li><a class="nav-link" href="reg-users.php">Users</a></li>
+						<li><a class="nav-link" href="">Payments</a></li>
+					</ul>
 				</li>
 				<li class="nav-item mb-2">
 					<a class="nav-link" href="manage-pages.php">

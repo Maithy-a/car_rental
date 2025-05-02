@@ -1,123 +1,153 @@
 <?php
 session_start();
-error_reporting(0);
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+ini_set('display_errors', 1);
 include('includes/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
-	header('location:index.php');
-} else {
-	// Code for change password	
-	if (isset($_POST['update'])) {
-		$vimage = $_FILES["img5"]["name"];
-		$id = intval($_GET['imgid']);
-		move_uploaded_file($_FILES["img5"]["tmp_name"], "img/vehicleimages/" . $_FILES["img5"]["name"]);
-		$sql = "update tblvehicles set Vimage5=:vimage where id=:id";
-		$query = $dbh->prepare($sql);
-		$query->bindParam(':vimage', $vimage, PDO::PARAM_STR);
-		$query->bindParam(':id', $id, PDO::PARAM_STR);
-		$query->execute();
 
-		$msg = "Image updated successfully";
+if (!isset($_SESSION['alogin']) || strlen($_SESSION['alogin']) == 0) {
+	header('location: index.php');
+	exit();
+}
+
+$msg = $error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+	$vehicleId = intval($_GET['imgid']);
+
+	if (isset($_FILES['img5']) && $_FILES['img5']['error'] === UPLOAD_ERR_OK) {
+		$file = $_FILES['img5'];
+		$allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+		$maxSize = 10 * 1024 * 1024;
+
+		if (!in_array($file['type'], $allowedTypes)) {
+			$error = "Invalid file type. Only JPG, PNG, and WEBP are allowed.";
+		} elseif ($file['size'] > $maxSize) {
+			$error = "Image size exceeds the 10MB limit.";
+		} else {
+			$imageData = file_get_contents($file['tmp_name']);
+			if ($imageData === false) {
+				$error = "Failed to read uploaded file.";
+			} else {
+				try {
+					$sql = "UPDATE tblvehicles SET Vimage5 = :image WHERE id = :vehicleid";
+					$query = $dbh->prepare($sql);
+					$query->bindParam(':image', $imageData, PDO::PARAM_LOB);
+					$query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
+
+					if ($query->execute()) {
+						$msg = "Image 5 updated successfully.";
+					} else {
+						$error = "Database error while updating image.";
+					}
+				} catch (PDOException $e) {
+					$error = "Database error: " . $e->getMessage();
+				}
+			}
+		}
+	} else {
+		$uploadError = $_FILES['img5']['error'] ?? UPLOAD_ERR_NO_FILE;
+		if ($uploadError !== UPLOAD_ERR_NO_FILE) {
+			$error = "Upload error code: " . $uploadError;
+		} else {
+			$error = "No file selected.";
+		}
 	}
-	?>
+}
+?>
 
-	<!doctype html>
-	<html lang="en" class="no-js">
+<!DOCTYPE html>
+<html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<meta name="theme-color" content="#3e454c">
+<head>
+	<meta charset="UTF-8">
+	<title>Update Image 5</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php include('includes/head.php'); ?>
+</head>
 
-		<title>Car Rental Portal | Admin Update Image 5</title>
-		<?php include("includes/head.php"); ?>
-
-
-	</head>
-
-	<body class="fluid-body">
-	
+<body class="fluid-body">
 	<div class="page-wrapper d-flex">
-			<div class="container p-6 mt-5">
-				<div class="container-fluid py-4">
-					
-					<div class="row">
-						<div class="col-md-12">
-
-							<h2 class="page-title">Vehicle Image 5 </h2>
-
-							<div class="row">
-								<div class="col-md-10">
-									<div class="panel panel-default">
-										<div class="panel-heading">Vehicle Image 5 Details</div>
-										<div class="panel-body">
-											<form method="post" class="form-horizontal" enctype="multipart/form-data">
-
-
-												<?php if ($error) { ?>
-													<div class="errorWrap">
-														<strong>ERROR</strong>:<?php echo htmlentities($error); ?>
-													</div><?php } else if ($msg) { ?>
-														<div class="succWrap">
-															<strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?>
-														</div>
-												<?php } ?>
-
-
-
-												<div class="form-group">
-													<label class="col-sm-4 control-label">Current Image5</label>
-													<?php
-													$id = intval($_GET['imgid']);
-													$sql = "SELECT Vimage5 from tblvehicles where tblvehicles.id=:id";
-													$query = $dbh->prepare($sql);
-													$query->bindParam(':id', $id, PDO::PARAM_STR);
-													$query->execute();
-													$results = $query->fetchAll(PDO::FETCH_OBJ);
-													$cnt = 1;
-													if ($query->rowCount() > 0) {
-														foreach ($results as $result) { ?>
-
-															<div class="col-sm-8">
-																<img src="img/vehicleimages/<?php echo htmlentities($result->Vimage5); ?>"
-																	width="300" height="200" style="border:solid 1px #000">
-															</div>
-														<?php }
-													} ?>
-												</div>
-
-												<div class="form-group">
-													<label class="col-sm-4 control-label">Upload New Image 5<span
-															style="color:red">*</span></label>
-													<div class="col-sm-8">
-														<input type="file" name="img5" required>
-													</div>
-												</div>
-												<div class="hr-dashed"></div>
-
-												<div class="form-group">
-													<div class="col-sm-8 col-sm-offset-4">
-
-														<button class="btn btn-primary" name="update"
-															type="submit">Update</button>
-													</div>
-												</div>
-
-											</form>
-
-										</div>
-									</div>
-								</div>
+		<div class="container p-1 mt-2">
+			<div class="container-fluid py-4">
+				<div class="page-body">
+					<div class="page-header m-3">
+						<div class="row align-items-center">
+							<div class="col">
+								<div class="page-pretitle">Image Update</div>
+								<h2 class="page-title">Image (5)</h2>
 							</div>
+						</div>
+					</div>
+					<div class="card col-md-6">
+						<div class="card-header">
+							<h4>Update Image 5 for Vehicle ID: <?php echo htmlspecialchars($_GET['imgid']); ?></h4>
+						</div>
+						<div class="card-body">
+							<?php if ($error): ?>
+								<div class="alert alert-danger alert-dismissible d-flex align-items-start" role="alert">
+									<svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+										<path d="M12 9v2m0 4v.01"></path>
+										<path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+									</svg>
+									<div>
+										<strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?>
+									</div>
+									<a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+								</div>
+							<?php elseif ($msg): ?>
+								<div class="alert alert-success alert-dismissible d-flex align-items-start" role="alert">
+									<svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+										<path d="M5 12l5 5l10 -10"></path>
+									</svg>
+									<div>
+										<strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?>
+									</div>
+									<a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+								</div>
+							<?php endif; ?>
+
+							<div class="mb-3">
+								<label class="form-label">Current Image 5</label>
+								<?php
+								$vehicleId = intval($_GET['imgid']);
+								$sql = "SELECT Vimage5 FROM tblvehicles WHERE id = :vehicleid";
+								$query = $dbh->prepare($sql);
+								$query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
+								$query->execute();
+								$results = $query->fetchAll(PDO::FETCH_OBJ);
+								if ($query->rowCount() > 0) {
+									foreach ($results as $result) {
+										if ($result->Vimage5) {
+											echo '<div>';
+											echo '<img src="data:image/jpeg;base64,' . base64_encode($result->Vimage5) . '" width="100%" height="150px">';
+											echo '</div>';
+										} else {
+											echo '<div><p>No image available</p></div>';
+										}
+									}
+								} else {
+									echo '<div><p>Vehicle not found</p></div>';
+								}
+								?>
+							</div>
+
+							<form method="post" enctype="multipart/form-data">
+								<div class="mb-3">
+									<label for="img5" class="form-label">Select New Image 5</label>
+									<input type="file" name="img5" id="img5" class="form-control mb-2" accept="image/jpeg,image/png,image/webp" required>
+									<div class="form-text">Max 10MB. Allowed: jpg, png, webp.</div>
+								</div>
+								<button type="submit" name="update" class="btn btn-primary">Update Image</button>
+								<a href="manage-vehicles.php" class="btn btn-secondary">Back to Vehicles</a>
+							</form>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</body>
 
-	</body>
-
-	</html>
-<?php } ?>
+</html>

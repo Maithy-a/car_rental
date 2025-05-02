@@ -1,7 +1,7 @@
 <?php
 session_start();
-error_reporting(E_ALL); // Enable error reporting for debugging
-ini_set('display_errors', 1); // Display errors on screen for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1); 
 include('includes/config.php');
 
 if (strlen($_SESSION['alogin']) == 0) {
@@ -9,7 +9,6 @@ if (strlen($_SESSION['alogin']) == 0) {
     exit();
 }
 
-// Generate CSRF token if not already set
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -17,7 +16,6 @@ if (!isset($_SESSION['csrf_token'])) {
 $msg = '';
 $error = '';
 
-// Handle booking actions (confirm, cancel, delete)
 if (isset($_REQUEST['aeid'])) {
     $aeid = intval($_GET['aeid']);
     $status = 1; // Confirmed
@@ -85,8 +83,6 @@ if (isset($_REQUEST['del'])) {
     <meta name="theme-color" content="#3e454c">
     <title>Car Rental Portal | Admin Manage Bookings</title>
     <?php include("includes/head.php"); ?>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -138,7 +134,6 @@ if (isset($_REQUEST['del'])) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    // Check database connection
                                                     if (!$dbh) {
                                                         echo "<tr><td colspan='9' class='text-center text-danger'>Database connection failed.</td></tr>";
                                                         exit();
@@ -232,13 +227,12 @@ if (isset($_REQUEST['del'])) {
                         </div>
                     </div>
                 </div>
-            <%/div>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
 <?php
-// Log query results for debugging
 file_put_contents('debug.log', "Query executed: " . $sql . "\nRow count: " . ($query->rowCount() ?? 'N/A') . "\n", FILE_APPEND);
 ?>

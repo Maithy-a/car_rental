@@ -32,8 +32,8 @@ if (isset($_SESSION['login'])) {
       <div class="row align-items-center gy-3">
         <div class="col-md-2 col-6">
           <div class="d-flex align-items-center">
-            <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" alt="Safari Logo" width="50" class="me-2">
-            <a href="index.php" class="fw-bold text-dark text-decoration-none">SAFARI</a>
+            <img src="assets/images/dealer-logo.jpg" alt="Safari Logo" width="50" class="me-2">
+            <a href="index.php" class="fw-bold text-dark text-decoration-none">JBCR</a>
           </div>
         </div>
         <div class="col-md-10 col-6">

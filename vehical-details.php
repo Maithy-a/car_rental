@@ -142,14 +142,14 @@ if ($vhid <= 0) {
             if (!empty($result->Vimage5)) {
                 $images[] = ['src' => $result->Vimage5, 'alt' => 'Vehicle Image 5'];
             }
-            ?>
+    ?>
             <section id="vehicle-carousel" class="mb-5">
                 <div class="container">
                     <div class="row">
                         <!-- Carousel -->
                         <div class="col-md-6 mb-4 mb-md-0">
                             <div id="vehicleCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                                <ol class="carousel-indicators carousel-indicators-thumb">
+                                <ol class="carousel-indicators list-unstyled carousel-indicators-thumb">
                                     <?php foreach ($images as $index => $image) { ?>
                                         <li data-bs-target="#vehicleCarousel" data-bs-slide-to="<?php echo $index; ?>"
                                             class="<?php echo $index === 0 ? 'active' : ''; ?>">
@@ -297,7 +297,7 @@ if ($vhid <= 0) {
                                                         'Crash Sensor' => $result->CrashSensor,
                                                     ];
                                                     foreach ($accessories as $name => $value) {
-                                                        ?>
+                                                    ?>
                                                         <tr>
                                                             <td><?php echo $name; ?></td>
                                                             <td><i class="fa fa-<?php echo $value == 1 ? 'check' : 'close'; ?>"
@@ -400,7 +400,7 @@ if ($vhid <= 0) {
                                     $results = $query->fetchAll(PDO::FETCH_OBJ);
                                     if ($query->rowCount() > 0) {
                                         foreach ($results as $result) {
-                                            ?>
+                                    ?>
                                             <div class="col-md-6">
                                                 <div class="card product-listing-m" style="border-radius: 0px;">
                                                     <div class="product-listing-img">
@@ -513,6 +513,7 @@ if ($vhid <= 0) {
 
                 .carousel-indicators-thumb li img {
                     object-fit: cover;
+                    list-style: none;
                 }
 
                 .carousel-item img {
@@ -557,7 +558,7 @@ if ($vhid <= 0) {
                 border-radius: 10px 10px 0 0;
             }
         </style> -->
-            <?php
+    <?php
         }
     } else {
         echo "<div class='container col-3'><p class='text-danger'>Vehicle not found.</p></div>";

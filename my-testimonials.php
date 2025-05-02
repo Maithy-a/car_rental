@@ -120,9 +120,9 @@ if (strlen($_SESSION['login']) == 0) {
                                                         </div>
                                                         <div>
                                                             <?php if ($result->status == 1) { ?>
-                                                                <span class="badge bg-success">Active</span>
+                                                                <span class="badge me-2 bg-success">Active</span>
                                                             <?php } else { ?>
-                                                                <span class="badge bg-warning">Waiting for approval</span>
+                                                                <span class="badge me-2 bg-warning">Waiting for approval</span>
                                                             <?php } ?>
                                                         </div>
                                                     </div>
