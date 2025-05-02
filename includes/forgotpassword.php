@@ -59,16 +59,16 @@ if (isset($_POST['update'])) {
             <label class="form-label">Confirm Password*</label>
             <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password*" required="">
           </div>
-          <div class="form-footer">
+          <div class="form-footer mb-3">
             <button type="submit" name="update" class="btn btn-danger w-100">Reset My Password</button>
           </div>
         </form>
-        <div class="text-center mt-3">
-          <p class="text-muted">For security reasons we don't store your password. Your password will be reset and a new one will be sent.</p>
-          <p><a href="#loginform" data-bs-toggle="modal"
+      </div>
+      <div class="modal-footer border-0 ">
+        <p>* For security reasons we don't store your password. Your password will be reset and a new one will be sent.</p>
+        <a href="#loginform" data-bs-toggle="modal"
           data-bs-target="#loginform">
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l4 4" /><path d="M5 12l4 -4" /></svg> Back to Login</a></p>
-        </div>
+          Back to Login</a></p>
       </div>
     </div>
   </div>

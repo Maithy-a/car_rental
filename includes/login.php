@@ -18,8 +18,8 @@ if (isset($_POST['login'])) {
   }}
 ?>
 
-<div class="modal" id="loginform" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog shadow-sm" role="document">
+<div class="modal modal-blur fade" id="loginform" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header border-0">
         <h5 class="modal-title">LOGIN FORM</h5>
@@ -28,11 +28,11 @@ if (isset($_POST['login'])) {
       <div class="modal-body">
         <form method="post">
           <div class="mb-3">
-             <label class="form-label">Email:</label>
+             <label class="form-label">Email</label>
             <input type="email" class="form-control" name="email" placeholder="Jonedoe@gmail.com" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Password:</label>
+            <label class="form-label">Password</label>
             <input type="password" class="form-control" name="password" placeholder="Password*" required>
           </div>
           <div class="mb-3">
@@ -46,9 +46,9 @@ if (isset($_POST['login'])) {
           </div>
         </form>
       </div>
-      <div class=" m-f text-center mb-3">
-        <p class="mb-2">Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Register</a></p>
-        <p class="mb-2">Forgot Password? <a href="#forgotpassword" class="text-danger " data-bs-toggle="modal" data-bs-dismiss="modal">Reset password</a></p>
+      <div class="modal-footer border-0">
+        <div>Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Register</a></div>
+        <div>Forgot Password? <a href="#forgotpassword" class="text-danger " data-bs-toggle="modal" data-bs-dismiss="modal">Reset password</a></div>
         <style>
           .m-f p a{
             text-underline-offset: 5px;

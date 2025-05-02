@@ -12,7 +12,7 @@ error_reporting(0);
   <?php include('includes/head.php'); ?>
 </head>
 
-<body data-bs-theme="dark" class="bg-dark">
+<body class="bg-dark">
   <!--Header-->
   <?php include('includes/header.php'); ?>
   <!-- /Header -->
@@ -32,12 +32,11 @@ error_reporting(0);
         </div>
       </div>
     </div>
-    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-30"></div>
   </div>
   <!-- /Page Header-->
 
   <!--Listing-->
-  <section class="listing-page">
+  <section class="listing-page" style="padding:50px; min-height: 30rem;">
     <div class="container">
       <div class="row">
         <div class="col-md-9 col-md-push-3">

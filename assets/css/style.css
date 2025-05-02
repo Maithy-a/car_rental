@@ -1,10 +1,11 @@
-body{
+body {
   padding: 0;
   margin: 0;
 }
 .section {
-  width: 100%;
-  color: #f7f7f7;
+  padding: 50px;
+  min-height: 30rem;
+  margin-top: 20px;
 }
 
 .section-header h2 {
@@ -29,7 +30,7 @@ body{
   border: none;
 }
 
-.recent-tab .nav-tabs>li>a {
+.recent-tab .nav-tabs > li > a {
   font-size: 1.2rem;
   padding: 10px 20px;
   color: #fff;
@@ -43,7 +44,7 @@ body{
   overflow: hidden;
   transition: transform 0.3s ease;
   margin-bottom: 0px;
-  display:grid;
+  display: grid;
 }
 .recent-car-list {
   display: grid;
@@ -51,7 +52,7 @@ body{
   gap: 1rem;
   margin-top: 1rem;
 }
-.recent-car-list img{
+.recent-car-list img {
   transition: all ease-in-out 0.5s;
 }
 
@@ -150,7 +151,9 @@ body{
 	3.5. Fun-Facts
 -----------------------------*/
 .fun-facts-section {
-  background: rgba(0, 0, 0, 0) url("https://images.pexels.com/photos/25189123/pexels-photo-25189123/free-photo-of-blue-bmw-x3.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2") no-repeat center center/cover;
+  background: rgba(0, 0, 0, 0)
+    url("https://images.pexels.com/photos/25189123/pexels-photo-25189123/free-photo-of-blue-bmw-x3.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")
+    no-repeat center center/cover;
   padding: 120px 0;
   position: relative;
   background-attachment: fixed;
@@ -216,8 +219,6 @@ body{
   .fun-facts-m h2 .fa {
     font-size: 2rem;
   }
-
-
 }
 
 .page-header {
@@ -275,16 +276,23 @@ body{
   position: relative;
 }
 
-.top-button, .btn-primary{
+.footer input {
   border-radius: 0px !important;
-  color: #e74c3c !important;
-  border: 1px #e74c3c solid !important;
-  text-transform: uppercase;
+}
+.modal-dialog {
+  border-radius: 0px !important;
 }
 
-.footer input{
-  border-radius: 0px !important;
+/* alerts */
+.alert-info {
+  border-left: 5px solid cornflowerblue !important;
 }
-.modal-dialog{
-  border-radius: 0px !important;
+.alert-warning {
+  border-left: #cabe15 5px solid;
+}
+.alert-danger {
+  border-left: #e74c3c 5px solid;
+}
+.alert-sucess {
+  border-left: 5px solid #4cbb17;
 }

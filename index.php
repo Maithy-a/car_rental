@@ -50,8 +50,7 @@ error_reporting(0);
           </li>
         </ul>
       </div>
-      <!-- Recently Listed New Cars -->
-      <div class="tab-content mt-4">
+      <div class="tab-content mt-4 gap-3">
         <div role="tabpanel" class="tab-pane active" id="resentnewcar">
           <div class="row">
             <?php
@@ -64,7 +63,7 @@ error_reporting(0);
             $results = $query->fetchAll(PDO::FETCH_OBJ);
             if ($query->rowCount() > 0) {
               foreach ($results as $result) {
-                ?>
+            ?>
                 <div class="col-md-4 col-sm-6 col-xs-12">
                   <div class="recent-car-list">
                     <div class="car-info-box">
@@ -119,28 +118,47 @@ error_reporting(0);
                     </div>
                   </div>
                 </div>
-                <?php
+              <?php
               }
             } else {
               ?>
               <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="alert alert-info text-center" role="alert">No vehicles found.</div>
+                <div class="alert alert-info" role="alert">
+                  <div class="alert-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      class="icon alert-icon icon-2">
+                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                      <path d="M12 9h.01" />
+                      <path d="M11 12h1v4h1" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="alert-heading">No vehicles found.</h4>
+                    <div class="alert-description">
+                      we are yet to list any car, <br>you can check back later for updates
+                    </div>
+                  </div>
+                </div>
               </div>
-            <?php } ?>
           </div>
+        <?php } ?>
         </div>
       </div>
+
     </div>
+  </div>
   </div>
 
   <div class="section fun-facts-section mb-5">
-    <div class="container ">
+    <div class="container d-grid">
       <div class="row">
         <div class="col-lg-3 col-xs-6 col-sm-3">
           <div class="fun-facts-m">
             <div class="cell">
               <h2>
-                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> 3+
+                <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> 03 +
               </h2>
               <p>Years In Business</p>
             </div>
@@ -149,8 +167,9 @@ error_reporting(0);
         <div class="col-lg-3 col-xs-6 col-sm-3">
           <div class="fun-facts-m">
             <div class="cell">
-              <h2><i class="fa-solid fa-earth-oceania" aria-hidden="true"></i>
-                100+
+              <h2>
+                <i class="fa-solid fa-earth-oceania" aria-hidden="true"></i>
+                70 +
               </h2>
               <p>New Cars</p>
             </div>
@@ -160,7 +179,7 @@ error_reporting(0);
           <div class="fun-facts-m">
             <div class="cell">
               <h2>
-                <i class="fa-solid fa-car" aria-hidden="true"></i> 50+
+                <i class="fa-solid fa-car" aria-hidden="true"></i> 50 +
               </h2>
               <p>Used Cars </p>
             </div>
@@ -169,8 +188,9 @@ error_reporting(0);
         <div class="col-lg-3 col-xs-6 col-sm-3">
           <div class="fun-facts-m">
             <div class="cell">
-              <h2> <i class="fa-solid fa-users-viewfinder" aria-hidden="true"></i> 300+</h2>
-              <p>Satisfied Customers</p>
+              <h2> <i class="fa-solid fa-users-viewfinder" aria-hidden="true"></i>
+                100+</h2>
+              <p>Customers</p>
             </div>
           </div>
         </div>

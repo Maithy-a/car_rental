@@ -1,5 +1,4 @@
 <?php
-//error_reporting(0);
 if(isset($_POST['signup']))
 {
 $fname=$_POST['fullname'];
@@ -61,10 +60,10 @@ error:function (){}
           <div class="mb-3">
             <label class="form-label">Email Address</label>
             <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Janedoe000@gmail.com" required="required">
-            <span id="user-availability-status" style="font-size:12px;"></span>
+            <span id="user-availability-status"></span>
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
+            <label class="form-label">Password*</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Password*" required="required">
           </div>
           <div class="mb-3">
@@ -78,7 +77,7 @@ error:function (){}
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer border-0">
         <p class="text-center">Already got an account? <a href="#loginform" data-bs-toggle="modal"
         data-bs-target="#loginform">Login Here</a></p>
       </div>

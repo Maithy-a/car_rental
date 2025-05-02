@@ -64,7 +64,7 @@ if (isset($_SESSION['login'])) {
               </div>
             </div>
             <?php if (!isset($_SESSION['login']) || empty($_SESSION['login'])) { ?>
-              <a href="#loginform" class="btn top-button" data-bs-toggle="modal" data-bs-target="#loginform">Log in / Register</a>
+              <a href="#loginform" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#loginform">Sign In / Register</a>
             <?php } else { ?>
               <span class="text-secondary text-uppercase">Welcome to Safari KE Portal</span>
             <?php } ?>

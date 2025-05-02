@@ -29,10 +29,10 @@ error_reporting(0);
       </div>
     </div>
   </div>
-  
+
   <section class="listing-page mt-5">
     <div class="container">
-      <div class="row">
+      <div class="row" style="padding: 50px;">
         <div class="col-md-9 col-md-push-3">
           <div class="result-sorting-wrapper">
             <div class="sorting-count">
@@ -43,7 +43,27 @@ error_reporting(0);
               $results = $query->fetchAll(PDO::FETCH_OBJ);
               $cnt = $query->rowCount();
               ?>
-              <p><span><?php echo htmlentities($cnt); ?> Listings</span></p>
+
+              <div class="alert alert-info" role="alert">
+                <div class="alert-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    class="icon alert-icon icon-2">
+                    <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                    <path d="M12 9h.01" />
+                    <path d="M11 12h1v4h1" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="alert-heading">Number of cars Listed?</h4>
+                  <div class="alert-description">
+                    <?php echo htmlentities($cnt); ?>
+                    Listings
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -55,7 +75,7 @@ error_reporting(0);
           $cnt = 1;
           if ($query->rowCount() > 0) {
             foreach ($results as $result) { ?>
-              <div class="col-md">
+              <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="recent-car-list">
                   <div class="car-info-box">
                     <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
@@ -78,8 +98,9 @@ error_reporting(0);
                         <li>
                           <i class="fa fa-user"
                             aria-hidden="true"></i>
-                            <?php echo htmlentities($result->SeatingCapacity); ?>
-                          seats</li>
+                          <?php echo htmlentities($result->SeatingCapacity); ?>
+                          seats
+                        </li>
                         <li>
                           <i class="fa fa-calendar" aria-hidden="true"></i>
                           <?php echo htmlentities($result->ModelYear); ?>
