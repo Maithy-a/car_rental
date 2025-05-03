@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                                 <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                             </svg>
                         </span>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required autocomplete="off" />
+                        <input type="text" id="username" name="username" value="maithya" class="form-control" placeholder="Enter username" required autocomplete="off" />
                     </div>
                     <div class="input-icon mb-4">
                         <span class="input-icon-addon">
@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
                                 <path d="M9.02 16h.01" />
                             </svg>
                         </span>
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" required />
+                        <input type="password" id="password" value="maithya" name="password" class="form-control" placeholder="Enter password" required />
                     </div>
                     <button type="submit" name="login" class="btn btn-primary w-100">Login</button>
                 </form>

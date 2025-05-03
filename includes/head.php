@@ -17,7 +17,11 @@
 	<link rel="shortcut icon" href="assets/images/favicon-icon/favicon.png">
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-	<link href="https://fonts.cdnfonts.com/css/mefista" rel="stylesheet">
-
+	<style>
+		.m-f p a {
+			text-underline-offset: 5px;
+			text-decoration: underline;
+			font-size: 16px;
+		}
 	</style>
 </head>

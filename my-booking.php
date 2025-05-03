@@ -267,11 +267,9 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                 }
                 ?>
             </div>
+            <?php include('includes/footer') ?>
         </div>
     </div>
-
-    <!-- Footer -->
-    <?php include('includes/footer.php'); ?>
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script type="text/javascript">

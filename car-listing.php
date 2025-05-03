@@ -117,7 +117,7 @@ error_reporting(0);
                       <div class="car-specs">
                         <h5>
                           <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
-                            <?php echo htmlentities($result->BrandName); ?>,
+                            <?php echo htmlentities($result->BrandName); ?>,<br>
                             <?php echo htmlentities($result->VehiclesTitle); ?>
                           </a>
                         </h5>

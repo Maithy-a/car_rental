@@ -55,10 +55,8 @@ include('auth.php');
     <div class="col">
       <ul class="list-unstyled">
         <li class="mb-4"><a href="#" class="text-white">Twitter</a></li>
-        <li class="mb-4"><a href="#" class="text-white">Facebook</a></li>
         <li class="mb-4"><a href="#" class="text-white">LinkedIn</a></li>
         <li class="mb-4"><a href="#" class="text-white">Instagram</a></li>
-        <li class="mb-4"><a href="#" class="text-white">Google</a></li>
       </ul>
     </div>
 
@@ -69,7 +67,7 @@ include('auth.php');
           <input type="email" name="subscriberemail" class="form-control" required
             placeholder="Enter Email Address" />
         </div>
-        <button type="submit" name="emailsubscibe" class="btn btn-square btn-danger w-100">
+        <button type="submit" name="emailsubscibe" class="btn btn-danger w-100">
           Subscribe <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24"
             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
             stroke-linejoin="round">
@@ -89,6 +87,6 @@ include('auth.php');
         border-top:solid gray 0.8px;
       }
     </style>
-   <div class="p-3"> &copy;<?php echo date('Y'); ?> Safari Rental, All rights reserved.</div>
+   <div class="p-3"> &copy;<?php echo date('Y'); ?> JM car rental, All rights reserved.</div>
   </div>
 </footer>

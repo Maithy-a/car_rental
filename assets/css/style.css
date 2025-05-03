@@ -252,16 +252,18 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  height: 180px;
+  height: 200px;
+  cursor: pointer;
   position: sticky;
   background-image: url(https://images.pexels.com/photos/31779012/pexels-photo-31779012/free-photo-of-white-car-at-night-on-urban-street-in-kokotow.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
 }
 
 .page-header .container h1 {
-  font-size: 1.5rem;
-  color: #e74c3c;
+  font-size: 3rem;
+  color:#cabe15 ;
   text-align: center;
   margin-top: 50px;
+  text-transform: uppercase;
 }
 
 .list-inline-item,
