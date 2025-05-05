@@ -24,7 +24,7 @@ if (isset($_POST['signup'])) {
 ?>
 
 <div class="modal modal-blur fade" id="signupform" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered " role="document">
         <div class="modal-content">
             <div class="modal-header border-0">
                 <h5 class="modal-title">REGISTER</h5>
@@ -35,17 +35,17 @@ if (isset($_POST['signup'])) {
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="fullname" placeholder="Full Name" required>
+                        <input type="text" class="form-control" name="fullname" placeholder="Jane Doe*" required>
                         <div class="invalid-feedback">Please enter your full name.</div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" name="mobileno" placeholder="0710007922" maxlength="10" pattern="[0-9]{10}" required>
+                        <input type="text" class="form-control" name="mobileno" placeholder="0710007922*" maxlength="10" pattern="[0-9]{10}" required>
                         <div class="invalid-feedback">Please enter a valid 10-digit mobile number.</div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Email Address</label>
-                        <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Janedoe000@gmail.com" required>
+                        <input type="email" class="form-control" name="emailid" id="emailid" onBlur="checkAvailability()" placeholder="Janedoe000@gmail.com*" required>
                         <span id="user-availability-status"></span>
                         <span id="loaderIcon" style="display:none;">Checking...</span>
                         <div class="invalid-feedback">Please enter a valid email.</div>

@@ -22,15 +22,15 @@ if (isset($_SESSION['login'])) {
 }
 ?>
 
-<header >
+<header>
   <div class="nav-bar navbar-expand-md">
     <div class="bg-light py-3 border-bottom shadow-sm navbar-expand-lg">
       <div class="container">
         <div class="row align-items-center gy-3">
           <div class="col-md-2 col-6">
             <div class="d-flex align-items-center">
-              <img src="assets/images/dealer-logo.jpg" alt="Safari Logo" width="50" class="me-2">
-              <a href="index.php" class="fw-bold text-dark text-decoration-none" style="font-size: 2vw;">JMCR</a>&TRADE;
+              <img src="assets/images/dealer-logo.jpg" alt="Logo" width="55" style="border-radius:5px;" class="me-2">
+              <a href="index.php" class="fw-bold text-dark text-decoration-none" style="font-size: 28px;">JMCR</a>&TRADE;
             </div>
           </div>
 
@@ -209,7 +209,7 @@ if (isset($_SESSION['login'])) {
 
 <!-- Search Modal -->
 <div class="modal modal-blur fade" id="searchModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Search</h5>

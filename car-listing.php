@@ -121,7 +121,7 @@ error_reporting(0);
                             <?php echo htmlentities($result->VehiclesTitle); ?>
                           </a>
                         </h5>
-                        <p class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</p>
+                        <div class="list-price">KES <?php echo htmlentities($result->PricePerDay); ?> Per Day</div>
                       </div>
                       <div class="recent_post_title border-top" style="background-color: white;">
                         <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>"

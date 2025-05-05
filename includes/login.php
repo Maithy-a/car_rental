@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
                 <form method="post" class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="loginemail" onBlur="checkLoginEmail()" placeholder="JonDoe@gmail.com" required>
+                        <input type="email" class="form-control" name="email" id="loginemail" onBlur="checkLoginEmail()" placeholder="JonDoe@gmail.com*" required>
                         <span id="login-availability-status"></span>
                         <span id="loginLoaderIcon" style="display:none;">Checking...</span>
                         <div class="invalid-feedback">Please enter a valid email address.</div>

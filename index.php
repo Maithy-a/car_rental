@@ -120,7 +120,7 @@ error_reporting(1);
                           <div class="footer p-4" style="background-color: white; height: fit-content;">
                             <div class="car-title-m">
                               <h6 class="title">
-                                <a class="text-uppercase" style="font-size: 15px; " href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                                <a class="text-uppercase " href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                                   <?php echo htmlentities($result->VehiclesTitle); ?>
                                 </a>
                               </h6>
@@ -162,7 +162,6 @@ error_reporting(1);
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
