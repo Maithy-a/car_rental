@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         body {
             background: url('img/bg.jpg') no-repeat center center fixed;
             background-size: cover;
+            background-position: center;
         }
 
         .form-control {
