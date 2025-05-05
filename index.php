@@ -127,7 +127,7 @@ error_reporting(1);
                               <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
                             </div>
                             <div class="inventory_info_m">
-                              <p><?php echo substr($result->VehiclesOverview, 0, 104); ?>...</p>
+                              <p><?php echo substr($result->VehiclesOverview, 0, 100); ?>...</p>
                             </div>
                           </div>
                         </div>
@@ -259,7 +259,7 @@ error_reporting(1);
                 <div>
                   <h4 class="alert-heading">No feedback found.</h4>
                   <div class="alert-description">
-                    Would you like to provide your feedback? <a href="javascript(void)" class="alert-link">check it out</a>
+                    Would you like to provide your feedback? <a href="post-testimonial.php" class="alert-link">check it out</a>
                   </div>
                 </div>
               </div>

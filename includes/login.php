@@ -1,25 +1,22 @@
 <?php
 if (isset($_POST['login'])) {
-  $email = $_POST['email'];
-  $password = md5($_POST['password']);
-  $sql = "SELECT EmailId,Password,FullName FROM tblusers WHERE EmailId=:email and Password=:password";
-  $query = $dbh->prepare($sql);
-  $query->bindParam(':email', $email, PDO::PARAM_STR);
-  $query->bindParam(':password', $password, PDO::PARAM_STR);
-  $query->execute();
-  $results = $query->fetchAll(PDO::FETCH_OBJ);
-  if ($query->rowCount() > 0) {
-    $_SESSION['login'] = $_POST['email'];
-    $_SESSION['fname'] = $results['']->FullName;
-    $currentpage = $_SERVER['REQUEST_URI'];
-    echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
-  } else {
-    echo "<script>alert('Invalid Details');</script>";
-
-  }
-
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    $sql = "SELECT EmailId,Password,FullName FROM tblusers WHERE EmailId=:email and Password=:password";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':password', $password, PDO::PARAM_STR);
+    $query->execute();
+    $results = $query->fetchAll(PDO::FETCH_OBJ);
+    if ($query->rowCount() > 0) {
+        $_SESSION['login'] = $_POST['email'];
+        $_SESSION['fname'] = $results['']->FullName;
+        $currentpage = $_SERVER['REQUEST_URI'];
+        echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
+    } else {
+        echo "<script>alert('Invalid Details');</script>";
+    }
 }
-
 ?>
 
 <div class="modal modal-blur fade" id="loginform" tabindex="-1" role="dialog" aria-hidden="true">
@@ -57,24 +54,27 @@ if (isset($_POST['login'])) {
 </div>
 
 <script>
-function checkAvailability() {
-    var email = $("#emailid").val();
-    if (email === "") return;
+    function checkAvailability() {
+        var email = $("#emailid").val();
+        if (email === "") return;
 
-    $("#loaderIcon").show();
-    $.ajax({
-        url: "check_availability.php",
-        type: "POST",
-        data: { emailid: email, check_type: 'signup' },
-        success: function(data) {
-            $("#user-availability-status").html(data);
-            $("#loaderIcon").hide();
-        },
-        error: function(xhr, status, error) {
-            console.log("AJAX Error:", status, error);
-            $("#user-availability-status").html("<span class='text-danger'>Error checking availability</span>");
-            $("#loaderIcon").hide();
-        }
-    });
-}
+        $("#loaderIcon").show();
+        $.ajax({
+            url: "check_availability.php",
+            type: "POST",
+            data: {
+                emailid: email,
+                check_type: 'signup'
+            },
+            success: function(data) {
+                $("#user-availability-status").html(data);
+                $("#loaderIcon").hide();
+            },
+            error: function(xhr, status, error) {
+                console.log("AJAX Error:", status, error);
+                $("#user-availability-status").html("<span class='text-danger'>Error checking availability</span>");
+                $("#loaderIcon").hide();
+            }
+        });
+    }
 </script>
