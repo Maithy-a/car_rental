@@ -33,14 +33,14 @@ if (isset($_POST['login'])) {
                 <form method="post" class="needs-validation" novalidate>
                     <div class="mb-3">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="loginemail" value="maithyabon2@gmail.com" onBlur="checkLoginEmail()" placeholder="JonDoe@gmail.com" required>
+                        <input type="email" class="form-control" name="email" id="loginemail" onBlur="checkLoginEmail()" placeholder="JonDoe@gmail.com" required>
                         <span id="login-availability-status"></span>
                         <span id="loginLoaderIcon" style="display:none;">Checking...</span>
                         <div class="invalid-feedback">Please enter a valid email address.</div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" value="maithya123" name="password" placeholder="Password*" required>
+                        <input type="password" class="form-control" name="password" placeholder="Password*" required>
                         <div class="invalid-feedback">Please enter your password.</div>
                     </div>
                     <div class="mb-0">

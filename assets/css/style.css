@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kaushan+Script&family=Noto+Music&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kaushan+Script&family=Noto+Music&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
   padding: 0;
@@ -13,7 +13,6 @@ body {
 .section {
   padding: 50px;
   min-height: 30rem;
-  margin-top: 20px;
 }
 
 .section-header h2 {
@@ -71,19 +70,20 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: rgb(240, 240, 240);
 }
 
 .car-image {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  transition: transform 0.5s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .car-image:hover {
-  transform: scale(1.03);
+  transform: scale(1.01);
+  opacity: 0.7;
 }
-
 
 .car-specs,
 .recent_post_title {
@@ -131,6 +131,11 @@ body {
   align-items: center;
   gap: 5px;
   font-size: 0.9rem;
+  color: #555;
+  cursor: pointer;
+}
+.car-specs li a {
+  text-decoration: none;
   color: #555;
 }
 
@@ -260,7 +265,7 @@ body {
 
 .page-header .container h1 {
   font-size: 3rem;
-  color:#cabe15 ;
+  color: #cabe15;
   text-align: center;
   margin-top: 50px;
   text-transform: uppercase;

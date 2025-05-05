@@ -39,6 +39,7 @@ error_reporting(1);
             all. Browse below to find the perfect car for your journey.
           </p>
         </div>
+
         <div class="recent-tab text-center mt-4">
           <ul class="nav nav-tabs bg-danger mb-2 p-3 justify-content-center col-12" role="tablist">
             <li role="presentation" class="active">
@@ -46,14 +47,23 @@ error_reporting(1);
             </li>
           </ul>
         </div>
+
         <div class="tab-content mt-4 gap-3">
           <div role="tabpanel" class="tab-pane active" id="resentnewcar">
             <div class="car-listing-grid">
               <?php
-              $sql = "SELECT tblvehicles.VehiclesTitle, tblbrands.BrandName, tblvehicles.PricePerDay, tblvehicles.FuelType, tblvehicles.ModelYear, tblvehicles.id, tblvehicles.SeatingCapacity, tblvehicles.VehiclesOverview, tblvehicles.Vimage1 
-                    FROM tblvehicles 
-                    JOIN tblbrands ON tblbrands.id = tblvehicles.VehiclesBrand 
-                    LIMIT 9";
+              $sql = "SELECT tblvehicles.VehiclesTitle,
+                          tblbrands.BrandName,
+                          tblvehicles.PricePerDay,
+                          tblvehicles.FuelType, 
+                          tblvehicles.ModelYear, 
+                          tblvehicles.id, 
+                          tblvehicles.SeatingCapacity, 
+                          tblvehicles.VehiclesOverview, 
+                          tblvehicles.Vimage1 
+                        FROM tblvehicles 
+                        JOIN tblbrands ON tblbrands.id = tblvehicles.VehiclesBrand 
+                        LIMIT 9";
               $query = $dbh->prepare($sql);
               $query->execute();
               $results = $query->fetchAll(PDO::FETCH_OBJ);
@@ -62,7 +72,7 @@ error_reporting(1);
               ?>
                   <div class="car-item">
                     <div class="recent-car-list">
-                      <div class="body">
+                      <div class="c-body">
                         <div class="car-info-box">
                           <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                             <?php if (!empty($result->Vimage1)) { ?>
@@ -74,48 +84,53 @@ error_reporting(1);
                           </a>
                           <ul class="car-specs">
                             <li>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gas-station">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
-                                <path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" />
-                                <path d="M3 20l12 0" />
-                                <path d="M18 7v1a1 1 0 0 0 1 1h1" />
-                                <path d="M4 11l10 0" />
-                              </svg><?php echo htmlentities($result->FuelType); ?>
+                              <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-gas-station">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                  <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
+                                  <path d="M4 20v-14a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14" />
+                                  <path d="M3 20l12 0" />
+                                  <path d="M18 7v1a1 1 0 0 0 1 1h1" />
+                                  <path d="M4 11l10 0" />
+                                </svg><?php echo htmlentities($result->FuelType); ?>
+                              </a>
                             </li>
                             <li>
-                              <?php echo htmlentities($result->ModelYear); ?> Model
+                              <a href="">
+                                <?php echo htmlentities($result->ModelYear); ?> Model
+                              </a>
                             </li>
                             <li>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
-                              </svg>
-                              <?php echo htmlentities($result->SeatingCapacity); ?> Seats
+                              <a href="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" aria-hidden="true"
+                                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round" class="icon icon-tabler icon-tabler-users">
+                                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                  <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                                  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                  <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+                                </svg>
+                                <?php echo htmlentities($result->SeatingCapacity); ?> Seats
+                              </a>
                             </li>
                           </ul>
                           <div class="footer p-4" style="background-color: white; height: fit-content;">
                             <div class="car-title-m">
                               <h6 class="title">
-                                <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
+                                <a class="text-uppercase" style="font-size: 15px; " href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>">
                                   <?php echo htmlentities($result->VehiclesTitle); ?>
                                 </a>
                               </h6>
                               <span class="price">KES <?php echo htmlentities($result->PricePerDay); ?> / Day</span>
                             </div>
                             <div class="inventory_info_m">
-                              <p><?php echo substr($result->VehiclesOverview, 0, 100); ?></p>
+                              <p><?php echo substr($result->VehiclesOverview, 0, 104); ?>...</p>
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -147,6 +162,7 @@ error_reporting(1);
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
