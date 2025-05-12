@@ -1,36 +1,41 @@
 <?php
 if (isset($_POST['update'])) {
-    $email = trim($_POST['email']);
-    $mobile = trim($_POST['mobile']);
-    $newpassword = $_POST['newpassword'];
+  $email = trim($_POST['email']);
+  $mobile = trim($_POST['mobile']);
+  $newpassword = $_POST['newpassword'];
+  $confirmpassword = $_POST['confirmpassword'];
 
-    if (strlen($newpassword) < 8) {
-        echo "<script>alert('Password must be at least 8 characters long');</script>";
+  if (strlen($newpassword) < 8) {
+    echo "<script>alert('Password must be at least 8 characters long');</script>";
+  } elseif ($newpassword !== $confirmpassword) {
+    echo "<script>alert('Passwords do not match');</script>";
+  } else {
+    // Verify the user exists
+    $sql = "SELECT id FROM tblusers WHERE EmailId = :email AND ContactNo = :mobile";
+    $query = $dbh->prepare($sql);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+    $query->execute();
+
+    if ($query->rowCount() > 0) {
+      $hashedPassword = password_hash($newpassword, PASSWORD_DEFAULT);
+
+      // Update the password
+      $updateSql = "UPDATE tblusers SET Password = :password WHERE EmailId = :email AND ContactNo = :mobile";
+      $updateQuery = $dbh->prepare($updateSql);
+      $updateQuery->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+      $updateQuery->bindParam(':email', $email, PDO::PARAM_STR);
+      $updateQuery->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+      $updateQuery->execute();
+
+      echo "<script>alert('Your password has been successfully updated.');</script>";
     } else {
-        $sql = "SELECT EmailId FROM tblusers WHERE EmailId = :email AND ContactNo = :mobile";
-        $query = $dbh->prepare($sql);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
-        $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
-        $query->execute();
-
-        $user = $query->fetch(PDO::FETCH_OBJ);
-
-        if ($user) {
-            $hashedPassword = password_hash($newpassword, PASSWORD_DEFAULT);
-            $updateSql = "UPDATE tblusers SET Password = :password WHERE EmailId = :email AND ContactNo = :mobile";
-            $updateQuery = $dbh->prepare($updateSql);
-            $updateQuery->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
-            $updateQuery->bindParam(':email', $email, PDO::PARAM_STR);
-            $updateQuery->bindParam(':mobile', $mobile, PDO::PARAM_STR);
-            $updateQuery->execute();
-
-            echo "<script>alert('Your password was successfully changed.');</script>";
-        } else {
-            echo "<script>alert('Invalid email or mobile number.');</script>";
-        }
+      echo "<script>alert('Invalid email or mobile number.');</script>";
     }
+  }
 }
 ?>
+
 
 <div class="modal modal-blur fade" id="forgotpassword" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -76,15 +81,14 @@ if (isset($_POST['update'])) {
     const confirmPassword = document.chngpwd.confirmpassword.value;
 
     if (newPassword.length < 8) {
-        alert("Password must be at least 8 characters long!");
-        return false;
+      alert("Password must be at least 8 characters long!");
+      return false;
     }
 
     if (newPassword !== confirmPassword) {
-        alert("Passwords do not match!");
-        return false;
+      alert("Passwords do not match!");
+      return false;
     }
     return true;
-}
-
+  }
 </script>

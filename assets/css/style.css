@@ -1,18 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kaushan+Script&family=Noto+Music&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: "Inter", sans-serif;
 }
 
 .section {
-  padding: 50px;
-  min-height: 30rem;
+  min-height: 8rem;
 }
 
 .section-header h2 {
@@ -107,7 +100,6 @@ body {
   width: 100%;
   text-transform: uppercase;
 }
-
 
 .car-specs ul {
   list-style: none;
@@ -256,8 +248,8 @@ body {
 }
 
 .page-header .container h1 {
-  font-size: 3rem;
-  color: #cabe15;
+  font-size: 6.2vw;
+  color: #f9f9f9;
   text-align: center;
   margin-top: 50px;
   text-transform: uppercase;
@@ -269,6 +261,9 @@ body {
   text-decoration: underline;
   text-underline-offset: 0.6rem;
   transition: all ease-in 0.3s;
+}
+.breadcrumb-item {
+  color: #f9f9f9;
 }
 
 .list-inline-item {
@@ -327,4 +322,40 @@ body {
 .badge {
   color: white !important;
   padding: 8px 20px !important;
+}
+
+.recent-tab .nav-tabs {
+  background: linear-gradient(30deg, #ff0000, #ff7373);
+  color: #fff;
+  border-radius: 10px;
+}
+.btn-danger {
+  border: none !important;
+  color: #fff;
+  background: linear-gradient(30deg, #ff0000, #ff7373);
+  border-radius: 10px !important;
+  font-size: 17px;
+  padding: 0.8em 1.8em;
+}
+
+.recent-tab .nav-tabs,
+.btn-danger:hover {
+  background-position: right center;
+  background-size: 200% auto;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse12 2s infinite;
+}
+
+@keyframes pulse12 {
+  0% {
+    box-shadow: 0 0 0 0 #ff4c4c66;
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 76, 76, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 76, 76, 0);
+  }
 }

@@ -3,11 +3,6 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-if (strlen($_SESSION['login']) == 0) {
-    header('location:index.php');
-    exit();
-}
-
 if (isset($_POST['updatepass'])) {
     $password = md5($_POST['password']);
     $newpassword = md5($_POST['newpassword']);
@@ -86,14 +81,15 @@ if (isset($_POST['updatepass'])) {
                 ?>
                     <div class="page-body">
                         <div class="row row-cards">
-                            <!-- User Info Card and Sidebar -->
                             <div class="col-lg-4">
                                 <div class="card p-3 d-flex flex-row align-items-center">
                                     <div class="img-thumbnail me-4 flex-shrink-0">
                                         <img src="assets/images/dealer-logo.jpg" alt="Dealer Logo" class="img-fluid">
                                     </div>
                                     <div class="card-body text-start">
-                                        <h3 class="card-title mb-2"><?php echo htmlentities($result->FullName); ?></h3>
+                                        <h3 class="card-title mb-2">
+                                            <?php echo htmlentities($fullName) ?>
+                                        </h3>
                                         <div class="text-muted">
                                             <?php
                                             $address = !empty($result->Address) ? htmlentities($result->Address) : 'Empty';

@@ -5,22 +5,33 @@ if (isset($_POST['signup'])) {
     $mobile = $_POST['mobileno'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO tblusers (FullName, EmailId, ContactNo, Password) 
-            VALUES (:fname, :email, :mobile, :password)";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':fname', $fname, PDO::PARAM_STR);
-    $query->bindParam(':email', $email, PDO::PARAM_STR);
-    $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
-    $query->bindParam(':password', $password, PDO::PARAM_STR);
-    $query->execute();
+    // Check if the email already exists
+    $check_sql = "SELECT EmailId FROM tblusers WHERE EmailId = :email LIMIT 1";
+    $check_query = $dbh->prepare($check_sql);
+    $check_query->bindParam(':email', $email, PDO::PARAM_STR);
+    $check_query->execute();
 
-    $lastInsertId = $dbh->lastInsertId();
-    if ($lastInsertId) {
-        echo "<script>alert('Registration successful. Now you can login');</script>";
+    if ($check_query->rowCount() > 0) {
+        echo "<script>alert('Email already registered. Please use a different email.');</script>";
     } else {
-        echo "<script>alert('Something went wrong. Please try again');</script>";
+        $sql = "INSERT INTO tblusers (FullName, EmailId, ContactNo, Password) 
+                VALUES (:fname, :email, :mobile, :password)";
+        $query = $dbh->prepare($sql);
+        $query->bindParam(':fname', $fname, PDO::PARAM_STR);
+        $query->bindParam(':email', $email, PDO::PARAM_STR);
+        $query->bindParam(':mobile', $mobile, PDO::PARAM_STR);
+        $query->bindParam(':password', $password, PDO::PARAM_STR);
+        $query->execute();
+
+        $lastInsertId = $dbh->lastInsertId();
+        if ($lastInsertId) {
+            echo "<script>alert('Registration successful. Now you can login');</script>";
+        } else {
+            echo "<script>alert('Something went wrong. Please try again');</script>";
+        }
     }
 }
+
 ?>
 
 <div class="modal modal-blur fade" id="signupform" tabindex="-1" role="dialog" aria-hidden="true">

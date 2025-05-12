@@ -3,14 +3,8 @@ session_start();
 error_reporting(0);
 include('includes/config.php');
 
-if (strlen($_SESSION['login']) == 0) {
-    header('location:index.php');
-    exit();
-}
-
-// Check for payment success message
 $paymentSuccess = isset($_SESSION['payment_success']) ? $_SESSION['payment_success'] : null;
-unset($_SESSION['payment_success']); // Clear the message after displaying
+unset($_SESSION['payment_success']);
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -91,7 +85,6 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                                         object-fit: cover;
                                     }
                                 </style>
-                                <!-- Sidebar -->
                                 <div class="card mt-3">
                                     <div class="card-body">
                                         <?php include('includes/sidebar.php'); ?>
@@ -99,7 +92,6 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                                 </div>
                             </div>
 
-                            <!-- Bookings List -->
                             <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-header border-0">
@@ -153,11 +145,10 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                                                             #<?php echo htmlentities($result->BookingNumber); ?></h4>
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <a
-                                                                    href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
-                                                                    <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
-                                                                        class="image"
-                                                                        alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                                                                <a href="vehical-details.php?vhid=<?php echo htmlentities($result->vid); ?>">
+                                                                    <img src="data:image/jpeg;base64,
+                                                                    <?php echo base64_encode($result->Vimage1); ?>" class="rounded"
+                                                                    alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
                                                                 </a>
                                                             </div>
                                                             <div class="col-md-8">
@@ -187,7 +178,7 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <h5 class="mt-4 text-primary">Invoice</h5>
+                                                        <h5 class="mt-4 text-danger text-uppercase">Invoice</h5>
                                                         <div class="table-responsive">
                                                             <table class="table table-bordered">
                                                                 <thead>
@@ -267,8 +258,8 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                 }
                 ?>
             </div>
-            <?php include('includes/footer') ?>
         </div>
+        <?php include('includes/footer.php'); ?>
     </div>
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -322,7 +313,6 @@ unset($_SESSION['payment_success']); // Clear the message after displaying
                                 });
                         }
                     });
-
                     handler.openIframe();
                 });
             });

@@ -76,78 +76,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                                 <div class="page-pretitle">Image Update</div>
                                 <h2 class="page-title">Image (1)</h2>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card col-md-6">
-                        <div class="card-header">
-                            <h4>Update Image 1 for Vehicle ID: <?php echo htmlspecialchars($_GET['imgid']); ?></h4>
-                        </div>
-                        <div class="card-body">
-                            <?php if ($error): ?>
-                                <div class="alert alert-danger alert-dismissible d-flex align-items-start" role="alert">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M12 9v2m0 4v.01"></path>
-                                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
-                                    </svg>
-                                    <div>
-                                        <strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?>
-                                    </div>
-                                    <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
-                                </div>
-                            <?php elseif ($msg): ?>
-                                <div class="alert alert-success alert-dismissible d-flex align-items-start" role="alert">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M5 12l5 5l10 -10"></path>
-                                    </svg>
-                                    <div>
-                                        <strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?>
-                                    </div>
-                                    <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
-                                </div>
-                            <?php endif; ?>
-
-                            <div class="mb-3">
-                                <label class="form-label">Current image1</label>
-                                <?php
-                                $vehicleId = intval($_GET['imgid']);
-                                $sql = "SELECT Vimage1 FROM tblvehicles WHERE id = :vehicleid";
-                                $query = $dbh->prepare($sql);
-                                $query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
-                                $query->execute();
-                                $results = $query->fetchAll(PDO::FETCH_OBJ);
-                                if ($query->rowCount() > 0) {
-                                    foreach ($results as $result) {
-                                        if ($result->Vimage1) {
-                                            echo '<div>';
-                                            echo '<img src="data:image/jpeg;base64,' . base64_encode($result->Vimage1) . '" width="100%" height="200" >';
-                                            echo '</div>';
-                                        } else {
-                                            echo '<div><p>No image available</p></div>';
-                                        }
-                                    }
-                                } else {
-                                    echo '<div><p>Vehicle not found</p></div>';
-                                }
-                                ?>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateImageModal">
+                                    Update Image
+                                </button>
                             </div>
-
-                            <form method="post" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                    <label for="img1" class="form-label">Select New image1</label>
-                                    <input type="file" name="img1" id="img1" class="form-control mb-2" accept="image/jpeg,image/png,image/webp" required>
-                                    <div class="form-text">Max 10MB. Allowed: jpg, png, webp.</div>
-                                </div>
-                                <button type="submit" name="update" class="btn btn-primary">Update Image</button>
-                                <a href="manage-vehicles.php" class="btn btn-secondary">Back to Vehicles</a>
-                            </form>
                         </div>
                     </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="updateImageModal" tabindex="-1" aria-labelledby="updateImageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-center">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="updateImageModalLabel">Update Image 1 for Vehicle ID: <?php echo htmlspecialchars($_GET['imgid']); ?></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <?php if ($error): ?>
+                                        <div class="alert alert-danger alert-dismissible d-flex align-items-start" role="alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-alert-triangle" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M12 9v2m0 4v.01"></path>
+                                                <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                                            </svg>
+                                            <div>
+                                                <strong>ERROR</strong>: <?php echo htmlspecialchars($error); ?>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                                        </div>
+                                    <?php elseif ($msg): ?>
+                                        <div class="alert alert-success alert-dismissible d-flex align-items-start" role="alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="alert-icon icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M5 12l5 5l10 -10"></path>
+                                            </svg>
+                                            <div>
+                                                <strong>SUCCESS</strong>: <?php echo htmlspecialchars($msg); ?>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <div class="mb-3">
+                                        <?php
+                                        $vehicleId = intval($_GET['imgid']);
+                                        $sql = "SELECT Vimage1 FROM tblvehicles WHERE id = :vehicleid";
+                                        $query = $dbh->prepare($sql);
+                                        $query->bindParam(':vehicleid', $vehicleId, PDO::PARAM_INT);
+                                        $query->execute();
+                                        $results = $query->fetchAll(PDO::FETCH_OBJ);
+                                        if ($query->rowCount() > 0) {
+                                            foreach ($results as $result) {
+                                                if ($result->Vimage1) {
+                                                    echo '<div>';
+                                                    echo '<img src="data:image/jpeg;base64,' . base64_encode($result->Vimage1) . '" class="img-fluid" style="max-height: 300px; border-radius:8px;" >';
+                                                    echo '</div>';
+                                                } else {
+                                                    echo '<div><p>No image available</p></div>';
+                                                }
+                                            }
+                                        } else {
+                                            echo '<div><p>Vehicle not found</p></div>';
+                                        }
+                                        ?>
+                                    </div>
+
+                                    <form method="post" enctype="multipart/form-data">
+                                        <div class="mb-3">
+                                            <label for="img1" class="form-label">Select New Image</label>
+                                            <input type="file" name="img1" id="img1" class="form-control mb-3" accept="image/jpeg,image/png,image/webp" required>
+                                            <div class="form-text">Max 10MB. Allowed: jpg, png, webp.</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" name="update" class="btn btn-primary">Update Image</button>
+                                            <a href="manage-vehicles.php" class="btn btn-secondary">Back to Vehicles</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>

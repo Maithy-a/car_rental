@@ -1,23 +1,25 @@
 <?php
 if (isset($_POST['login'])) {
     $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    $sql = "SELECT EmailId,Password,FullName FROM tblusers WHERE EmailId=:email and Password=:password";
+    $password = $_POST['password'];
+
+    $sql = "SELECT EmailId, Password, FullName FROM tblusers WHERE EmailId = :email LIMIT 1";
     $query = $dbh->prepare($sql);
     $query->bindParam(':email', $email, PDO::PARAM_STR);
-    $query->bindParam(':password', $password, PDO::PARAM_STR);
     $query->execute();
-    $results = $query->fetchAll(PDO::FETCH_OBJ);
-    if ($query->rowCount() > 0) {
-        $_SESSION['login'] = $_POST['email'];
-        $_SESSION['fname'] = $results['']->FullName;
+    $user = $query->fetch(PDO::FETCH_OBJ);
+
+    if ($user && password_verify($password, $user->Password)) {
+        $_SESSION['login'] = $user->EmailId;
+        $_SESSION['fname'] = $user->FullName;
         $currentpage = $_SERVER['REQUEST_URI'];
         echo "<script type='text/javascript'> document.location = '$currentpage'; </script>";
     } else {
-        echo "<script>alert('Invalid Details');</script>";
+        echo "<script>alert('Invalid email or password');</script>";
     }
 }
 ?>
+
 
 <div class="modal modal-blur fade" id="loginform" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -45,9 +47,9 @@ if (isset($_POST['login'])) {
                     </div>
                 </form>
             </div>
-            <div class="modal-footer border-0">
-                <div>Don't have an account? <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Register</a></div>
-                <div>Forgot Password? <a href="#forgotpassword" class="text-danger" data-bs-toggle="modal" data-bs-dismiss="modal">Reset password</a></div>
+            <div class="modal-footer">
+                <a href="#signupform" data-bs-toggle="modal" data-bs-dismiss="modal">Don't have an account?</a>
+                <a href="#forgotpassword" class="text-danger" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot Password?</a>
             </div>
         </div>
     </div>

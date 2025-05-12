@@ -55,7 +55,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 			$error = "Failed to update vehicle data. Please try again.";
 		}
 	}
-	?>
+?>
 	<!doctype html>
 	<html lang="en" class="no-js">
 
@@ -178,7 +178,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 													<?php for ($i = 1; $i <= 5; $i++) {
 														$image_field = "Vimage$i";
 														$image = $result->$image_field;
-														?>
+													?>
 														<div class="col-md-4">
 															<label class="form-label">Image <?php echo $i; ?>
 																<?php echo $i <= 4 ? ' <span class="text-danger">*</span>' : ''; ?>
@@ -247,8 +247,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 				</div>
 			</div>
 		</div>
-
 	</body>
-
 	</html>
 <?php } ?>

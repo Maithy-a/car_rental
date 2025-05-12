@@ -29,7 +29,7 @@ if (isset($_SESSION['login'])) {
         <div class="row align-items-center gy-3">
           <div class="col-md-2 col-6">
             <div class="d-flex align-items-center">
-              <img src="assets/images/dealer-logo.jpg" alt="Logo" width="55" style="border-radius:5px;" class="me-2">
+              <img src="assets/images/dealer-logo.jpg" alt="JMCR Dealer Logo" width="55" style="border-radius:5px;" class="me-2">
               <a href="index.php" class="fw-bold text-dark text-decoration-none" style="font-size: 28px;">JMCR</a>&TRADE;
             </div>
           </div>
@@ -47,7 +47,7 @@ if (isset($_SESSION['login'])) {
                 </span>
                 <div>
                   <small class="text-muted">Support Email:</small><br>
-                  <a href="mailto:<?php echo $email; ?>" class="text-danger" style="text-underline-offset:6px; text-decoration:underline;"><?php echo $email; ?></a>
+                  <a href="mailto:<?php echo htmlspecialchars($email); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration:underline;"><?php echo htmlspecialchars($email); ?>
                 </div>
               </div>
               <!-- Contact Number -->
@@ -60,7 +60,7 @@ if (isset($_SESSION['login'])) {
                 </span>
                 <div>
                   <small class="text-muted">Helpline:</small><br>
-                  <a href="tel:<?php echo $contactno; ?>" class="text-danger" style="text-underline-offset:6px; text-decoration: underline;"><?php echo $contactno; ?></a>
+                  <a href="tel:<?php echo htmlspecialchars($contactno); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration: underline;"><?php echo htmlspecialchars($contactno); ?></a>
                 </div>
               </div>
 
@@ -100,7 +100,7 @@ if (isset($_SESSION['login'])) {
               </a>
             </li>
 
-            <?php if (!empty($fullName)) {  ?>
+            <?php if (isset($fullName) && !empty($fullName)) {  ?>
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" aria-expanded="false">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -109,7 +109,7 @@ if (isset($_SESSION['login'])) {
                     <circle cx="12" cy="10" r="3" />
                     <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                   </svg>
-                  <span><?php echo $fullName; ?></span>
+                  <span><?php echo htmlspecialchars($fullName); ?></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li>
@@ -185,7 +185,6 @@ if (isset($_SESSION['login'])) {
                   </li>
                 </ul>
               </li>
-
             <?php } else { ?>
               <li class="nav-item">
                 <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#loginform">
@@ -195,7 +194,7 @@ if (isset($_SESSION['login'])) {
                     <circle cx="12" cy="10" r="3" />
                     <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                   </svg>
-                  <span>USER</span>
+                  <span>User</span>
                 </a>
               </li>
             <?php } ?>
