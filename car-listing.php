@@ -88,7 +88,7 @@ error_reporting(0);
 
                   <ul class="car-specs list-unstyled px-3 py-2">
                     <li class="mb-1 d-flex align-items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="me-2">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M14 11h1a2 2 0 0 1 2 2v3a1.5 1.5 0 0 0 3 0v-7l-3 -3" />
@@ -100,10 +100,10 @@ error_reporting(0);
                       <?php echo htmlspecialchars($result->FuelType); ?>
                     </li>
                     <li class="mb-1">
-                      <?php echo htmlspecialchars($result->ModelYear); ?> Model
+                      <?php echo htmlspecialchars($result->ModelYear); ?>Model
                     </li>
                     <li class="mb-1 d-flex align-items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" class="me-2">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                         <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -111,19 +111,19 @@ error_reporting(0);
                         <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                         <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
                       </svg>
-                      <?php echo htmlspecialchars($result->SeatingCapacity); ?> Seats
+                      <?php echo htmlspecialchars($result->SeatingCapacity); ?>Seats
                     </li>
                   </ul>
 
                   <div class="card-body">
                     <h5 class="card-title text-uppercase mb-1">
                       <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>"
-                        class="text-decoration-none text-dark">
+                        class="text-dark">
                         <?php echo htmlspecialchars($result->VehiclesTitle); ?>
                       </a>
                     </h5>
-                    <div class="fw-bold text-danger mb-1 small">
-                      KES <?php echo number_format((int)$result->PricePerDay); ?> /day
+                    <div class="text-danger mb-1 small">
+                      KES <?php echo number_format((int)$result->PricePerDay); ?> Per day
                     </div>
                     <p class="card-text text-muted">
                       <?php echo htmlspecialchars(substr($result->VehiclesOverview, 0, 150)); ?> ...
@@ -131,7 +131,15 @@ error_reporting(0);
                   </div>
 
                   <div class="card-footer bg-white border-top">
-                    <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>" class="btn btn-danger w-100 d-flex justify-content-between align-items-center">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                    <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>" class="btn btn-danger w-100 d-flex justify-content-between align-items-center">View Details
+                      <span class="angle_arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right-dashed">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M5 12h.5m3 0h1.5m3 0h6" />
+                          <path d="M15 16l4 -4" />
+                          <path d="M15 8l4 4" />
+                        </svg>
+                      </span>
                     </a>
                   </div>
                 </div>

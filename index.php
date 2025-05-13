@@ -103,7 +103,14 @@ error_reporting(1);
                       <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>"
                         class="btn btn-danger w-100 d-flex justify-content-between align-items-center">
                         View Details
-                        <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        <span class="angle_arrow">
+                          <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-narrow-right-dashed">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M5 12h.5m3 0h1.5m3 0h6" />
+                            <path d="M15 16l4 -4" />
+                            <path d="M15 8l4 4" />
+                          </svg>
+                        </span>
                       </a>
                     </div>
                   </div>
