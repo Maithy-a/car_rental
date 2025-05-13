@@ -10,8 +10,8 @@
 					aria-label="Open user menu">
 					<span class="avatar"
 						style="background-image: url(https://cdn.pixabay.com/photo/2016/03/11/02/08/speedometer-1249610_1280.jpg)"></span>
-					<div class="d-none d-xl-block text-success">
-						<div style="text-transform:capitalize; text-decoration: underline; text-underline-offset: 5px;">
+					<div class="d-none d-xl-block">
+						<div class="text-success" style="text-transform:capitalize; text-decoration: underline; text-underline-offset: 5px;">
 							<?php echo htmlentities($_SESSION['alogin']); ?>
 						</div>
 						<div class="small mt-2 text-secondary">Administrator</div>

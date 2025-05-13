@@ -35,32 +35,40 @@ if (isset($_SESSION['login'])) {
           </div>
 
           <div class="col-md-10 col-6">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
               <!-- Support Email -->
               <div class="d-flex align-items-center gap-2">
-                <span class="avatar bg-danger-lt" style="border-radius: 0px;">
+                <span class="avatar bg-danger-lt">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <rect x="3" y="5" width="18" height="14" rx="2" />
                     <polyline points="3 7 12 13 21 7" />
                   </svg>
                 </span>
-                <div>
-                  <small class="text-muted">Support Email:</small><br>
-                  <a href="mailto:<?php echo htmlspecialchars($email); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration:underline;"><?php echo htmlspecialchars($email); ?>
+                <div class="d-none d-xl-block">
+                  <small class="text-muted">Support Email:</small>
+                  <a href="mailto:<?php echo htmlspecialchars($email); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration:underline;">
+                    <div class="small">
+                      <?php echo htmlspecialchars($email); ?>
+                    </div>
+                  </a>
                 </div>
               </div>
               <!-- Contact Number -->
               <div class="d-flex align-items-center gap-2">
-                <span class="avatar bg-danger-lt" style="border-radius: 0px;">
+                <span class="avatar bg-danger-lt">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" />
                   </svg>
                 </span>
-                <div>
-                  <small class="text-muted">Helpline:</small><br>
-                  <a href="tel:<?php echo htmlspecialchars($contactno); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration: underline;"><?php echo htmlspecialchars($contactno); ?></a>
+                <div class="d-none d-xl-block" >
+                  <small class="text-muted">Helpline: </small>
+                  <a href="tel:<?php echo htmlspecialchars($contactno); ?>" class="text-danger" style="text-underline-offset:6px; text-decoration: underline;">
+                    <div class="small">
+                      <?php echo htmlspecialchars($contactno); ?>
+                    </div>
+                  </a>
                 </div>
               </div>
 
@@ -75,6 +83,7 @@ if (isset($_SESSION['login'])) {
         </div>
       </div>
     </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
       <div class="container">
@@ -203,6 +212,7 @@ if (isset($_SESSION['login'])) {
         </div>
       </div>
     </nav>
+
   </div>
 </header>
 

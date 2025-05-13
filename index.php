@@ -71,26 +71,40 @@ error_reporting(1);
               if ($query->rowCount() > 0) {
                 foreach ($results as $result) {
               ?>
-                  <div class="card car-card mb-4">
-                    <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="recentcar">
+                  <div class="card car-card mb-4 border-0">
+                    <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>" class="recentcar">
                       <?php if (!empty($result->Vimage1)) { ?>
-                        <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>" class="card-img-top" alt="<?php echo htmlentities($result->VehiclesTitle); ?>">
+                        <img src="data:image/jpeg;base64,<?php echo base64_encode($result->Vimage1); ?>"
+                          class="card-img-top"
+                          alt="<?php echo htmlspecialchars($result->VehiclesTitle); ?>">
                       <?php } else { ?>
-                        <img src="img/placeholder.jpg" class="card-img-top" alt="No image available">
+                        <img src="img/placeholder.jpg"
+                          class="card-img-top"
+                          alt="No image available">
                       <?php } ?>
                     </a>
+
                     <div class="card-body">
-                      <h5 class="card-title text-uppercase">
-                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="text-decoration text-gray">
-                          <?php echo htmlentities($result->VehiclesTitle); ?>
+                      <h5 class="card-title text-uppercase mb-1">
+                        <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>"
+                          class="text-decoration-none text-dark">
+                          <?php echo htmlspecialchars($result->VehiclesTitle); ?>
                         </a>
                       </h5>
-                      <p class="card-text mb-2"><?php echo substr($result->VehiclesOverview, 0, 100); ?>...</p>
-
-                      <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-danger fw-bold">KES <?php echo number_format((int)$result->PricePerDay); ?> /DAY</span>
-                        <a href="vehical-details.php?vhid=<?php echo htmlentities($result->id); ?>" class="btn btn-outline-danger">View Details</a>
+                      <div class="fw-bold text-danger mb-1 small">
+                        KES <?php echo number_format((int)$result->PricePerDay); ?> /day
                       </div>
+                      <p class="card-text text-muted">
+                        <?php echo htmlspecialchars(substr($result->VehiclesOverview, 0, 150)); ?> ...
+                      </p>
+                    </div>
+
+                    <div class="card-footer bg-white border-top-0">
+                      <a href="vehical-details.php?vhid=<?php echo htmlspecialchars($result->id); ?>"
+                        class="btn btn-danger w-100 d-flex justify-content-between align-items-center">
+                        View Details
+                        <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                      </a>
                     </div>
                   </div>
 
